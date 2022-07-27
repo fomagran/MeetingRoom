@@ -1,62 +1,46 @@
-import {
-  Text,
-  View,
-  StyleSheet,
-  FlatList,
-  TextInput,
-  Pressable,
-} from 'react-native';
+import {Text, View, FlatList, TextInput, Pressable} from 'react-native';
 import React, {useState, useEffect, useRef} from 'react';
 import {getUniqueId} from 'react-native-device-info';
-
-interface Message {
-  user: string;
-  message: string;
-}
+import {ChatScreenStyles as styles} from '../Styles/ChatScreenStyles';
 
 const ChatScreen = () => {
   const [serverState, setServerState] = useState('Loading...');
   const [messageText, setMessageText] = useState('');
-  const [disableButton, setDisableButton] = useState(true);
-  const [inputFieldEmpty, setInputFieldEmpty] = useState(true);
   const [serverMessages, setServerMessages] = useState([]);
-  let id = getUniqueId();
-  const ws = useRef(null);
+  let userId = getUniqueId();
+  const serverMessagesList: Message[] = [];
+  const webSocket = useRef(null);
+
   useEffect(() => {
-    ws.current = new WebSocket(`ws://192.168.111.34:3001`);
+    webSocket.current = new WebSocket(`ws://192.168.111.34:3001`);
 
-    const serverMessagesList: Message[] = [];
-
-    ws.current.onopen = () => {
+    webSocket.current.onopen = () => {
       setServerState('Connected to the server');
-      setDisableButton(false);
     };
 
-    ws.current.onmessage = e => {
+    webSocket.current.onmessage = e => {
       let parse = JSON.parse(e.data);
       serverMessagesList.push(parse);
       setServerMessages([...serverMessagesList]);
     };
 
-    ws.current.onerror = e => {
+    webSocket.current.onerror = e => {
       setServerState(e.message);
     };
 
-    ws.current.onclose = e => {
+    webSocket.current.onclose = e => {
       setServerState('Disconnected. Check internet or server.');
-      setDisableButton(true);
     };
 
     return () => {
-      ws.current.close();
+      webSocket.current.close();
     };
   }, []);
 
-  const submitMessage = () => {
-    let str = JSON.stringify({user: id, message: messageText});
-    ws.current.send(str);
+  const sendMessage = () => {
+    let str = JSON.stringify({user: userId, message: messageText});
+    webSocket.current.send(str);
     setMessageText('');
-    setInputFieldEmpty(true);
   };
 
   return (
@@ -73,56 +57,28 @@ const ChatScreen = () => {
           data={serverMessages}
           keyExtractor={item => item.id}
           renderItem={({item}) =>
-            item.user == id ? (
-              <View style={{backgroundColor: 'blue'}}>
-                <Text>{item.message}</Text>
-              </View>
+            item.user == userId ? (
+              <Text style={styles.myChat}>{item.message}</Text>
             ) : (
-              <View style={{backgroundColor: 'red'}}>
-                <Text>{item.message}</Text>
-              </View>
+              <Text style={styles.otherChat}>{item.message}</Text>
             )
           }
         />
       </View>
-
-      <TextInput
-        style={{
-          borderWidth: 1,
-          borderColor: 'black',
-          padding: 10,
-        }}
-        placeholder={'Add Message'}
-        onChangeText={text => {
-          setMessageText(text);
-          setInputFieldEmpty(text.length > 0 ? false : true);
-        }}
-        value={messageText}></TextInput>
-      <Pressable
-        onPress={submitMessage}
-        disabled={disableButton || inputFieldEmpty}>
-        <Text style={styles.submit}>Submit</Text>
-      </Pressable>
+      <View style={styles.bottomContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder={'Add Message'}
+          onChangeText={text => {
+            setMessageText(text);
+          }}
+          value={messageText}></TextInput>
+        <Pressable onPress={sendMessage} disabled={messageText == ''}>
+          <Text style={styles.send}>Send</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
 
 export default ChatScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 30,
-    padding: 8,
-  },
-  submit: {
-    backgroundColor: 'black',
-    color: 'white',
-    padding: 20,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-  },
-  list: {
-    height: '80%',
-  },
-});
