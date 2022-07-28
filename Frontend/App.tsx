@@ -10,7 +10,6 @@
 
 import React from 'react';
 import {View} from 'react-native';
-
 import ChatScreen from './src/Screens/ChatScreen';
 
 const App = () => {

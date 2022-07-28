@@ -13,7 +13,8 @@
     "react": "17.0.1",
     "react-native": "0.64.0",
     "react-native-device-info": "^8.4.5",
-    "react-native-vector-icons": "^8.1.0"
+    "react-native-vector-icons": "^8.1.0",
+    "socket.io-client": "^4.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
