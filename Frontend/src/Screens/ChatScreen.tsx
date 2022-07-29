@@ -20,14 +20,9 @@ const ChatScreen = () => {
     });
 
     webSocket.current.on('message', e => {
-      console.log(e.data);
-      if (typeof e.data === 'string') {
-        console.log(e.data);
-      } else {
-        let parse = JSON.parse(e.data);
-        serverMessagesList.push(parse);
-        setServerMessages([...serverMessagesList]);
-      }
+      let parse = JSON.parse(e);
+      serverMessagesList.push(parse);
+      setServerMessages([...serverMessagesList]);
     });
 
     webSocket.current.on('error', e => {
@@ -44,7 +39,7 @@ const ChatScreen = () => {
 
   const sendMessage = () => {
     let str = JSON.stringify({user: userId, message: messageText});
-    webSocket.current.send(str);
+    webSocket.current.emit('message', str);
     setMessageText('');
   };
 
