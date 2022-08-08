@@ -9,14 +9,13 @@
  */
 
 import React from 'react';
-import {View} from 'react-native';
-import ChatScreen from './src/Screens/ChatScreen';
+import Navigation from './src/Navigation';
 
 const App = () => {
   return (
-    <View>
-      <ChatScreen></ChatScreen>
-    </View>
+    <>
+      <Navigation />
+    </>
   );
 };
 

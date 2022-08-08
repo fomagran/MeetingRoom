@@ -6,6 +6,15 @@ export const ChatScreenStyles = StyleSheet.create({
     paddingTop: 30,
     padding: 8,
   },
+  welcomeChat: {
+    alignSelf: 'center',
+    padding: 10,
+    color: 'white',
+    backgroundColor: '#212124',
+    fontSize: 16,
+    borderRadius: 20,
+    marginVertical: 10,
+  },
   myChat: {
     alignSelf: 'flex-end',
     padding: 10,
