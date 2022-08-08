@@ -1,9 +1,0 @@
-{
-  "development": {
-    "username": "fomagran",
-    "password": "1234",
-    "database": "chattingSystem",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  }
-}
