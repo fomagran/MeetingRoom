@@ -15,7 +15,6 @@ type ChatScreenParams = {
 type Navigation = NativeStackHeaderProps & ChatScreenParams;
 
 export default function ChatScreen({route}: Navigation) {
-  const [serverState, setServerState] = useState('Loading...');
   const [messageText, setMessageText] = useState('');
   const [serverMessages, setServerMessages] = useState([]);
   const serverMessagesList: Message[] = [];
@@ -26,7 +25,7 @@ export default function ChatScreen({route}: Navigation) {
     setUser(route.params.user);
     webSocket.current = io(`http://192.168.111.34:3001`);
     webSocket.current.on('connect', () => {
-      setServerState('Connected Server');
+      console.log('Connected Server');
     });
 
     webSocket.current.on('message', e => {
@@ -41,13 +40,18 @@ export default function ChatScreen({route}: Navigation) {
       setServerMessages([...serverMessagesList]);
     });
 
+    webSocket.current.on('leave', e => {
+      let parse = JSON.parse(e);
+      serverMessagesList.push(parse);
+      setServerMessages([...serverMessagesList]);
+    });
+
     webSocket.current.on('error', e => {
       console.log(e.message);
-      setServerState(e.message);
     });
 
     webSocket.current.on('disconnect', e => {
-      setServerState('Disconnected. Check internet or server.');
+      console.log('Disconnected. Check internet or server.');
     });
 
     let str = JSON.stringify({
@@ -59,6 +63,12 @@ export default function ChatScreen({route}: Navigation) {
     webSocket.current.emit('welcome', str);
 
     return () => {
+      let str = JSON.stringify({
+        type: 'Leave',
+        user: route.params.user,
+        message: `${route.params.user} 님이 퇴장하셨습니다.`,
+      });
+      webSocket.current.emit('leave', str);
       webSocket.current.disconnect();
     };
   }, []);
@@ -71,7 +81,6 @@ export default function ChatScreen({route}: Navigation) {
 
   return (
     <View>
-      <Text>{serverState}</Text>
       <View
         style={{
           padding: 5,
@@ -83,7 +92,7 @@ export default function ChatScreen({route}: Navigation) {
           data={serverMessages}
           keyExtractor={item => item.id}
           renderItem={({item}) =>
-            item.type == 'Welcome' ? (
+            item.type == 'Welcome' || item.type == 'Leave' ? (
               <Text style={styles.welcomeChat}>{item.message}</Text>
             ) : item.user == user ? (
               <Text style={styles.myChat}>{item.message}</Text>
