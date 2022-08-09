@@ -25,7 +25,7 @@ export default function ChatScreen({route}: Navigation) {
 
   useEffect(() => {
     setUser(route.params.user);
-    webSocket.current = io(`http://192.168.111.34:3001/chatRoom`);
+    webSocket.current = io(`http://192.168.111.34:3001/chat`);
     webSocket.current.on('connect', () => {
       let message = {
         type: 'Welcome',
