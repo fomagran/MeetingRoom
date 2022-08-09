@@ -8,21 +8,22 @@ let http = require("http").Server(app);
 
 let io = require("socket.io")(http);
 
-io.on("connection", function (socket: any) {
-  console.log("a user connected");
-  socket.on("message", (message: Message) => {
-    console.log(message);
-    io.emit("message", message);
+const chatRoom = io.of("/chatRoom");
+
+chatRoom.on("connection", function (socket: any) {
+  socket.on("welcome", (message: Message) => {
+    socket.join(message.room);
+    chatRoom.in(message.room).emit("welcome", message);
   });
 
-  socket.on("welcome", (message: Message) => {
-    console.log(message);
-    io.emit("welcome", message);
+  socket.on("message", (message: Message) => {
+    console.log(message.user, message.room);
+    chatRoom.in(message.room).emit("message", message);
   });
 
   socket.on("leave", (message: Message) => {
-    console.log(message);
-    io.emit("leave", message);
+    socket.leave(message.room);
+    chatRoom.in(message.room).emit("leave", message);
   });
 });
 

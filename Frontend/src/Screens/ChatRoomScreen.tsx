@@ -17,9 +17,9 @@ type Navigation = NativeStackHeaderProps & ChatRoomParams;
 
 export function ChatRoomScreen({route}: Navigation) {
   const mockData: ChatRoom[] = [
-    {title: '', lastMessage: '', time: new Date()},
-    {title: '', lastMessage: '', time: new Date()},
-    {title: '', lastMessage: '', time: new Date()},
+    {title: 'A', lastMessage: '', time: new Date()},
+    {title: 'B', lastMessage: '', time: new Date()},
+    {title: 'C', lastMessage: '', time: new Date()},
   ];
 
   return (
@@ -27,14 +27,13 @@ export function ChatRoomScreen({route}: Navigation) {
       <FlatList
         contentContainerStyle={{paddingBottom: 50}}
         data={mockData}
-        keyExtractor={item => item.title}
+        keyExtractor={item => item.lastMessage}
         renderItem={({item}) => (
           <Pressable
             onPress={() => {
-              console.log(route.params);
-
               route.params.navigation.navigate(screens.Chat, {
                 user: route.params.user,
+                room: item.title,
               });
             }}>
             <ChatRoomCell></ChatRoomCell>

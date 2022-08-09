@@ -9,6 +9,7 @@ type ChatScreenParams = {
     params: {
       navigation: any;
       user: string;
+      room: string;
     };
   };
 };
@@ -24,33 +25,33 @@ export default function ChatScreen({route}: Navigation) {
 
   useEffect(() => {
     setUser(route.params.user);
-    webSocket.current = io(`http://192.168.111.34:3001`);
+    webSocket.current = io(`http://192.168.111.34:3001/chatRoom`);
     webSocket.current.on('connect', () => {
-      let str = JSON.stringify({
+      let message = {
         type: 'Welcome',
         user: route.params.user,
         message: `${route.params.user} 님이 입장하셨습니다.`,
-      });
+        room: route.params.room,
+      };
 
-      webSocket.current.emit('welcome', str);
+      webSocket.current.emit('welcome', message);
       console.log('Connected Server');
     });
 
     webSocket.current.on('message', e => {
-      let parse = JSON.parse(e);
-      serverMessagesList.push(parse);
+      console.log(route.params.user, 'message', e);
+      serverMessagesList.push(e);
       setServerMessages([...serverMessagesList]);
     });
 
     webSocket.current.on('welcome', e => {
-      let parse = JSON.parse(e);
-      serverMessagesList.push(parse);
+      console.log('welcome', e);
+      serverMessagesList.push(e);
       setServerMessages([...serverMessagesList]);
     });
 
     webSocket.current.on('leave', e => {
-      let parse = JSON.parse(e);
-      serverMessagesList.push(parse);
+      serverMessagesList.push(e);
       setServerMessages([...serverMessagesList]);
     });
 
@@ -63,19 +64,25 @@ export default function ChatScreen({route}: Navigation) {
     });
 
     return () => {
-      let str = JSON.stringify({
+      let message = {
         type: 'Leave',
         user: route.params.user,
         message: `${route.params.user} 님이 퇴장하셨습니다.`,
-      });
-      webSocket.current.emit('leave', str);
+        room: route.params.room,
+      };
+      webSocket.current.emit('leave', message);
       webSocket.current.disconnect();
     };
   }, []);
 
   const sendMessage = () => {
-    let str = JSON.stringify({type: 'Chat', user: user, message: messageText});
-    webSocket.current.emit('message', str);
+    let message = {
+      type: 'Chat',
+      user: user,
+      message: messageText,
+      room: route.params.room,
+    };
+    webSocket.current.emit('message', message);
     setMessageText('');
   };
 
@@ -90,7 +97,7 @@ export default function ChatScreen({route}: Navigation) {
           style={styles.list}
           contentContainerStyle={{paddingBottom: 50}}
           data={serverMessages}
-          keyExtractor={item => item.id}
+          keyExtractor={(item, index) => item.message + index}
           renderItem={({item}) =>
             item.type == 'Welcome' || item.type == 'Leave' ? (
               <Text style={styles.welcomeChat}>{item.message}</Text>
