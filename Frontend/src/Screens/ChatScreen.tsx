@@ -7,6 +7,7 @@ import {NativeStackHeaderProps} from '@react-navigation/native-stack';
 type ChatScreenParams = {
   route: {
     params: {
+      navigation: any;
       user: string;
     };
   };
@@ -25,6 +26,13 @@ export default function ChatScreen({route}: Navigation) {
     setUser(route.params.user);
     webSocket.current = io(`http://192.168.111.34:3001`);
     webSocket.current.on('connect', () => {
+      let str = JSON.stringify({
+        type: 'Welcome',
+        user: route.params.user,
+        message: `${route.params.user} 님이 입장하셨습니다.`,
+      });
+
+      webSocket.current.emit('welcome', str);
       console.log('Connected Server');
     });
 
@@ -53,14 +61,6 @@ export default function ChatScreen({route}: Navigation) {
     webSocket.current.on('disconnect', e => {
       console.log('Disconnected. Check internet or server.');
     });
-
-    let str = JSON.stringify({
-      type: 'Welcome',
-      user: route.params.user,
-      message: `${route.params.user} 님이 입장하셨습니다.`,
-    });
-
-    webSocket.current.emit('welcome', str);
 
     return () => {
       let str = JSON.stringify({
