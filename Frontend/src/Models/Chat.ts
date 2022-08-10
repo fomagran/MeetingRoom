@@ -1,0 +1,12 @@
+interface Chat {
+  id: string;
+  content: string;
+  isImage: boolean;
+  type: string;
+  user: User;
+  userId: string;
+  chatRoomId: string;
+  chatRoom: ChatRoom;
+  createdAt: Date;
+  updatedAt: Date;
+}

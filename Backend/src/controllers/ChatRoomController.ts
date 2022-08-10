@@ -7,9 +7,9 @@ export default class ChatRoomController {
   addChatRoom = async (req: Request, res: Response) => {
     try {
       const chatRoom = {
-        content: req.body.content,
-        isImage: Boolean(req.body.isImage),
+        title: req.body.title,
         userId: req.body.userId,
+        chatId: req.body.chatId,
       };
 
       await prisma.chatRoom

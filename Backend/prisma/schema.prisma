@@ -12,33 +12,46 @@ datasource db {
 
 model User {
   id           String     @id @default(uuid())
-  name         String
+  name         String     @unique
   profileImage String
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
-  lastChats    Chat[]
-  chatRooms    ChatRoom[]
+  chat         Chat[]
+  chatRoom     ChatRoom[]
 }
 
 model ChatRoom {
   id        String   @id @default(uuid())
   title     String
-  chatId    String
   userId    String
   owner     User     @relation(fields: [userId], references: [id])
-  chats     Chat[]
+  chatId    String?
+  lastChat  Chat?    @relation(fields: [chatId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
+model ChatRoomChat {
+  id    String @id
+  chats Chat[]
+}
+
 model Chat {
-  id         String   @id @default(uuid())
-  content    String
-  isImage    Boolean
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  userId     String
-  user       User?    @relation(fields: [userId], references: [id])
-  chatRoomId String
-  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
+  id           String       @id @default(uuid())
+  content      String
+  isImage      Boolean
+  type         ChatType     @default(MESSAGE)
+  userId       String
+  user         User         @relation(fields: [userId], references: [id])
+  chatRoomId   String
+  chatRoomChat ChatRoomChat @relation(fields: [chatRoomId], references: [id])
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  chatRoom     ChatRoom[]
+}
+
+enum ChatType {
+  WELCOME
+  MESSAGE
+  LEAVE
 }

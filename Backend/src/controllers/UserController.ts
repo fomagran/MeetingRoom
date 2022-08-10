@@ -49,6 +49,27 @@ export default class UserController {
     }
   };
 
+  getUserByName = async (req: Request, res: Response) => {
+    try {
+      await prisma.user
+        .findFirst({
+          where: {
+            name: req.params.name,
+          },
+        })
+        .then((data) => {
+          res.json(data);
+          console.log("Get a user by name: ", data);
+        });
+    } catch (err) {
+      console.log("Read a user by name Error:", err);
+    } finally {
+      async () => {
+        await prisma.$disconnect();
+      };
+    }
+  };
+
   getAllUsers = async (req: Request, res: Response) => {
     try {
       await prisma.user.findMany().then((data) => {

@@ -9,6 +9,8 @@ userRouter.post("/addUser", userController.addUser);
 
 userRouter.get("/user/:id", userController.getUser);
 
+userRouter.get("/username/:name", userController.getUserByName);
+
 userRouter.get("/allUsers", userController.getAllUsers);
 
 userRouter.put("/user/:id", userController.updateUser);

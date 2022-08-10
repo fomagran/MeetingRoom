@@ -16,11 +16,7 @@ type ChatRoomParams = {
 type Navigation = NativeStackHeaderProps & ChatRoomParams;
 
 export function ChatRoomScreen({route}: Navigation) {
-  const mockData: ChatRoom[] = [
-    {title: 'A', lastMessage: 'test A', time: new Date()},
-    {title: 'B', lastMessage: 'test B', time: new Date()},
-    {title: 'C', lastMessage: 'test C', time: new Date()},
-  ];
+  const mockData: ChatRoom[] = [];
 
   return (
     <View>

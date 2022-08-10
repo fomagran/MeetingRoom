@@ -8,14 +8,21 @@
  * @format
  */
 
+import {ApiProvider} from '@reduxjs/toolkit/dist/query/react';
 import React from 'react';
+import {Provider} from 'react-redux';
+
+import {userAPISlice} from './src/api/UserAPISlice';
 import Navigation from './src/Navigation';
+import store from './src/redux/store';
 
 const App = () => {
   return (
-    <>
-      <Navigation />
-    </>
+    <ApiProvider api={userAPISlice}>
+      <Provider store={store}>
+        <Navigation />
+      </Provider>
+    </ApiProvider>
   );
 };
 

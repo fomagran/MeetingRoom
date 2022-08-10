@@ -19,7 +19,7 @@ type Navigation = NativeStackHeaderProps & ChatScreenParams;
 export default function ChatScreen({route}: Navigation) {
   const [messageText, setMessageText] = useState('');
   const [serverMessages, setServerMessages] = useState([]);
-  const serverMessagesList: Message[] = [];
+  const serverMessagesList: Chat[] = [];
   const webSocket = useRef(null);
   const [user, setUser] = useState('');
 

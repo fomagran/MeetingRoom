@@ -10,6 +10,7 @@ export default class ChatController {
         content: req.body.content,
         isImage: Boolean(req.body.isImage),
         userId: req.body.userId,
+        chatRoomId: req.body.chatRoomId,
       };
 
       await prisma.chat

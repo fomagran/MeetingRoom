@@ -1,5 +1,10 @@
 interface ChatRoom {
+  id: string;
   title: string;
-  lastMessage: string;
-  time: Date;
+  userId: string;
+  owner: User;
+  chatId: string;
+  lastChat: Chat;
+  createdAt: Date;
+  updatedAt: Date;
 }
