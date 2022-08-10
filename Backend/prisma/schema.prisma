@@ -26,18 +26,19 @@ model ChatRoom {
   chatId    String
   userId    String
   owner     User     @relation(fields: [userId], references: [id])
-  lastChat  Chat?    @relation(fields: [chatId], references: [id])
+  chats     Chat[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Chat {
-  id        String     @id @default(uuid())
-  content   String
-  isImage   Boolean
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  userId    String
-  user      User?      @relation(fields: [userId], references: [id])
-  chatRooms ChatRoom[]
+  id         String   @id @default(uuid())
+  content    String
+  isImage    Boolean
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  userId     String
+  user       User?    @relation(fields: [userId], references: [id])
+  chatRoomId String
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
 }

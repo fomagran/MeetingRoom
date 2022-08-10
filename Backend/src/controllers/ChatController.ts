@@ -7,14 +7,13 @@ export default class ChatController {
   addChat = async (req: Request, res: Response) => {
     try {
       const chat = {
-        userId: 0,
-        content: "",
-        isImage: false,
-        user: {},
+        content: req.body.content,
+        isImage: Boolean(req.body.isImage),
+        userId: req.body.userId,
       };
 
       await prisma.chat
-        .createMany({
+        .create({
           data: chat,
         })
         .then((data) => {

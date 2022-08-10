@@ -3,24 +3,25 @@ import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
 
-export default class UserController {
-  addUser = async (req: Request, res: Response) => {
+export default class ChatRoomController {
+  addChatRoom = async (req: Request, res: Response) => {
     try {
-      const user = {
-        name: req.body.name,
-        profileImage: req.body.profileImage,
+      const chatRoom = {
+        content: req.body.content,
+        isImage: Boolean(req.body.isImage),
+        userId: req.body.userId,
       };
 
-      await prisma.user
-        .createMany({
-          data: user,
+      await prisma.chatRoom
+        .create({
+          data: chatRoom,
         })
         .then((data) => {
           res.json(data);
-          console.log("Insert a user: ", data);
+          console.log("Insert a chatRoom: ", data);
         });
     } catch (err) {
-      console.log("Insert a user Error:", err);
+      console.log("Insert a chatRoom Error:", err);
     } finally {
       async () => {
         await prisma.$disconnect();
@@ -28,9 +29,9 @@ export default class UserController {
     }
   };
 
-  getUser = async (req: Request, res: Response) => {
+  getChatRoom = async (req: Request, res: Response) => {
     try {
-      await prisma.user
+      await prisma.chatRoom
         .findUnique({
           where: {
             id: req.params.id,
@@ -38,10 +39,10 @@ export default class UserController {
         })
         .then((data) => {
           res.json(data);
-          console.log("Get a user: ", data);
+          console.log("Get a chatRoom: ", data);
         });
     } catch (err) {
-      console.log("Read a user Error:", err);
+      console.log("Read a chatRoom Error:", err);
     } finally {
       async () => {
         await prisma.$disconnect();
@@ -49,14 +50,14 @@ export default class UserController {
     }
   };
 
-  getAllUsers = async (req: Request, res: Response) => {
+  getAllChatRooms = async (req: Request, res: Response) => {
     try {
-      await prisma.user.findMany().then((data) => {
+      await prisma.chatRoom.findMany().then((data) => {
         res.json(data);
-        console.log("Get all users: ", data);
+        console.log("Get all chatRooms: ", data);
       });
     } catch (err) {
-      console.log("Read a all users Error:", err);
+      console.log("Read a all chatRooms Error:", err);
     } finally {
       async () => {
         await prisma.$disconnect();
@@ -64,9 +65,9 @@ export default class UserController {
     }
   };
 
-  deleteUser = async (req: Request, res: Response) => {
+  deleteChatRoom = async (req: Request, res: Response) => {
     try {
-      await prisma.user
+      await prisma.chatRoom
         .deleteMany({
           where: {
             id: {
@@ -76,10 +77,10 @@ export default class UserController {
         })
         .then((data) => {
           res.json(data);
-          console.log("Delete user: ", data);
+          console.log("Delete chatRoom: ", data);
         });
     } catch (err) {
-      console.log("Delete a user Error:", err);
+      console.log("Delete a chatRoom Error:", err);
     } finally {
       async () => {
         await prisma.$disconnect();
@@ -87,9 +88,9 @@ export default class UserController {
     }
   };
 
-  updateUser = async (req: Request, res: Response) => {
+  updateChatRoom = async (req: Request, res: Response) => {
     try {
-      await prisma.user
+      await prisma.chatRoom
         .updateMany({
           where: {
             id: {
@@ -100,10 +101,10 @@ export default class UserController {
         })
         .then((data) => {
           res.json(data);
-          console.log("Updated a user: ", data);
+          console.log("Updated a chatRoom: ", data);
         });
     } catch (err) {
-      console.log("Update a user Error:", err);
+      console.log("Update a chatRoom Error:", err);
     } finally {
       async () => {
         await prisma.$disconnect();

@@ -1,6 +1,8 @@
 import express from "express";
 import { Message } from "./models/Message";
+import chatRoomRouter from "./routers/ChatRoomRouter";
 import chatRouter from "./routers/ChatRouter";
+import userRouter from "./routers/UserRouter";
 
 const app = express();
 app.use(express.json());
@@ -8,6 +10,8 @@ let http = require("http").Server(app);
 let io = require("socket.io")(http);
 
 app.use("/api", chatRouter);
+app.use("/api", userRouter);
+app.use("/api", chatRoomRouter);
 
 const chat = io.of("/chat");
 
