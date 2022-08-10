@@ -1,16 +1,16 @@
 import {Pressable, Text, TextInput, View, Alert} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {styles} from '../Styles/LoginStyles';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';
 import {useGetUserByNameQuery} from '../api/UserAPISlice';
 
 export default function LoginScreen({navigation}) {
   const [inputText, setInputText] = useState('');
-  const [confirmUser, setConfirmUser] = useState('');
-  const {data: user} = useGetUserByNameQuery(confirmUser);
+  const [confirm, setConfirm] = useState<boolean>(false);
+  const {data: user} = useGetUserByNameQuery(inputText, {skip: !confirm});
 
-  useEffect(() => {
-    console.log(user);
+  const handleLogin = () => {
+    setConfirm(true);
     if (user === null || user === undefined) {
       showAlert();
     } else {
@@ -19,10 +19,6 @@ export default function LoginScreen({navigation}) {
         user: inputText,
       });
     }
-  }, [user]);
-
-  const handleLogin = () => {
-    setConfirmUser(inputText);
   };
 
   const showAlert = () => {

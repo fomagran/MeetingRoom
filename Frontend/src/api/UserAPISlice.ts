@@ -44,3 +44,5 @@ export const {
   useDeleteUserMutation,
   useGetUserByNameQuery,
 } = userAPISlice;
+
+export default userAPISlice;
