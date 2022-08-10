@@ -10,11 +10,17 @@ export const userAPISlice = createApi({
     getUser: builder.query<User, String>({
       query: (id: string) => `/user/${id}`,
     }),
-    getUserByName: builder.query<User, String>({
-      query: (name: string) => `/username/${name}`,
+    getUserByName: builder.mutation({
+      query: (name: string) => ({
+        url: `/username/${name}`,
+        method: 'GET',
+      }),
+      transformResponse: (response: User) => {
+        return response;
+      },
     }),
     addUser: builder.mutation({
-      query: (user: Chat) => ({
+      query: (user: User) => ({
         url: '/addTodo',
         method: 'POST',
         body: user,
@@ -42,7 +48,7 @@ export const {
   useAddUserMutation,
   useEditUserMutation,
   useDeleteUserMutation,
-  useGetUserByNameQuery,
+  useGetUserByNameMutation,
 } = userAPISlice;
 
 export default userAPISlice;
