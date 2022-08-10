@@ -1,16 +1,17 @@
 import express from "express";
 import { Message } from "./models/Message";
+import chatRouter from "./routers/ChatRouter";
 
 const app = express();
 app.use(express.json());
 let http = require("http").Server(app);
 let io = require("socket.io")(http);
 
+app.use("/api", chatRouter);
+
 const chat = io.of("/chat");
 
 chat.on("connection", function (socket: any) {
-  console.log("??");
-
   socket.on("welcome", (message: Message) => {
     socket.join(message.room);
     chat.in(message.room).emit("welcome", message);

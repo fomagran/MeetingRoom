@@ -27,6 +27,18 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@prisma/client@^4.2.0":
+  "integrity" "sha512-Q/X8fi1UBufCrkdLk188sC/roiGxEm1V3qU4uEP5SyleO5n2A+FyC62S7+4I0hu57CU3c7Ls3YjqPiZyTHVGOw=="
+  "resolved" "https://registry.npmjs.org/@prisma/client/-/client-4.2.0.tgz"
+  "version" "4.2.0"
+  dependencies:
+    "@prisma/engines-version" "4.2.0-33.2920a97877e12e055c1333079b8d19cee7f33826"
+
+"@prisma/engines-version@4.2.0-33.2920a97877e12e055c1333079b8d19cee7f33826":
+  "integrity" "sha512-tktkqdiwqE4QhmE088boPt+FwPj1Jub/zk+5F6sEfcRHzO5yz9jyMD5HFVtiwxZPLx/8Xg9ElnuTi8E5lWVQFQ=="
+  "resolved" "https://registry.npmjs.org/@prisma/engines-version/-/engines-version-4.2.0-33.2920a97877e12e055c1333079b8d19cee7f33826.tgz"
+  "version" "4.2.0-33.2920a97877e12e055c1333079b8d19cee7f33826"
+
 "@prisma/engines@4.1.1":
   "integrity" "sha512-DCw8L/SS0IXqmj5IW/fMxOXiifnsfjBzDfRhf0j3NFWqvMCh9OtfjmXQZxVgI2mwvJLc/5jzXhkiWT39qS09dA=="
   "resolved" "https://registry.npmjs.org/@prisma/engines/-/engines-4.1.1.tgz"
@@ -513,7 +525,7 @@
   "resolved" "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-0.1.7.tgz"
   "version" "0.1.7"
 
-"prisma@^4.1.1":
+"prisma@*", "prisma@^4.1.1":
   "integrity" "sha512-yw50J8If2dKP4wYIi695zthsCASQFHiogGvUHHWd3falx/rpsD6Sb1LMLRV9nO3iGG3lozxNJ2PSINxK7xwdpg=="
   "resolved" "https://registry.npmjs.org/prisma/-/prisma-4.1.1.tgz"
   "version" "4.1.1"

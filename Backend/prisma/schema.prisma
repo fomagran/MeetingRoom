@@ -9,3 +9,35 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id           String     @id @default(uuid())
+  name         String
+  profileImage String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  lastChats    Chat[]
+  chatRooms    ChatRoom[]
+}
+
+model ChatRoom {
+  id        String   @id @default(uuid())
+  title     String
+  chatId    String
+  userId    String
+  owner     User     @relation(fields: [userId], references: [id])
+  lastChat  Chat?    @relation(fields: [chatId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Chat {
+  id        String     @id @default(uuid())
+  content   String
+  isImage   Boolean
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  userId    String
+  user      User?      @relation(fields: [userId], references: [id])
+  chatRooms ChatRoom[]
+}
