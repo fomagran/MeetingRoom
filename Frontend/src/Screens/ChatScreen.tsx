@@ -1,4 +1,4 @@
-import {Text, View, FlatList, TextInput, Pressable} from 'react-native';
+import {Text, View, FlatList, TextInput, Pressable, Image} from 'react-native';
 import React, {useState, useEffect, useRef} from 'react';
 import {ChatScreenStyles as styles} from '../Styles/ChatScreenStyles';
 import io from 'socket.io-client';
@@ -13,8 +13,10 @@ import {
   useRoute,
 } from '@react-navigation/native';
 import {ScreenEnums} from '../Models/ScreenEnums';
+import MyChatCell from '../Components/MyChatCell';
+import OtherChatCell from '../Components/OhterChatCell';
 
-type ScreenRouteProp = RouteProp<RootStackParamList, 'ChatScreen'>;
+type ScreenRouteProp = RouteProp<RootStackParamList, ScreenEnums.Chat>;
 
 export default function ChatScreen() {
   const [messageText, setMessageText] = useState('');
@@ -27,11 +29,13 @@ export default function ChatScreen() {
   const params = useRoute<ScreenRouteProp>().params;
 
   useEffect(() => {
+    console.log(user);
+
     webSocket.current = io(`http://192.168.111.34:3001/chat`);
     webSocket.current.on('connect', () => {
       let message = {
         type: 'Welcome',
-        user: user.id,
+        id: user.id,
         message: `${user.name} 님이 입장하셨습니다.`,
         room: params.room,
       };
@@ -67,7 +71,7 @@ export default function ChatScreen() {
     return () => {
       let message = {
         type: 'Leave',
-        user: user.id,
+        id: user.id,
         message: `${user.name} 님이 퇴장하셨습니다.`,
         room: params.room,
       };
@@ -79,7 +83,7 @@ export default function ChatScreen() {
   const sendMessage = () => {
     let message = {
       type: 'Chat',
-      user: user,
+      id: user.id,
       message: messageText,
       room: params.room,
     };
@@ -102,10 +106,10 @@ export default function ChatScreen() {
           renderItem={({item}) =>
             item.type == 'Welcome' || item.type == 'Leave' ? (
               <Text style={styles.welcomeChat}>{item.message}</Text>
-            ) : item.user == user ? (
-              <Text style={styles.myChat}>{item.message}</Text>
+            ) : item.id == user.id ? (
+              <MyChatCell chat={item}></MyChatCell>
             ) : (
-              <Text style={styles.otherChat}>{item.message}</Text>
+              <OtherChatCell chat={item}></OtherChatCell>
             )
           }
         />

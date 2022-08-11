@@ -7,8 +7,14 @@ export const userAPISlice = createApi({
     getAllUsers: builder.query<User[], String>({
       query: () => '/allUsers',
     }),
-    getUser: builder.query<User, String>({
-      query: (id: string) => `/user/${id}`,
+    getUser: builder.mutation({
+      query: (id: string) => ({
+        url: `/username/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: (response: User) => {
+        return response;
+      },
     }),
     getUserByName: builder.mutation({
       query: (name: string) => ({
@@ -44,7 +50,7 @@ export const userAPISlice = createApi({
 
 export const {
   useGetAllUsersQuery,
-  useGetUserQuery,
+  useGetUserMutation,
   useAddUserMutation,
   useEditUserMutation,
   useDeleteUserMutation,
