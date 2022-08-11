@@ -11,14 +11,10 @@ import {RootStackParamList} from '../Navigation';
 
 export default function LoginScreen() {
   const [inputText, setInputText] = useState<string>('');
+  const dispatch = useDispatch();
   const [login] = useGetUserByNameMutation();
   const actions = loginSlice.actions;
-  const dispatch = useDispatch();
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-
-  useEffect(() => {
-    console.log('HI');
-  }, []);
 
   const handleLogin = async () => {
     try {

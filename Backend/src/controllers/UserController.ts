@@ -12,7 +12,7 @@ export default class UserController {
       };
 
       await prisma.user
-        .createMany({
+        .create({
           data: user,
         })
         .then((data) => {

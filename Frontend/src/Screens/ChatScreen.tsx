@@ -24,18 +24,16 @@ export default function ChatScreen() {
   const user = useSelector<RootState, User>(state => state.login.user);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const state = useNavigationState(state => state);
-  const route = useRoute<ScreenRouteProp>();
+  const params = useRoute<ScreenRouteProp>().params;
 
   useEffect(() => {
-    console.log(route.params?.room);
-
     webSocket.current = io(`http://192.168.111.34:3001/chat`);
     webSocket.current.on('connect', () => {
       let message = {
         type: 'Welcome',
         user: user.id,
         message: `${user.name} 님이 입장하셨습니다.`,
-        room: 'route.params.room.',
+        room: params.room,
       };
 
       webSocket.current.emit('welcome', message);
@@ -71,7 +69,7 @@ export default function ChatScreen() {
         type: 'Leave',
         user: user.id,
         message: `${user.name} 님이 퇴장하셨습니다.`,
-        room: 'A',
+        room: params.room,
       };
       webSocket.current.emit('leave', message);
       webSocket.current.disconnect();
@@ -83,7 +81,7 @@ export default function ChatScreen() {
       type: 'Chat',
       user: user,
       message: messageText,
-      room: 'A',
+      room: params.room,
     };
     webSocket.current.emit('message', message);
     setMessageText('');
