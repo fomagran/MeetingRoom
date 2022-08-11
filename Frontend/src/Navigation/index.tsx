@@ -7,6 +7,14 @@ import ChatScreen from '../Screens/ChatScreen';
 import {ChatRoomScreen} from '../Screens/ChatRoomScreen';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';
 
+import {Button, Alert} from 'react-native';
+
+export type RootStackParamList = {
+  LoginScreen: undefined;
+  ChatRoomScreen: undefined;
+  ChatScreen: {room: string};
+};
+
 const Stack = createNativeStackNavigator();
 
 export default function Navigation() {

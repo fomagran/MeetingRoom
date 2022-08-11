@@ -5,3 +5,8 @@ interface User {
   createdAt: Date;
   updatedAt: Date;
 }
+
+interface LoginPayload {
+  isLogin: boolean;
+  user: User;
+}

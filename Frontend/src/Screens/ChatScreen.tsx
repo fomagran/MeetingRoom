@@ -2,36 +2,40 @@ import {Text, View, FlatList, TextInput, Pressable} from 'react-native';
 import React, {useState, useEffect, useRef} from 'react';
 import {ChatScreenStyles as styles} from '../Styles/ChatScreenStyles';
 import io from 'socket.io-client';
-import {NativeStackHeaderProps} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/core';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../Navigation';
+import {useSelector} from 'react-redux';
+import {RootState} from '../redux/store';
+import {
+  RouteProp,
+  useNavigationState,
+  useRoute,
+} from '@react-navigation/native';
+import {ScreenEnums} from '../Models/ScreenEnums';
 
-type ChatScreenParams = {
-  route: {
-    params: {
-      navigation: any;
-      user: string;
-      room: string;
-    };
-  };
-};
+type ScreenRouteProp = RouteProp<RootStackParamList, 'ChatScreen'>;
 
-type Navigation = NativeStackHeaderProps & ChatScreenParams;
-
-export default function ChatScreen({route}: Navigation) {
+export default function ChatScreen() {
   const [messageText, setMessageText] = useState('');
   const [serverMessages, setServerMessages] = useState([]);
   const serverMessagesList: Chat[] = [];
   const webSocket = useRef(null);
-  const [user, setUser] = useState('');
+  const user = useSelector<RootState, User>(state => state.login.user);
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const state = useNavigationState(state => state);
+  const route = useRoute<ScreenRouteProp>();
 
   useEffect(() => {
-    setUser(route.params.user);
+    console.log(route.params?.room);
+
     webSocket.current = io(`http://192.168.111.34:3001/chat`);
     webSocket.current.on('connect', () => {
       let message = {
         type: 'Welcome',
-        user: route.params.user,
-        message: `${route.params.user} 님이 입장하셨습니다.`,
-        room: route.params.room,
+        user: user.id,
+        message: `${user.name} 님이 입장하셨습니다.`,
+        room: 'route.params.room.',
       };
 
       webSocket.current.emit('welcome', message);
@@ -39,7 +43,6 @@ export default function ChatScreen({route}: Navigation) {
     });
 
     webSocket.current.on('message', e => {
-      console.log(route.params.user, 'message', e);
       serverMessagesList.push(e);
       setServerMessages([...serverMessagesList]);
     });
@@ -66,9 +69,9 @@ export default function ChatScreen({route}: Navigation) {
     return () => {
       let message = {
         type: 'Leave',
-        user: route.params.user,
-        message: `${route.params.user} 님이 퇴장하셨습니다.`,
-        room: route.params.room,
+        user: user.id,
+        message: `${user.name} 님이 퇴장하셨습니다.`,
+        room: 'A',
       };
       webSocket.current.emit('leave', message);
       webSocket.current.disconnect();
@@ -80,7 +83,7 @@ export default function ChatScreen({route}: Navigation) {
       type: 'Chat',
       user: user,
       message: messageText,
-      room: route.params.room,
+      room: 'A',
     };
     webSocket.current.emit('message', message);
     setMessageText('');

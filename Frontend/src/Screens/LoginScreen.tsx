@@ -1,12 +1,24 @@
 import {Pressable, Text, TextInput, View, Alert} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {styles} from '../Styles/LoginStyles';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';
 import {useGetUserByNameMutation} from '../api/UserAPISlice';
+import loginSlice from '../redux/LoginSlice';
+import {useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/core';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../Navigation';
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen() {
   const [inputText, setInputText] = useState<string>('');
   const [login] = useGetUserByNameMutation();
+  const actions = loginSlice.actions;
+  const dispatch = useDispatch();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+  useEffect(() => {
+    console.log('HI');
+  }, []);
 
   const handleLogin = async () => {
     try {
@@ -14,10 +26,9 @@ export default function LoginScreen({navigation}) {
       if (user === null || user === undefined) {
         showAlert();
       } else {
-        navigation.navigate(screens.ChatRoom, {
-          navigation: navigation,
-          user: inputText,
-        });
+        let payload: LoginPayload = {isLogin: true, user: user};
+        dispatch(actions.loginSuccess(payload));
+        navigation.navigate(screens.ChatRoom);
       }
     } catch (err) {
       console.log(err);
