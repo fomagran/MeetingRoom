@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Text, View, Image} from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../redux/store';
-import {styles} from '../Styles/MyChatStyles';
+import {styles} from '../Styles/Component/MyChatStyles';
 
 interface ChatProps {
   chat: any;

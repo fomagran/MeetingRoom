@@ -1,6 +1,5 @@
-import {NativeStackHeaderProps} from '@react-navigation/native-stack';
-import React, {useEffect, useLayoutEffect} from 'react';
-import {FlatList, Pressable, Button, View} from 'react-native';
+import React, {useLayoutEffect} from 'react';
+import {FlatList, Pressable, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import ChatRoomCell from '../Components/ChatRoomCell';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';
@@ -9,7 +8,7 @@ import Icon from 'react-native-vector-icons/Fontisto';
 import {useNavigation} from '@react-navigation/core';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../Navigation';
-import {styles} from '../Styles/ChatRoomStyles';
+import {styles} from '../Styles/Screen/ChatRoomStyles';
 import {
   useAddChatRoomMutation,
   useGetAllChatRoomsQuery,

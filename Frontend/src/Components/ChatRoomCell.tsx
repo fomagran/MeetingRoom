@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Text, View} from 'react-native';
-import {styles} from '../Styles/ChaRoomCellStyles';
+import {styles} from '../Styles/Component/ChaRoomCellStyles';
 
 interface ChatRoomCellParams {
   chatRoom: ChatRoom;

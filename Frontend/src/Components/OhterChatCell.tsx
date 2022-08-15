@@ -1,9 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Text, View, Image} from 'react-native';
-import {useSelector} from 'react-redux';
-import {RootState} from '../redux/store';
-import {styles} from '../Styles/OtherChatStyles';
-import {useGetUserMutation} from '../api/UserAPISlice';
+import {styles} from '../Styles/Component/OtherChatStyles';
 
 interface ChatProps {
   chat: any;
@@ -24,7 +21,7 @@ export default function OtherChatCell({chat}: ChatProps) {
       'https://user-images.githubusercontent.com/47676921/184225834-21439481-c2e6-43f3-b09c-99d32e88368a.jpg',
     ],
     'e5528619-0cb3-4031-87cb-b63afe97e17a': [
-      'Kalyd',
+      'Khalid',
       'https://user-images.githubusercontent.com/47676921/184225841-398db1c2-8c60-4223-8dbc-0e8f8892934d.jpg',
     ],
   };

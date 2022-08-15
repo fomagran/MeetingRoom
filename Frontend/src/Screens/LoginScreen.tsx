@@ -1,6 +1,6 @@
 import {Pressable, Text, TextInput, View, Alert} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {styles} from '../Styles/LoginStyles';
+import {styles} from '../Styles/Screen/LoginStyles';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';
 import {useGetUserByNameMutation} from '../api/UserAPISlice';
 import loginSlice from '../redux/LoginSlice';

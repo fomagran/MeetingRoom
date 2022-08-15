@@ -1,6 +1,6 @@
 import {Text, View, FlatList, TextInput, Pressable, Image} from 'react-native';
 import React, {useState, useEffect, useRef} from 'react';
-import {ChatScreenStyles as styles} from '../Styles/ChatScreenStyles';
+import {ChatScreenStyles as styles} from '../Styles/Screen/ChatScreenStyles';
 import io from 'socket.io-client';
 import {useNavigation} from '@react-navigation/core';
 import {StackNavigationProp} from '@react-navigation/stack';
