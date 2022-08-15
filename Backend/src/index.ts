@@ -33,9 +33,12 @@ chat.on("connection", function (socket: any) {
 });
 
 chatRoom.on("connection", function (socket: any) {
-  socket.on("lastChat", (chat: Message) => {
-    chatRoom.emit("lastChat", chat);
-  });
+  socket.on(
+    "lastChat",
+    (lastChat: { chatRoomId: string; lastChatContent: string }) => {
+      chatRoom.emit("lastChat", lastChat);
+    }
+  );
 });
 
 http.listen(3001, function () {

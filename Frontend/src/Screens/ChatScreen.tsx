@@ -25,6 +25,8 @@ export default function ChatScreen() {
   const [addChat] = useAddChatMutation();
 
   useEffect(() => {
+    console.log(params.room);
+
     chatSocket.current = io(BASE_URL + '/chat');
     chatRoomSocket.current = io(BASE_URL + '/chatRoom');
 
@@ -83,7 +85,10 @@ export default function ChatScreen() {
       room: params.room,
     };
     chatSocket.current.emit('message', message);
-    chatRoomSocket.current.emit('lastChat', messageText);
+    chatRoomSocket.current.emit('lastChat', {
+      chatRoomId: params.room,
+      lastChatContent: messageText,
+    });
     setMessageText('');
   };
 

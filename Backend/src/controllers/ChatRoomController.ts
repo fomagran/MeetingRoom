@@ -89,8 +89,6 @@ export default class ChatRoomController {
   };
 
   updateChatRoom = async (req: Request, res: Response) => {
-    console.log("Body!!!!!!", req.body);
-
     try {
       await prisma.chatRoom
         .update({

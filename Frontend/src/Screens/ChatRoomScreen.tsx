@@ -45,10 +45,10 @@ export function ChatRoomScreen() {
     webSocket.current.on('lastChat', e => {
       if (allChatRooms !== undefined) {
         let payload: ChatRoomPayload = {
-          id: '1dc59f28-9814-4cc6-a687-7c2492d0862c',
+          id: e.chatRoomId,
           title: '',
           userId: e.userId,
-          lastChatContent: e,
+          lastChatContent: e.lastChatContent,
           lastChatDate: new Date(),
         };
         editChatRoom(payload);
@@ -89,7 +89,7 @@ export function ChatRoomScreen() {
         renderItem={({item}) => (
           <Pressable
             onPress={() => {
-              navigation.navigate(screens.Chat, {room: item.chatRoomId});
+              navigation.navigate(screens.Chat, {room: item.id});
             }}>
             <ChatRoomCell chatRoom={item}></ChatRoomCell>
           </Pressable>
