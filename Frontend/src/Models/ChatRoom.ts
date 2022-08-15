@@ -3,14 +3,16 @@ interface ChatRoom {
   title: string;
   userId: string;
   owner: User;
-  chatId: string | null;
-  lastChat: Chat | null;
+  lastChatContent: string | null;
+  lastChatDate: Date | null;
   createdAt: Date;
   updatedAt: Date;
 }
 
 interface ChatRoomPayload {
+  id: string;
   title: string;
   userId: string;
-  chatId: string | null;
+  lastChatContent: string | null;
+  lastChatDate: Date | null;
 }

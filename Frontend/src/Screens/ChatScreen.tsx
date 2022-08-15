@@ -1,20 +1,16 @@
-import {Text, View, FlatList, TextInput, Pressable, Image} from 'react-native';
+import {Text, View, FlatList, TextInput, Pressable} from 'react-native';
 import React, {useState, useEffect, useRef} from 'react';
 import {ChatScreenStyles as styles} from '../Styles/Screen/ChatScreenStyles';
 import io from 'socket.io-client';
-import {useNavigation} from '@react-navigation/core';
-import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../Navigation';
 import {useSelector} from 'react-redux';
 import {RootState} from '../redux/store';
-import {
-  RouteProp,
-  useNavigationState,
-  useRoute,
-} from '@react-navigation/native';
+import {RouteProp, useRoute} from '@react-navigation/native';
 import {ScreenEnums} from '../Models/ScreenEnums';
 import MyChatCell from '../Components/MyChatCell';
 import OtherChatCell from '../Components/OhterChatCell';
+import BASE_URL from '../Styles/Common/Constants';
+import {useAddChatMutation} from '../api/ChatAPISlice';
 
 type ScreenRouteProp = RouteProp<RootStackParamList, ScreenEnums.Chat>;
 
@@ -22,17 +18,17 @@ export default function ChatScreen() {
   const [messageText, setMessageText] = useState('');
   const [serverMessages, setServerMessages] = useState([]);
   const serverMessagesList: Chat[] = [];
-  const webSocket = useRef(null);
+  const chatSocket = useRef(null);
+  const chatRoomSocket = useRef(null);
   const user = useSelector<RootState, User>(state => state.login.user);
-  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  const state = useNavigationState(state => state);
   const params = useRoute<ScreenRouteProp>().params;
+  const [addChat] = useAddChatMutation();
 
   useEffect(() => {
-    console.log(user);
+    chatSocket.current = io(BASE_URL + '/chat');
+    chatRoomSocket.current = io(BASE_URL + '/chatRoom');
 
-    webSocket.current = io(`http://192.168.111.34:3001/chat`);
-    webSocket.current.on('connect', () => {
+    chatSocket.current.on('connect', () => {
       let message = {
         type: 'Welcome',
         id: user.id,
@@ -40,31 +36,30 @@ export default function ChatScreen() {
         room: params.room,
       };
 
-      webSocket.current.emit('welcome', message);
+      chatSocket.current.emit('welcome', message);
       console.log('Connected Server');
     });
 
-    webSocket.current.on('message', e => {
+    chatSocket.current.on('message', e => {
       serverMessagesList.push(e);
       setServerMessages([...serverMessagesList]);
     });
 
-    webSocket.current.on('welcome', e => {
-      console.log('welcome', e);
+    chatSocket.current.on('welcome', e => {
       serverMessagesList.push(e);
       setServerMessages([...serverMessagesList]);
     });
 
-    webSocket.current.on('leave', e => {
+    chatSocket.current.on('leave', e => {
       serverMessagesList.push(e);
       setServerMessages([...serverMessagesList]);
     });
 
-    webSocket.current.on('error', e => {
+    chatSocket.current.on('error', e => {
       console.log(e.message);
     });
 
-    webSocket.current.on('disconnect', e => {
+    chatSocket.current.on('disconnect', e => {
       console.log('Disconnected. Check internet or server.');
     });
 
@@ -75,8 +70,8 @@ export default function ChatScreen() {
         message: `${user.name} 님이 퇴장하셨습니다.`,
         room: params.room,
       };
-      webSocket.current.emit('leave', message);
-      webSocket.current.disconnect();
+      chatSocket.current.emit('leave', message);
+      chatSocket.current.disconnect();
     };
   }, []);
 
@@ -87,8 +82,25 @@ export default function ChatScreen() {
       message: messageText,
       room: params.room,
     };
-    webSocket.current.emit('message', message);
+    chatSocket.current.emit('message', message);
+    chatRoomSocket.current.emit('lastChat', messageText);
     setMessageText('');
+  };
+
+  const add = async () => {
+    try {
+      const payload: ChatPayload = {
+        content: messageText,
+        type: 'MESSAGE',
+        isImage: false,
+        userId: user.id,
+        chatRoomId: '3209f369-1563-447b-b4a6-954f1c943b54',
+      };
+
+      const chat = await addChat(payload).unwrap();
+    } catch (err) {
+      console.log('Error', err);
+    }
   };
 
   return (

@@ -10,3 +10,11 @@ interface Chat {
   createdAt: Date;
   updatedAt: Date;
 }
+
+interface ChatPayload {
+  content: string;
+  type: string;
+  isImage: boolean;
+  userId: string;
+  chatRoomId: string;
+}

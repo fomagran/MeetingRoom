@@ -21,14 +21,14 @@ model User {
 }
 
 model ChatRoom {
-  id        String   @id @default(uuid())
-  title     String
-  userId    String
-  owner     User     @relation(fields: [userId], references: [id])
-  chatId    String?
-  lastChat  Chat?    @relation(fields: [chatId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String   @id @default(uuid())
+  title           String
+  userId          String
+  owner           User     @relation(fields: [userId], references: [id])
+  lastChatContent String   @default("")
+  lastChatDate    DateTime @default(now())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
 model ChatRoomChat {
@@ -47,7 +47,6 @@ model Chat {
   chatRoomChat ChatRoomChat @relation(fields: [chatRoomId], references: [id])
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
-  chatRoom     ChatRoom[]
 }
 
 enum ChatType {

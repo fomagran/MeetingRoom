@@ -14,6 +14,7 @@ app.use("/api", userRouter);
 app.use("/api", chatRoomRouter);
 
 const chat = io.of("/chat");
+const chatRoom = io.of("/chatRoom");
 
 chat.on("connection", function (socket: any) {
   socket.on("welcome", (message: Message) => {
@@ -28,6 +29,12 @@ chat.on("connection", function (socket: any) {
   socket.on("leave", (message: Message) => {
     socket.leave(message.room);
     chat.in(message.room).emit("leave", message);
+  });
+});
+
+chatRoom.on("connection", function (socket: any) {
+  socket.on("lastChat", (chat: Message) => {
+    chatRoom.emit("lastChat", chat);
   });
 });
 

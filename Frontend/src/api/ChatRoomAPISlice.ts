@@ -24,11 +24,14 @@ export const chatRoomAPISlice = createApi({
       invalidatesTags: ['ChatRooms'],
     }),
     editChatRoom: builder.mutation({
-      query: (chatRoom: ChatRoom) => ({
-        url: `/chatRoom/${chatRoom.id}`,
+      query: (payload: ChatRoomPayload) => ({
+        url: `/chatRoom/${payload.id}`,
         method: 'PUT',
-        body: chatRoom,
+        body: payload,
       }),
+      transformResponse: (response: ChatRoom) => {
+        return response;
+      },
       invalidatesTags: ['ChatRooms'],
     }),
     deleteChatRoom: builder.mutation({

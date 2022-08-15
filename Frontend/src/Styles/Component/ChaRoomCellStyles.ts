@@ -2,11 +2,9 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    margin: 20,
     padding: 20,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'black',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   title: {
     fontSize: 20,
@@ -14,12 +12,26 @@ export const styles = StyleSheet.create({
     color: 'black',
   },
   message: {
-    fontSize: 16,
-    color: 'black',
+    fontSize: 14,
+    color: '#7E7E7E',
+    padding: 5,
   },
   time: {
     alignSelf: 'flex-end',
-    fontSize: 14,
+    fontSize: 13,
     color: '#D3D3D3',
+  },
+  profile: {
+    borderRadius: 10,
+    alignItems: 'center',
+    padding: 30,
+  },
+  redDot: {
+    marginLeft: -10,
+    marginRight: -5,
+    marginTop: -65,
+    borderRadius: 10,
+    padding: 5,
+    backgroundColor: '#FF0000',
   },
 });

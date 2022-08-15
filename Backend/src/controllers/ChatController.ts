@@ -8,7 +8,8 @@ export default class ChatController {
     try {
       const chat = {
         content: req.body.content,
-        isImage: Boolean(req.body.isImage),
+        isImage: req.body.isImage,
+        type: req.body.type,
         userId: req.body.userId,
         chatRoomId: req.body.chatRoomId,
       };

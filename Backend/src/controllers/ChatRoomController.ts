@@ -89,15 +89,17 @@ export default class ChatRoomController {
   };
 
   updateChatRoom = async (req: Request, res: Response) => {
+    console.log("Body!!!!!!", req.body);
+
     try {
       await prisma.chatRoom
-        .updateMany({
+        .update({
           where: {
-            id: {
-              equals: req.params.id,
-            },
+            id: req.body.id,
           },
-          data: req.body,
+          data: {
+            lastChatContent: req.body.lastChatContent,
+          },
         })
         .then((data) => {
           res.json(data);
