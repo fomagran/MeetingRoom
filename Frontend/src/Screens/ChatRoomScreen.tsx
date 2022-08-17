@@ -1,8 +1,14 @@
 import React, {useEffect, useLayoutEffect, useRef} from 'react';
-import {FlatList, Pressable, View} from 'react-native';
+import {
+  FlatList,
+  Pressable,
+  View,
+  Animated,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import {useSelector} from 'react-redux';
 import ChatRoomCell from '../Components/ChatRoomCell';
-import {ScreenEnums as screens} from '../Models/ScreenEnums';
 import {RootState} from '../redux/store';
 import Icon from 'react-native-vector-icons/Fontisto';
 import {useNavigation} from '@react-navigation/core';
@@ -16,6 +22,9 @@ import {
 } from '../api/ChatRoomAPISlice';
 import BASE_URL from '../Styles/Common/Constants';
 import io from 'socket.io-client';
+import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
+import {ScreenEnums as screens} from '../Models/ScreenEnums';
+import {useDeleteChatRoomMutation} from '../api/ChatRoomAPISlice';
 
 export function ChatRoomScreen() {
   const user = useSelector<RootState, User>(state => state.login.user);
@@ -24,14 +33,14 @@ export function ChatRoomScreen() {
   const {data: allChatRooms} = useGetAllChatRoomsQuery('');
   const webSocket = useRef(null);
   const [editChatRoom] = useEditChatRoomMutation();
+  const [deleteChatRoom] = useDeleteChatRoomMutation();
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <Pressable
           onPress={() => {
-            handleChatRoom();
-            console.log('press plus');
+            handleCreateChatRoom();
           }}>
           <Icon style={styles.plus} name="plus-a"></Icon>
         </Pressable>
@@ -62,11 +71,11 @@ export function ChatRoomScreen() {
     };
   }, []);
 
-  const handleChatRoom = async () => {
+  const handleCreateChatRoom = async () => {
     try {
       const payload: ChatRoomPayload = {
-        id: '1dc59f28-9814-4cc6-a687-7c2492d0862c',
-        title: user.name,
+        id: '',
+        title: user.name + "' room",
         userId: user.id,
         lastChatContent: '',
         lastChatDate: new Date(),
@@ -80,6 +89,26 @@ export function ChatRoomScreen() {
     }
   };
 
+  const renderRightActions = (dragX, id) => {
+    const trans = dragX.interpolate({
+      inputRange: [0, 50, 100, 101],
+      outputRange: [-20, 0, 0, 1],
+    });
+    return (
+      <Pressable onPress={() => deleteChatRoom(id)}>
+        <Animated.Text
+          style={[
+            styles.delete,
+            {
+              transform: [{translateX: trans}],
+            },
+          ]}>
+          Delete
+        </Animated.Text>
+      </Pressable>
+    );
+  };
+
   return (
     <View>
       <FlatList
@@ -87,12 +116,18 @@ export function ChatRoomScreen() {
         data={allChatRooms}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
-          <Pressable
-            onPress={() => {
-              navigation.navigate(screens.Chat, {room: item.id});
-            }}>
-            <ChatRoomCell chatRoom={item}></ChatRoomCell>
-          </Pressable>
+          <GestureHandlerRootView>
+            <Swipeable
+              key={item.id}
+              renderRightActions={dragx => renderRightActions(dragx, item.id)}>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate(screens.Chat, {room: item.id});
+                }}>
+                <ChatRoomCell chatRoom={item}></ChatRoomCell>
+              </Pressable>
+            </Swipeable>
+          </GestureHandlerRootView>
         )}
       />
     </View>
