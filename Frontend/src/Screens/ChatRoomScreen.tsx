@@ -56,6 +56,7 @@ export function ChatRoomScreen() {
         let payload: ChatRoomPayload = {
           id: e.chatRoomId,
           title: '',
+          hasNewMessage: false,
           userId: e.userId,
           lastChatContent: e.lastChatContent,
           lastChatDate: new Date(),
@@ -75,8 +76,9 @@ export function ChatRoomScreen() {
     try {
       const payload: ChatRoomPayload = {
         id: '',
-        title: user.name + "' room",
+        title: user.name + "'s Room",
         userId: user.id,
+        hasNewMessage: false,
         lastChatContent: '',
         lastChatDate: new Date(),
       };

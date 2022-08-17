@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     padding: 35,
-    marginRight: -50,
+    marginRight: -20,
     backgroundColor: 'red',
     justifyContent: 'center',
     alignSelf: 'center',

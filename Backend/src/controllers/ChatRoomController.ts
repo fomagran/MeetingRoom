@@ -6,15 +6,13 @@ const prisma = new PrismaClient();
 export default class ChatRoomController {
   addChatRoom = async (req: Request, res: Response) => {
     try {
-      const chatRoom = {
-        title: req.body.title,
-        userId: req.body.userId,
-        chatId: req.body.chatId,
-      };
-
       await prisma.chatRoom
         .create({
-          data: chatRoom,
+          data: {
+            title: req.body.title,
+            hasNewMessage: req.body.hasNewMessage,
+            ChatRoomUser: { create: { userId: req.body.userId } },
+          },
         })
         .then((data) => {
           res.json(data);

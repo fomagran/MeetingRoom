@@ -11,42 +11,44 @@ datasource db {
 }
 
 model User {
-  id           String     @id @default(uuid())
-  name         String     @unique
+  id           String         @id @default(uuid())
+  name         String         @unique
   profileImage String
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
   chat         Chat[]
-  chatRoom     ChatRoom[]
+  ChatRoomUser ChatRoomUser[]
 }
 
 model ChatRoom {
-  id              String   @id @default(uuid())
+  id              String         @id @default(uuid())
   title           String
-  userId          String
-  owner           User     @relation(fields: [userId], references: [id])
-  lastChatContent String   @default("")
-  lastChatDate    DateTime @default(now())
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  hasNewMessage   Boolean        @default(false)
+  lastChatContent String         @default("")
+  lastChatDate    DateTime       @default(now())
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  ChatRoomUser    ChatRoomUser[]
 }
 
-model ChatRoomChat {
-  id    String @id
-  chats Chat[]
+model ChatRoomUser {
+  id         String    @id @default(uuid())
+  chatRoom   ChatRoom? @relation(fields: [chatRoomId], references: [id])
+  user       User?     @relation(fields: [userId], references: [id])
+  userId     String?
+  chatRoomId String?
 }
 
 model Chat {
-  id           String       @id @default(uuid())
-  content      String
-  isImage      Boolean
-  type         ChatType     @default(MESSAGE)
-  userId       String
-  user         User         @relation(fields: [userId], references: [id])
-  chatRoomId   String
-  chatRoomChat ChatRoomChat @relation(fields: [chatRoomId], references: [id])
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  id         String   @id @default(uuid())
+  content    String
+  isImage    Boolean
+  type       ChatType @default(MESSAGE)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  chatRoomId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 enum ChatType {

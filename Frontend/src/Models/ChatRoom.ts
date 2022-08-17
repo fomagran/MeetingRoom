@@ -3,6 +3,7 @@ interface ChatRoom {
   title: string;
   userId: string;
   owner: User;
+  hasNewMessage: boolean;
   lastChatContent: string | null;
   lastChatDate: Date | null;
   createdAt: Date;
@@ -13,6 +14,7 @@ interface ChatRoomPayload {
   id: string;
   title: string;
   userId: string;
+  hasNewMessage: boolean;
   lastChatContent: string | null;
   lastChatDate: Date | null;
 }

@@ -9,7 +9,8 @@ interface ChatRoomCellParams {
 export default function ChatRoomCell({chatRoom}: ChatRoomCellParams) {
   return (
     <View style={styles.container}>
-      <View style={styles.redDot}></View>
+      {chatRoom.hasNewMessage ? <View style={styles.redDot}></View> : <></>}
+
       <Image
         style={styles.profile}
         source={{
