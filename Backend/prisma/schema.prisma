@@ -29,6 +29,7 @@ model ChatRoom {
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   numberOfUsers   Int            @default(1)
+  isPrivate       Boolean        @default(false)
   users           ChatRoomUser[]
 }
 

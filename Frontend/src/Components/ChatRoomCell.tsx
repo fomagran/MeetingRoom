@@ -19,7 +19,14 @@ export default function ChatRoomCell({chatRoom}: ChatRoomCellParams) {
         }}
       />
       <View style={{marginLeft: 10, flex: 1}}>
-        <Text style={styles.title}> {chatRoom.title} </Text>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}> {chatRoom.title} </Text>
+          {chatRoom.isPrivate ? (
+            <Icon name="locked" style={styles.private}></Icon>
+          ) : (
+            <></>
+          )}
+        </View>
         <Text style={styles.message}>
           {' '}
           {chatRoom.lastChatContent == undefined

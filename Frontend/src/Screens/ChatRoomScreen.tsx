@@ -57,9 +57,9 @@ export function ChatRoomScreen() {
           id: e.chatRoomId,
           title: '',
           hasNewMessage: false,
-          userId: e.userId,
           lastChatContent: e.lastChatContent,
           lastChatDate: new Date(),
+          isPrivate: true,
         };
         editChatRoom(payload);
       } else {
@@ -77,10 +77,10 @@ export function ChatRoomScreen() {
       const payload: ChatRoomPayload = {
         id: '',
         title: user.name + "'s Room",
-        userId: user.id,
         hasNewMessage: false,
         lastChatContent: '',
         lastChatDate: new Date(),
+        isPrivate: true,
       };
       const chatRoom = await addChatRoom(payload).unwrap();
       console.log(chatRoom);

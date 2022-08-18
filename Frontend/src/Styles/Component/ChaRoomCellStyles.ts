@@ -6,6 +6,10 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -44,5 +48,8 @@ export const styles = StyleSheet.create({
     marginRight: 5,
     fontSize: 15,
     marginBottom: 45,
+  },
+  private: {
+    fontSize: 15,
   },
 });
