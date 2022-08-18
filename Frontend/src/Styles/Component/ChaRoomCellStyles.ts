@@ -34,4 +34,15 @@ export const styles = StyleSheet.create({
     padding: 5,
     backgroundColor: '#FF0000',
   },
+  numberOfUsers: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 45,
+  },
+  users: {
+    marginLeft: -30,
+    marginRight: 5,
+    fontSize: 15,
+    marginBottom: 45,
+  },
 });

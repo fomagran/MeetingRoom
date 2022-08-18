@@ -17,7 +17,7 @@ model User {
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   chat         Chat[]
-  ChatRoomUser ChatRoomUser[]
+  chatRooms    ChatRoomUser[]
 }
 
 model ChatRoom {
@@ -28,7 +28,8 @@ model ChatRoom {
   lastChatDate    DateTime       @default(now())
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
-  ChatRoomUser    ChatRoomUser[]
+  numberOfUsers   Int            @default(1)
+  users           ChatRoomUser[]
 }
 
 model ChatRoomUser {

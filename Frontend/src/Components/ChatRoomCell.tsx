@@ -1,6 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Text, View, Image} from 'react-native';
 import {styles} from '../Styles/Component/ChaRoomCellStyles';
+import Icon from 'react-native-vector-icons/Fontisto';
 
 interface ChatRoomCellParams {
   chatRoom: ChatRoom;
@@ -32,6 +33,8 @@ export default function ChatRoomCell({chatRoom}: ChatRoomCellParams) {
             : chatRoom.lastChatDate.toString()}{' '}
         </Text>
       </View>
+      <Icon name="persons" style={styles.users}></Icon>
+      <Text style={styles.numberOfUsers}>{chatRoom.numberOfUsers}</Text>
     </View>
   );
 }

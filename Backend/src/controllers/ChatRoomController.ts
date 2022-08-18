@@ -11,7 +11,7 @@ export default class ChatRoomController {
           data: {
             title: req.body.title,
             hasNewMessage: req.body.hasNewMessage,
-            ChatRoomUser: { create: { userId: req.body.userId } },
+            users: { create: { userId: req.body.userId } },
           },
         })
         .then((data) => {
