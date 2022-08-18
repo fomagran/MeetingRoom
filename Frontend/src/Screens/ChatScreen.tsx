@@ -11,6 +11,10 @@ import MyChatCell from '../Components/MyChatCell';
 import OtherChatCell from '../Components/OhterChatCell';
 import BASE_URL from '../Styles/Common/Constants';
 import {useAddChatMutation} from '../api/ChatAPISlice';
+import {
+  useAddReadDatesMutation,
+  useEditReadDatesMutation,
+} from '../api/readDatesAPISlice';
 
 type ScreenRouteProp = RouteProp<RootStackParamList, ScreenEnums.Chat>;
 
@@ -23,9 +27,24 @@ export default function ChatScreen() {
   const user = useSelector<RootState, User>(state => state.login.user);
   const params = useRoute<ScreenRouteProp>().params;
   const [addChat] = useAddChatMutation();
+  const [addReadDates] = useAddReadDatesMutation();
+  const [editReadDates] = useEditReadDatesMutation();
 
   useEffect(() => {
-    console.log(params.room);
+    // const readDates: ReadDates = {
+    //   id: '',
+    //   userId: user.id,
+    //   chatRoomId: params.room,
+    //   readDate: new Date(),
+    // };
+    // addReadDates(readDates);
+
+    editReadDates({
+      id: '',
+      userId: user.id,
+      chatRoomId: params.room,
+      readDate: new Date(),
+    });
 
     chatSocket.current = io(BASE_URL + '/chat');
     chatRoomSocket.current = io(BASE_URL + '/chatRoom');

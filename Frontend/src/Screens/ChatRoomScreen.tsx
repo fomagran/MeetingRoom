@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {
   FlatList,
   Pressable,
@@ -25,6 +25,7 @@ import io from 'socket.io-client';
 import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';
 import {useDeleteChatRoomMutation} from '../api/ChatRoomAPISlice';
+import {useGetAllReadDatesQuery} from '../api/readDatesAPISlice';
 
 export function ChatRoomScreen() {
   const user = useSelector<RootState, User>(state => state.login.user);
@@ -34,6 +35,8 @@ export function ChatRoomScreen() {
   const webSocket = useRef(null);
   const [editChatRoom] = useEditChatRoomMutation();
   const [deleteChatRoom] = useDeleteChatRoomMutation();
+  const allReadDates = useGetAllReadDatesQuery(user.id).currentData;
+  const [readDatesMap, setReadDatesMap] = useState<{}>();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -49,6 +52,15 @@ export function ChatRoomScreen() {
   }, [navigation]);
 
   useEffect(() => {
+    if (allReadDates !== undefined) {
+      const map = Object.fromEntries(
+        allReadDates.map(r => [r.chatRoomId, r.readDate]),
+      );
+      setReadDatesMap(map);
+    }
+  }, [allReadDates]);
+
+  useEffect(() => {
     webSocket.current = io(BASE_URL + '/chatRoom');
 
     webSocket.current.on('lastChat', e => {
@@ -56,7 +68,6 @@ export function ChatRoomScreen() {
         let payload: ChatRoomPayload = {
           id: e.chatRoomId,
           title: '',
-          hasNewMessage: false,
           lastChatContent: e.lastChatContent,
           lastChatDate: new Date(),
           isPrivate: true,
@@ -77,13 +88,11 @@ export function ChatRoomScreen() {
       const payload: ChatRoomPayload = {
         id: '',
         title: user.name + "'s Room",
-        hasNewMessage: false,
         lastChatContent: '',
         lastChatDate: new Date(),
         isPrivate: true,
       };
       const chatRoom = await addChatRoom(payload).unwrap();
-      console.log(chatRoom);
       if (chatRoom !== null || chatRoom !== undefined) {
       }
     } catch (err) {
@@ -126,7 +135,13 @@ export function ChatRoomScreen() {
                 onPress={() => {
                   navigation.navigate(screens.Chat, {room: item.id});
                 }}>
-                <ChatRoomCell chatRoom={item}></ChatRoomCell>
+                {readDatesMap == undefined ? (
+                  <></>
+                ) : (
+                  <ChatRoomCell
+                    chatRoom={item}
+                    readDate={readDatesMap[item.id]}></ChatRoomCell>
+                )}
               </Pressable>
             </Swipeable>
           </GestureHandlerRootView>

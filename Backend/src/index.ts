@@ -2,6 +2,7 @@ import express from "express";
 import { Message } from "./models/Message";
 import chatRoomRouter from "./routers/ChatRoomRouter";
 import chatRouter from "./routers/ChatRouter";
+import readDatesRouter from "./routers/ReadDatesRouter";
 import userRouter from "./routers/UserRouter";
 
 const app = express();
@@ -12,6 +13,7 @@ let io = require("socket.io")(http);
 app.use("/api", chatRouter);
 app.use("/api", userRouter);
 app.use("/api", chatRoomRouter);
+app.use("/api", readDatesRouter);
 
 const chat = io.of("/chat");
 const chatRoom = io.of("/chatRoom");

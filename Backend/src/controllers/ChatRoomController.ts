@@ -10,7 +10,6 @@ export default class ChatRoomController {
         .create({
           data: {
             title: req.body.title,
-            hasNewMessage: req.body.hasNewMessage,
             users: { create: { userId: req.body.userId } },
           },
         })
@@ -95,6 +94,7 @@ export default class ChatRoomController {
           },
           data: {
             lastChatContent: req.body.lastChatContent,
+            lastChatDate: req.body.lastChatDate,
           },
         })
         .then((data) => {

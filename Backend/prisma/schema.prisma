@@ -18,12 +18,12 @@ model User {
   updatedAt    DateTime       @updatedAt
   chat         Chat[]
   chatRooms    ChatRoomUser[]
+  readDates    ReadDates[]
 }
 
 model ChatRoom {
   id              String         @id @default(uuid())
   title           String
-  hasNewMessage   Boolean        @default(false)
   lastChatContent String         @default("")
   lastChatDate    DateTime       @default(now())
   createdAt       DateTime       @default(now())
@@ -39,6 +39,14 @@ model ChatRoomUser {
   user       User?     @relation(fields: [userId], references: [id])
   userId     String?
   chatRoomId String?
+}
+
+model ReadDates {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User?    @relation(fields: [userId], references: [id])
+  chatRoomId String   @unique
+  readDate   DateTime
 }
 
 model Chat {
