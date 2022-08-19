@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Modal, Text, Pressable} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import chatRoomSlice from '../redux/ChatRoomSlice';
 import {RootState} from '../redux/store';
 import {styles} from '../Styles/Component/ChatRoomPasswordModalStyles';
-import {styles as PasscodStyles} from '../Styles/Component/PasswordKeyStyles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import PasscodeKey from './PasscodeKey';
+import Colors from '../Styles/Common/Colors';
 
 export default function ChatRoomPasswordModal() {
   const chatRoomState = useSelector<RootState, ChatRoomState>(
@@ -14,6 +14,26 @@ export default function ChatRoomPasswordModal() {
   );
   const dispatch = useDispatch();
   const actions = chatRoomSlice.actions;
+  const [passcodes, setPasscodes] = useState<string[]>([]);
+
+  useEffect(() => {
+    // setPasscodes([]);
+    console.log(passcodes);
+  }, [passcodes]);
+
+  const passcodeStyle = (element: string | undefined) => {
+    if (element == undefined) {
+      return {};
+    } else {
+      return styles.passcodeDot;
+    }
+  };
+
+  const handlePressKey = (number: string) => {
+    if (passcodes.length < 4) {
+      setPasscodes([...passcodes, number]);
+    }
+  };
 
   return (
     <Modal
@@ -34,80 +54,76 @@ export default function ChatRoomPasswordModal() {
             Please enter chatroom passcode
           </Text>
           <View style={styles.horizontalView}>
-            <View style={styles.passcodeDot}></View>
-            <View style={styles.passcodeDot}></View>
-            <View style={styles.passcodeDot}></View>
-            <View style={styles.passcodeDot}></View>
+            <View style={passcodeStyle(passcodes[0])}></View>
+            <View style={passcodeStyle(passcodes[1])}></View>
+            <View style={passcodeStyle(passcodes[2])}></View>
+            <View style={passcodeStyle(passcodes[3])}></View>
           </View>
           <View style={styles.horizontalView}>
             <PasscodeKey
               onPress={() => {
-                console.log('Press');
+                handlePressKey('1');
               }}
               text="1"></PasscodeKey>
             <PasscodeKey
               onPress={() => {
-                console.log('Press');
+                handlePressKey('2');
               }}
               text="2"></PasscodeKey>
             <PasscodeKey
               onPress={() => {
-                console.log('Press');
+                handlePressKey('3');
               }}
               text="3"></PasscodeKey>
           </View>
           <View style={styles.horizontalView}>
             <PasscodeKey
               onPress={() => {
-                console.log('Press');
+                handlePressKey('4');
               }}
               text="4"></PasscodeKey>
             <PasscodeKey
               onPress={() => {
-                console.log('Press');
+                handlePressKey('5');
               }}
               text="5"></PasscodeKey>
             <PasscodeKey
               onPress={() => {
-                console.log('Press');
+                handlePressKey('6');
               }}
               text="6"></PasscodeKey>
           </View>
           <View style={styles.horizontalView}>
             <PasscodeKey
               onPress={() => {
-                console.log('Press');
+                handlePressKey('7');
               }}
               text="7"></PasscodeKey>
             <PasscodeKey
               onPress={() => {
-                console.log('Press');
+                handlePressKey('8');
               }}
               text="8"></PasscodeKey>
             <PasscodeKey
               onPress={() => {
-                console.log('Press');
+                handlePressKey('9');
               }}
               text="9"></PasscodeKey>
           </View>
           <View style={styles.horizontalView}>
             <Pressable
               onPress={() => {
-                console.log('Press');
+                setPasscodes(passcodes.slice(0, passcodes.length - 1));
               }}
               style={styles.buttonContainer}>
               <Icon name="back" style={styles.backButton}></Icon>
             </Pressable>
             <PasscodeKey
               onPress={() => {
-                console.log('Press');
+                handlePressKey('0');
               }}
               text="0"></PasscodeKey>
-            <Pressable
-              onPress={() => {
-                console.log('Press');
-              }}
-              style={styles.buttonContainer}>
+            <Pressable onPress={() => {}} style={styles.buttonContainer}>
               <Icon name="check" style={styles.doneButton}></Icon>
             </Pressable>
           </View>

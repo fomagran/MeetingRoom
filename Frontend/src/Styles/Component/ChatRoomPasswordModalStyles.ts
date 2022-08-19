@@ -42,9 +42,10 @@ export const styles = StyleSheet.create({
     color: 'gray',
   },
   passcodeDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
     backgroundColor: Colors.orange,
-    padding: 5,
-    borderRadius: 10,
     marginHorizontal: 15,
     marginVertical: 15,
   },
