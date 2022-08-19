@@ -4,7 +4,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import chatRoomSlice from '../redux/ChatRoomSlice';
 import {RootState} from '../redux/store';
 import {styles} from '../Styles/Component/ChatRoomPasswordModalStyles';
+import {styles as PasscodStyles} from '../Styles/Component/PasswordKeyStyles';
 import Icon from 'react-native-vector-icons/AntDesign';
+import PasscodeKey from './PasscodeKey';
 
 export default function ChatRoomPasswordModal() {
   const chatRoomState = useSelector<RootState, ChatRoomState>(
@@ -38,24 +40,76 @@ export default function ChatRoomPasswordModal() {
             <View style={styles.passcodeDot}></View>
           </View>
           <View style={styles.horizontalView}>
-            <Text style={styles.keypad}> 1 </Text>
-            <Text style={styles.keypad}> 2 </Text>
-            <Text style={styles.keypad}> 3 </Text>
+            <PasscodeKey
+              onPress={() => {
+                console.log('Press');
+              }}
+              text="1"></PasscodeKey>
+            <PasscodeKey
+              onPress={() => {
+                console.log('Press');
+              }}
+              text="2"></PasscodeKey>
+            <PasscodeKey
+              onPress={() => {
+                console.log('Press');
+              }}
+              text="3"></PasscodeKey>
           </View>
           <View style={styles.horizontalView}>
-            <Text style={styles.keypad}> 4 </Text>
-            <Text style={styles.keypad}> 5 </Text>
-            <Text style={styles.keypad}> 6 </Text>
+            <PasscodeKey
+              onPress={() => {
+                console.log('Press');
+              }}
+              text="4"></PasscodeKey>
+            <PasscodeKey
+              onPress={() => {
+                console.log('Press');
+              }}
+              text="5"></PasscodeKey>
+            <PasscodeKey
+              onPress={() => {
+                console.log('Press');
+              }}
+              text="6"></PasscodeKey>
           </View>
           <View style={styles.horizontalView}>
-            <Text style={styles.keypad}> 7 </Text>
-            <Text style={styles.keypad}> 8 </Text>
-            <Text style={styles.keypad}> 9 </Text>
+            <PasscodeKey
+              onPress={() => {
+                console.log('Press');
+              }}
+              text="7"></PasscodeKey>
+            <PasscodeKey
+              onPress={() => {
+                console.log('Press');
+              }}
+              text="8"></PasscodeKey>
+            <PasscodeKey
+              onPress={() => {
+                console.log('Press');
+              }}
+              text="9"></PasscodeKey>
           </View>
           <View style={styles.horizontalView}>
-            <Icon name="back" style={styles.backButton}></Icon>
-            <Text style={styles.keypad}> 0 </Text>
-            <Icon name="check" style={styles.doneButton}></Icon>
+            <Pressable
+              onPress={() => {
+                console.log('Press');
+              }}
+              style={styles.buttonContainer}>
+              <Icon name="back" style={styles.backButton}></Icon>
+            </Pressable>
+            <PasscodeKey
+              onPress={() => {
+                console.log('Press');
+              }}
+              text="0"></PasscodeKey>
+            <Pressable
+              onPress={() => {
+                console.log('Press');
+              }}
+              style={styles.buttonContainer}>
+              <Icon name="check" style={styles.doneButton}></Icon>
+            </Pressable>
           </View>
         </View>
       </View>
