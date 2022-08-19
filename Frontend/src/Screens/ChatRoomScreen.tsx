@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import ChatRoomCell from '../Components/ChatRoomCell';
 import {RootState} from '../redux/store';
 import Icon from 'react-native-vector-icons/Fontisto';
@@ -26,6 +26,8 @@ import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';
 import {useDeleteChatRoomMutation} from '../api/ChatRoomAPISlice';
 import {useGetAllReadDatesQuery} from '../api/readDatesAPISlice';
+import chatRoomSlice from '../redux/ChatRoomSlice';
+import ChatRoomPasswordModal from '../Components/ChatRoomPasswordModal';
 
 export function ChatRoomScreen() {
   const user = useSelector<RootState, User>(state => state.login.user);
@@ -37,6 +39,11 @@ export function ChatRoomScreen() {
   const [deleteChatRoom] = useDeleteChatRoomMutation();
   const allReadDates = useGetAllReadDatesQuery(user.id).currentData;
   const [readDatesMap, setReadDatesMap] = useState<{}>();
+  const dispatch = useDispatch();
+  const chatRoomState = useSelector<RootState, ChatRoomState>(
+    state => state.chatRoom,
+  );
+  const actions = chatRoomSlice.actions;
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -100,6 +107,14 @@ export function ChatRoomScreen() {
     }
   };
 
+  const handlePressChatRoom = (item: ChatRoom) => {
+    if (item.isPrivate) {
+      dispatch(actions.passwordModalOpen());
+    } else {
+      navigation.navigate(screens.Chat, {room: item.id});
+    }
+  };
+
   const renderRightActions = (dragX, id) => {
     const trans = dragX.interpolate({
       inputRange: [0, 50, 100, 101],
@@ -122,6 +137,7 @@ export function ChatRoomScreen() {
 
   return (
     <View>
+      <ChatRoomPasswordModal></ChatRoomPasswordModal>
       <FlatList
         contentContainerStyle={{paddingBottom: 50}}
         data={allChatRooms}
@@ -133,7 +149,7 @@ export function ChatRoomScreen() {
               renderRightActions={dragx => renderRightActions(dragx, item.id)}>
               <Pressable
                 onPress={() => {
-                  navigation.navigate(screens.Chat, {room: item.id});
+                  handlePressChatRoom(item);
                 }}>
                 {readDatesMap == undefined ? (
                   <></>

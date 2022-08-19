@@ -30,6 +30,7 @@ model ChatRoom {
   updatedAt       DateTime       @updatedAt
   numberOfUsers   Int            @default(1)
   isPrivate       Boolean        @default(false)
+  password        String         @default("")
   users           ChatRoomUser[]
 }
 

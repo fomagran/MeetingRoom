@@ -16,3 +16,9 @@ interface ChatRoomPayload {
   lastChatContent: string | null;
   lastChatDate: Date | null;
 }
+
+interface ChatRoomState {
+  isModalVisible: boolean;
+}
+
+interface ChatRoomPasswordPayload {}
