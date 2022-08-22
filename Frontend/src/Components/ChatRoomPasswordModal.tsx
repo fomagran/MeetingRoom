@@ -6,7 +6,6 @@ import {RootState} from '../redux/store';
 import {styles} from '../Styles/Component/ChatRoomPasswordModalStyles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import PasscodeKey from './PasscodeKey';
-import Colors from '../Styles/Common/Colors';
 
 export default function ChatRoomPasswordModal() {
   const chatRoomState = useSelector<RootState, ChatRoomState>(
@@ -15,11 +14,6 @@ export default function ChatRoomPasswordModal() {
   const dispatch = useDispatch();
   const actions = chatRoomSlice.actions;
   const [passcodes, setPasscodes] = useState<string[]>([]);
-
-  useEffect(() => {
-    // setPasscodes([]);
-    console.log(passcodes);
-  }, [passcodes]);
 
   const passcodeStyle = (element: string | undefined) => {
     if (element == undefined) {
@@ -46,7 +40,10 @@ export default function ChatRoomPasswordModal() {
         <View style={styles.keypadContainer}>
           <Pressable
             style={styles.xContainer}
-            onPress={() => dispatch(actions.passwordModalClose())}>
+            onPress={() => {
+              dispatch(actions.passwordModalClose());
+              setPasscodes([]);
+            }}>
             <Icon style={styles.xButton} name="close"></Icon>
           </Pressable>
           <Text style={styles.passcodeTitle}>ENTER PASSCODE</Text>
@@ -123,7 +120,15 @@ export default function ChatRoomPasswordModal() {
                 handlePressKey('0');
               }}
               text="0"></PasscodeKey>
-            <Pressable onPress={() => {}} style={styles.buttonContainer}>
+            <Pressable
+              onPress={() => {
+                if (chatRoomState.password == passcodes.join('')) {
+                  console.log('correct');
+                } else {
+                  console.log('wrong');
+                }
+              }}
+              style={styles.buttonContainer}>
               <Icon name="check" style={styles.doneButton}></Icon>
             </Pressable>
           </View>

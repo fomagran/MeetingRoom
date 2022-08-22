@@ -3,6 +3,7 @@ interface ChatRoom {
   title: string;
   lastChatContent: string | null;
   lastChatDate: Date | null;
+  password: string;
   createdAt: Date;
   updatedAt: Date;
   isPrivate: boolean;
@@ -18,6 +19,7 @@ interface ChatRoomPayload {
 }
 
 interface ChatRoomState {
+  password: string;
   isModalVisible: boolean;
 }
 
