@@ -6,13 +6,13 @@ import LoginScreen from '../Screens/LoginScreen';
 import ChatScreen from '../Screens/ChatScreen';
 import {ChatRoomScreen} from '../Screens/ChatRoomScreen';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';
-
-import {Button, Alert} from 'react-native';
+import UserListScreen from '../Screens/UserListScreen';
 
 export type RootStackParamList = {
   LoginScreen: undefined;
   ChatRoomScreen: undefined;
   ChatScreen: {room: string};
+  UserListScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +24,7 @@ export default function Navigation() {
         <Stack.Screen name={screens.Login} component={LoginScreen} />
         <Stack.Screen name={screens.ChatRoom} component={ChatRoomScreen} />
         <Stack.Screen name={screens.Chat} component={ChatScreen} />
+        <Stack.Screen name={screens.UserList} component={UserListScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

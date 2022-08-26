@@ -24,7 +24,7 @@ export default function LoginScreen() {
       } else {
         let payload: LoginPayload = {isLogin: true, user: user};
         dispatch(actions.loginSuccess(payload));
-        navigation.navigate(screens.ChatRoom);
+        navigation.navigate(screens.UserList);
       }
     } catch (err) {
       console.log(err);

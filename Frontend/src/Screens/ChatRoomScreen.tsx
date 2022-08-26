@@ -108,12 +108,7 @@ export function ChatRoomScreen() {
   };
 
   const handlePressChatRoom = (item: ChatRoom) => {
-    if (item.isPrivate) {
-      dispatch(actions.setPassword({password: item.password}));
-      dispatch(actions.passwordModalOpen());
-    } else {
-      navigation.navigate(screens.Chat, {room: item.id});
-    }
+    navigation.navigate(screens.Chat, {room: item.id});
   };
 
   const renderRightActions = (dragX, id) => {
