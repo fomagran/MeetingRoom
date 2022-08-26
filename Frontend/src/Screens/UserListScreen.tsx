@@ -1,9 +1,14 @@
-import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import React, {useLayoutEffect} from 'react';
 import {View, Text, SectionList} from 'react-native';
 import UserComponent from '../Components/UserComponent';
+import {RootStackParamList} from '../Navigation';
 import Colors from '../Styles/Common/Colors';
 
 export default function EmployeeListScreen() {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
   const users: any[] = [
     {
       department: 'HR',
@@ -38,6 +43,13 @@ export default function EmployeeListScreen() {
     fontSize: 16,
     fontWeight: 'bold',
   };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Users',
+      headerTitleAlign: 'center',
+    });
+  }, [navigation]);
 
   return (
     <View style={{backgroundColor: '#FBFBFD'}}>
