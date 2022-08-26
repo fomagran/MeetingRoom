@@ -5,32 +5,32 @@ import {View, Text, SectionList} from 'react-native';
 import UserComponent from '../Components/UserComponent';
 import {RootStackParamList} from '../Navigation';
 import Colors from '../Styles/Common/Colors';
+import {USERS_IMAGE_URL} from '../Constants';
 
-export default function EmployeeListScreen() {
+export default function UserListScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const users: any[] = [
     {
       department: 'HR',
       data: [
-        {name: 'Tyler'},
-        {id: '1', name: 'Volt'},
-        {id: '2', name: 'Chris'},
-        {id: '3', name: 'Ben'},
+        {id: '1', name: 'Volt', imageURI: USERS_IMAGE_URL['Beenzino']},
+        {id: '2', name: 'Chris', imageURI: USERS_IMAGE_URL['Fomagran']},
+        {id: '3', name: 'Ben', imageURI: USERS_IMAGE_URL['Khalid']},
       ],
     },
     {
       department: 'Design',
       data: [
-        {id: '4', name: 'June'},
-        {id: '5', name: 'Kayla'},
+        {id: '4', name: 'June', imageURI: USERS_IMAGE_URL['Khalid']},
+        {id: '5', name: 'Kayla', imageURI: USERS_IMAGE_URL['Beenzino']},
       ],
     },
     {
       department: 'Development',
       data: [
-        {id: '6', name: 'Xion'},
-        {id: '7', name: 'Tom'},
+        {id: '6', name: 'Xion', imageURI: USERS_IMAGE_URL['Fomagran']},
+        {id: '7', name: 'Tom', imageURI: USERS_IMAGE_URL['Khalid']},
       ],
     },
   ];
@@ -56,7 +56,9 @@ export default function EmployeeListScreen() {
       <SectionList
         sections={users}
         renderItem={({item}) => (
-          <UserComponent name={item.name}></UserComponent>
+          <UserComponent
+            name={item.name}
+            imageURI={item.imageURI}></UserComponent>
         )}
         renderSectionHeader={({section}) => (
           <Text style={sectionStyle}>{section.department}</Text>

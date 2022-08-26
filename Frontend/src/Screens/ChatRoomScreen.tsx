@@ -1,12 +1,5 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
-import {
-  FlatList,
-  Pressable,
-  View,
-  Animated,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import {FlatList, Pressable, View, Animated} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import ChatRoomCell from '../Components/ChatRoomCell';
 import {RootState} from '../redux/store';
@@ -20,7 +13,7 @@ import {
   useGetAllChatRoomsQuery,
   useEditChatRoomMutation,
 } from '../api/ChatRoomAPISlice';
-import BASE_URL from '../Styles/Common/Constants';
+import {BASE_URL} from '../Constants';
 import io from 'socket.io-client';
 import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';

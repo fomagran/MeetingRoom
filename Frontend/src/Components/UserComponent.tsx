@@ -4,16 +4,17 @@ import {styles} from '../Styles/Component/UserComponentStyles';
 
 interface UserComponentParams {
   name: string;
+  imageURI: string;
 }
 
-export default function UserComponent({name}: UserComponentParams) {
+export default function UserComponent({name, imageURI}: UserComponentParams) {
   return (
     <View style={styles.card}>
       <View style={styles.horizontalView}>
         <Image
           style={styles.profile}
           source={{
-            uri: 'https://user-images.githubusercontent.com/47676921/184225841-398db1c2-8c60-4223-8dbc-0e8f8892934d.jpg',
+            uri: imageURI,
           }}
         />
         <View>
