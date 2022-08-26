@@ -6,6 +6,7 @@ import UserComponent from '../Components/UserComponent';
 import {RootStackParamList} from '../Navigation';
 import Colors from '../Styles/Common/Colors';
 import {USERS_IMAGE_URL} from '../Constants';
+import UserHeaderComponent from '../Components/UserHeaderComponent';
 
 export default function UserListScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -15,7 +16,7 @@ export default function UserListScreen() {
       department: 'HR',
       data: [
         {id: '1', name: 'Volt', imageURI: USERS_IMAGE_URL['Beenzino']},
-        {id: '2', name: 'Chris', imageURI: USERS_IMAGE_URL['Fomagran']},
+        {id: '2', name: 'Chris', imageURI: USERS_IMAGE_URL['MacMiller']},
         {id: '3', name: 'Ben', imageURI: USERS_IMAGE_URL['Khalid']},
       ],
     },
@@ -29,7 +30,7 @@ export default function UserListScreen() {
     {
       department: 'Development',
       data: [
-        {id: '6', name: 'Xion', imageURI: USERS_IMAGE_URL['Fomagran']},
+        {id: '6', name: 'Xion', imageURI: USERS_IMAGE_URL['MacMiller']},
         {id: '7', name: 'Tom', imageURI: USERS_IMAGE_URL['Khalid']},
       ],
     },
@@ -64,6 +65,7 @@ export default function UserListScreen() {
           <Text style={sectionStyle}>{section.department}</Text>
         )}
         keyExtractor={item => `${item.id}`}
+        ListHeaderComponent={UserHeaderComponent}
       />
     </View>
   );

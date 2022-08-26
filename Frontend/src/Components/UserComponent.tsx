@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
-import {styles} from '../Styles/Component/UserComponentStyles';
+import {styles} from '../Styles/Component/UserStyles';
 
 interface UserComponentParams {
   name: string;

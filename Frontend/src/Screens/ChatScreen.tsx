@@ -9,7 +9,7 @@ import {RouteProp, useRoute} from '@react-navigation/native';
 import {ScreenEnums} from '../Models/ScreenEnums';
 import MyChatCell from '../Components/MyChatCell';
 import OtherChatCell from '../Components/OhterChatCell';
-import BASE_URL from '../Constants';
+import {BASE_URL} from '../Constants';
 import {useAddChatMutation} from '../api/ChatAPISlice';
 import {
   useAddReadDatesMutation,
