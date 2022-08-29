@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 const initialState: UserListState = {
-  tapManagement: false,
+  tapManagementButton: false,
 };
 
 export const userListSlice = createSlice({
@@ -9,7 +9,7 @@ export const userListSlice = createSlice({
   initialState,
   reducers: {
     tapManagement: (state, action: PayloadAction<UserListPayload>) => {
-      state.tapManagement = action.payload.tapManagement;
+      state.tapManagementButton = action.payload.isTapManagementButton;
     },
   },
 });

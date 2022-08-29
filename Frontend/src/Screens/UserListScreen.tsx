@@ -22,9 +22,9 @@ export default function UserListScreen() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (userListState.tapManagement) {
+    if (userListState.tapManagementButton) {
       navigation.navigate(screens.Invitation);
-      dispatch(actions.tapManagement({tapManagement: false}));
+      dispatch(actions.tapManagement({isTapManagementButton: false}));
     }
   }, [userListState]);
 

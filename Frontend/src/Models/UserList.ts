@@ -1,7 +1,7 @@
 interface UserListState {
-  tapManagement: boolean;
+  tapManagementButton: boolean;
 }
 
 interface UserListPayload {
-  tapManagement: boolean;
+  isTapManagementButton: boolean;
 }
