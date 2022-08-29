@@ -3,9 +3,9 @@ import Colors from '../Common/Colors';
 
 export const styles = StyleSheet.create({
   tabView: {
-    display: 'flex',
     flexDirection: 'row',
-    height: '30%',
+    height: '10%',
+    marginBottom: 10,
   },
   selectedButton: {
     marginHorizontal: 30,
