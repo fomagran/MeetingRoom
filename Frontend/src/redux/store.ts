@@ -5,11 +5,13 @@ import {readDatesAPISlice} from '../api/readDatesAPISlice';
 import {userAPISlice} from '../api/UserAPISlice';
 import chatRoomSlice from './ChatRoomSlice';
 import loginSlice from './LoginSlice';
+import userListSlice from './UserListSlice';
 
 const store = configureStore({
   reducer: {
     login: loginSlice.reducer,
     chatRoom: chatRoomSlice.reducer,
+    userList: userListSlice.reducer,
     [chatAPISlice.reducerPath]: chatAPISlice.reducer,
     [chatRoomAPISlice.reducerPath]: chatRoomAPISlice.reducer,
     [userAPISlice.reducerPath]: userAPISlice.reducer,

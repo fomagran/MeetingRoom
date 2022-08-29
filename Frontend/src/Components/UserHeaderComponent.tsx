@@ -3,8 +3,13 @@ import {View, Text, Image, Pressable} from 'react-native';
 import {styles} from '../Styles/Component/UserHeaderStyles';
 import {USERS_IMAGE_URL} from '../Constants';
 import LinearGradient from 'react-native-linear-gradient';
+import userListSlice from '../redux/UserListSlice';
+import {useDispatch} from 'react-redux';
 
 export default function UserHeaderComponent() {
+  const actions = userListSlice.actions;
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.container}>
       <Image
@@ -18,7 +23,7 @@ export default function UserHeaderComponent() {
       <Pressable
         style={styles.buttonContainer}
         onPress={() => {
-          console.log('??');
+          dispatch(actions.tapManagement({tapManagement: true}));
         }}>
         <LinearGradient
           colors={['#CE9FFC', '#7367F0']}

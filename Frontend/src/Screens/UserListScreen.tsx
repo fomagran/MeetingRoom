@@ -1,15 +1,32 @@
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import React, {useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect} from 'react';
 import {View, Text, SectionList} from 'react-native';
 import UserComponent from '../Components/UserComponent';
 import {RootStackParamList} from '../Navigation';
 import Colors from '../Styles/Common/Colors';
 import {USERS_IMAGE_URL} from '../Constants';
 import UserHeaderComponent from '../Components/UserHeaderComponent';
+import {RootState} from '../redux/store';
+import {useSelector} from 'react-redux';
+import {ScreenEnums as screens} from '../Models/ScreenEnums';
+import userListSlice from '../redux/UserListSlice';
+import {useDispatch} from 'react-redux';
 
 export default function UserListScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const userListState = useSelector<RootState, UserListState>(
+    state => state.userList,
+  );
+  const actions = userListSlice.actions;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userListState.tapManagement) {
+      navigation.navigate(screens.Invitation);
+      dispatch(actions.tapManagement({tapManagement: false}));
+    }
+  }, [userListState]);
 
   const users: any[] = [
     {
@@ -53,7 +70,7 @@ export default function UserListScreen() {
   }, [navigation]);
 
   return (
-    <View style={{backgroundColor: '#FBFBFD'}}>
+    <View style={{backgroundColor: '#F7F7F7'}}>
       <SectionList
         sections={users}
         renderItem={({item}) => (
