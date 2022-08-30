@@ -1,14 +1,18 @@
 import {View, TextInput, FlatList} from 'react-native';
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {styles} from '../Styles/Screen/UserSearchListStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from '../Styles/Common/Colors';
 import {USERS_IMAGE_URL} from '../Constants';
 import SearchUserComponent from '../Components/SearchUserComponent';
+import {RootStackParamList} from '../Navigation';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
 
 export default function UserSearchListScreen() {
   const [searchText, setSearchText] = useState<string>('');
   const [searchUsers, setSearchUsers] = useState<any[]>([]);
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const allUsers: any[] = [
     {
       id: '1',
@@ -83,6 +87,17 @@ export default function UserSearchListScreen() {
       exist: false,
     },
   ];
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Search Users',
+      headerTitleAlign: 'center',
+      headerStyle: {
+        backgroundColor: Colors.white,
+      },
+      headerTintColor: Colors.black,
+    });
+  }, [navigation]);
 
   const filterUsersBySearchText = (searchText: string) => {
     // if (searchText == '') {

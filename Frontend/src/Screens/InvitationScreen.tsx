@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../Navigation';
@@ -9,6 +9,7 @@ import {USERS_IMAGE_URL} from '../Constants';
 import UserComponent from '../Components/UserComponent';
 import InvitationSentComponent from '../Components/InvitationSentComponent';
 import InvitationReceivedComponent from '../Components/InvitationReceivedComponent';
+import Colors from '../Styles/Common/Colors';
 
 export default function InvitationScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -102,6 +103,17 @@ export default function InvitationScreen() {
       position: 'Anayist',
     },
   ];
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Invitation Management',
+      headerTitleAlign: 'center',
+      headerStyle: {
+        backgroundColor: Colors.white,
+      },
+      headerTintColor: Colors.black,
+    });
+  }, [navigation]);
 
   const tabButtonStyle = (current: string) => {
     if (current == selectedTab) {
