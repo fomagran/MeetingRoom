@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, Image, Pressable} from 'react-native';
-import {styles} from '../Styles/Component/InvitationSentStyles';
+import {styles} from '../Styles/Component/InvitationReceivedStyles';
 
 interface InvitationReceivedProps {
   name: string;
   imageURI: string;
   isAccepted: boolean;
+  position: string;
 }
 
 export default function InvitationReceivedComponent({
   name,
   imageURI,
   isAccepted,
+  position,
 }: InvitationReceivedProps) {
   const [selectedWithdraw, setSelectedWithdraw] = useState<boolean>(isAccepted);
 
@@ -39,9 +41,9 @@ export default function InvitationReceivedComponent({
             uri: imageURI,
           }}
         />
-        <View>
+        <View style={styles.nameBox}>
           <Text style={styles.name}>{name}</Text>
-          <Text style={styles.nameDetail}>something is here...</Text>
+          <Text style={styles.nameDetail}>{position}</Text>
         </View>
         <Pressable
           onPress={() => {

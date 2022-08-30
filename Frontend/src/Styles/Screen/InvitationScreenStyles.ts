@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     borderBottomWidth: 3,
-    borderColor: 'black',
+    borderColor: Colors.charcoal,
   },
   deselectedButton: {
     marginHorizontal: 30,

@@ -19,30 +19,35 @@ export default function InvitationScreen() {
       name: 'Khalid',
       imageURI: USERS_IMAGE_URL['Khalid'],
       isAccepted: true,
+      position: 'HR Director',
     },
     {
       id: '2',
       name: 'MacMiller',
       imageURI: USERS_IMAGE_URL['MacMiller'],
       isAccepted: true,
+      position: 'HR Manager',
     },
     {
       id: '3',
       name: 'Beenzino',
       imageURI: USERS_IMAGE_URL['Beenzino'],
       isAccepted: false,
+      position: 'Recruiter',
     },
     {
       id: '4',
       name: 'Tom Hardy',
       imageURI: USERS_IMAGE_URL['TomHardy'],
       isAccepted: true,
+      position: 'UX Designer',
     },
     {
       id: '5',
       name: 'Tatiana Manaois',
       imageURI: USERS_IMAGE_URL['TatianaManaois'],
       isAccepted: false,
+      position: 'UI Desinger',
     },
   ];
 
@@ -52,42 +57,49 @@ export default function InvitationScreen() {
       name: 'Future',
       imageURI: USERS_IMAGE_URL['Future'],
       isWithdraw: true,
+      position: 'Frontend Engineer',
     },
     {
       id: '2',
       name: 'Dominic Fike',
       imageURI: USERS_IMAGE_URL['DominicFike'],
       isWithdraw: false,
+      position: 'Backend Engineer',
     },
     {
       id: '3',
       name: 'Kanye West',
       imageURI: USERS_IMAGE_URL['KanyeWest'],
       isWithdraw: false,
+      position: 'Software Engineer',
     },
     {
       id: '4',
       name: 'Eminem',
       imageURI: USERS_IMAGE_URL['Eminem'],
       isWithdraw: false,
+      position: 'HR Coordinator',
     },
     {
       id: '5',
       name: 'Drake',
       imageURI: USERS_IMAGE_URL['Drake'],
       isWithdraw: false,
+      position: 'Illustrator',
     },
     {
       id: '6',
       name: 'Jay-Z',
       imageURI: USERS_IMAGE_URL['JayZ'],
       isWithdraw: true,
+      position: 'CEO',
     },
     {
       id: '7',
       name: 'Chance the rapper',
       imageURI: USERS_IMAGE_URL['ChanceTheRapper'],
       isWithdraw: false,
+      position: 'Anayist',
     },
   ];
 
@@ -134,7 +146,8 @@ export default function InvitationScreen() {
             <InvitationReceivedComponent
               name={item.name}
               imageURI={item.imageURI}
-              isAccepted={item.isAccepted}></InvitationReceivedComponent>
+              isAccepted={item.isAccepted}
+              position={item.position}></InvitationReceivedComponent>
           )}
         />
       ) : (
@@ -146,7 +159,8 @@ export default function InvitationScreen() {
             <InvitationSentComponent
               name={item.name}
               imageURI={item.imageURI}
-              isWithdraw={item.isWithdraw}></InvitationSentComponent>
+              isWithdraw={item.isWithdraw}
+              position={item.position}></InvitationSentComponent>
           )}
         />
       )}

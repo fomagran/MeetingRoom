@@ -6,12 +6,14 @@ interface InvitationSentProps {
   name: string;
   imageURI: string;
   isWithdraw: boolean;
+  position: string;
 }
 
 export default function InvitationSentComponent({
   name,
   imageURI,
   isWithdraw,
+  position,
 }: InvitationSentProps) {
   const [selectedWithdraw, setSelectedWithdraw] = useState<boolean>(isWithdraw);
 
@@ -39,9 +41,9 @@ export default function InvitationSentComponent({
             uri: imageURI,
           }}
         />
-        <View>
+        <View style={styles.nameBox}>
           <Text style={styles.name}>{name}</Text>
-          <Text style={styles.nameDetail}>something is here...</Text>
+          <Text style={styles.nameDetail}>{position}</Text>
         </View>
         <Pressable
           onPress={() => {

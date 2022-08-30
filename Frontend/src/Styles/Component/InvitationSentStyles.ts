@@ -4,14 +4,17 @@ import Colors from '../Common/Colors';
 export const styles = StyleSheet.create({
   card: {
     backgroundColor: Colors.white,
+    padding: 20,
     borderRadius: 10,
-    padding: 30,
-    borderBottomWidth: 1,
-    borderColor: Colors.gray4,
+    marginBottom: 2,
   },
   horizontalView: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
+  },
+  nameBox: {
+    flex: 1,
   },
   name: {
     fontSize: 16,
@@ -32,14 +35,12 @@ export const styles = StyleSheet.create({
     height: 60,
   },
   selelctedWithdraw: {
-    marginLeft: 50,
     padding: 8,
     borderRadius: 20,
     backgroundColor: Colors.charcoal,
     justifyContent: 'flex-end',
   },
   deselectedWithdraw: {
-    marginLeft: 50,
     padding: 8,
     borderRadius: 20,
     borderWidth: 2,

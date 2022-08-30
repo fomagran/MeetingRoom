@@ -7,8 +7,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     height: 50,
     justifyContent: 'center',
-    borderBottomWidth: 1,
-    borderColor: Colors.gray4,
+    marginBottom: 2,
   },
   horizontalView: {
     flexDirection: 'row',

@@ -26,9 +26,24 @@ export default function UserListScreen() {
     {
       department: 'HR',
       data: [
-        {id: '1', name: 'Beenzino', imageURI: USERS_IMAGE_URL['Beenzino']},
-        {id: '2', name: 'Mac Miller', imageURI: USERS_IMAGE_URL['MacMiller']},
-        {id: '3', name: 'Khalid', imageURI: USERS_IMAGE_URL['Khalid']},
+        {
+          id: '1',
+          name: 'Beenzino',
+          imageURI: USERS_IMAGE_URL['Beenzino'],
+          position: 'HR Director',
+        },
+        {
+          id: '2',
+          name: 'Mac Miller',
+          imageURI: USERS_IMAGE_URL['MacMiller'],
+          position: 'HR Manager',
+        },
+        {
+          id: '3',
+          name: 'Khalid',
+          imageURI: USERS_IMAGE_URL['Khalid'],
+          position: 'Recruiter',
+        },
       ],
     },
     {
@@ -38,8 +53,14 @@ export default function UserListScreen() {
           id: '4',
           name: 'Chance the rapper',
           imageURI: USERS_IMAGE_URL['ChanceTheRapper'],
+          position: 'UI Designer',
         },
-        {id: '5', name: 'Tom Hardy', imageURI: USERS_IMAGE_URL['TomHardy']},
+        {
+          id: '5',
+          name: 'Tom Hardy',
+          imageURI: USERS_IMAGE_URL['TomHardy'],
+          position: 'UX Designer',
+        },
       ],
     },
     {
@@ -49,11 +70,13 @@ export default function UserListScreen() {
           id: '6',
           name: 'Tatiana Manaois',
           imageURI: USERS_IMAGE_URL['TatianaManaois'],
+          position: 'Frontend Engineer',
         },
         {
           id: '7',
           name: 'Dominic Fike',
           imageURI: USERS_IMAGE_URL['DominicFike'],
+          position: 'Backend Engineer',
         },
       ],
     },
@@ -107,7 +130,8 @@ export default function UserListScreen() {
         renderItem={({item}) => (
           <UserComponent
             name={item.name}
-            imageURI={item.imageURI}></UserComponent>
+            imageURI={item.imageURI}
+            position={item.position}></UserComponent>
         )}
         renderSectionHeader={({section}) => (
           <Text style={sectionStyle}>{section.department}</Text>
