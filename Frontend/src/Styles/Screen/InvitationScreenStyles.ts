@@ -4,7 +4,7 @@ import Colors from '../Common/Colors';
 export const styles = StyleSheet.create({
   tabView: {
     flexDirection: 'row',
-    height: '10%',
+    height: 70,
     marginBottom: 10,
   },
   selectedButton: {

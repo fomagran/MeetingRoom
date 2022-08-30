@@ -5,13 +5,15 @@ import {styles} from '../Styles/Component/InvitationSentStyles';
 interface InvitationSentProps {
   name: string;
   imageURI: string;
+  isWithdraw: boolean;
 }
 
 export default function InvitationSentComponent({
   name,
   imageURI,
+  isWithdraw,
 }: InvitationSentProps) {
-  const [selectedWithdraw, setSelectedWithdraw] = useState<boolean>(false);
+  const [selectedWithdraw, setSelectedWithdraw] = useState<boolean>(isWithdraw);
 
   const withdrawStyle = (isSelected: boolean) => {
     if (isSelected == true) {
