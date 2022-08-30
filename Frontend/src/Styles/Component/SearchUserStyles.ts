@@ -3,37 +3,36 @@ import Colors from '../Common/Colors';
 
 export const styles = StyleSheet.create({
   card: {
-    marginHorizontal: 10,
-    marginVertical: 10,
     backgroundColor: Colors.white,
     borderRadius: 10,
-    padding: 30,
-    shadowColor: '#000',
-    shadowOffset: {width: 1, height: 1},
-    shadowOpacity: 1,
-    shadowRadius: 1,
-    elevation: 10,
+    height: 50,
+    justifyContent: 'center',
+    borderBottomWidth: 1,
+    borderColor: Colors.gray4,
   },
   horizontalView: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
   },
   name: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: Colors.charcoal,
-  },
-  nameDetail: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: Colors.gray2,
+    color: Colors.gray1,
+    flex: 1,
   },
   profile: {
-    marginLeft: -10,
+    marginLeft: 20,
     marginRight: 20,
     borderRadius: 30,
     alignItems: 'center',
-    width: 60,
-    height: 60,
+    width: 30,
+    height: 30,
+  },
+  addUser: {
+    marginRight: 20,
+    justifyContent: 'center',
+    fontSize: 21,
+    color: Colors.blue,
   },
 });

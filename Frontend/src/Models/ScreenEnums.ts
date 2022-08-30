@@ -4,4 +4,5 @@ export enum ScreenEnums {
   ChatRoom = 'ChatRoomScreen',
   UserList = 'UserListScreen',
   Invitation = 'InvitationScreen',
+  UserSearchList = 'UserSearchListScreen',
 }

@@ -12,14 +12,18 @@ export default function UserHeaderComponent() {
 
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.profile}
-        source={{
-          uri: USERS_IMAGE_URL['Fomagran'],
-        }}
-      />
-      <Text style={styles.name}>Fomagran</Text>
-      <Text style={styles.nameDetail}>My name is Fomagran 🙂</Text>
+      <View style={styles.horizontalView}>
+        <Image
+          style={styles.profile}
+          source={{
+            uri: USERS_IMAGE_URL['Fomagran'],
+          }}
+        />
+        <View style={styles.profileTextBox}>
+          <Text style={styles.name}>Fomagran</Text>
+          <Text style={styles.nameDetail}>Software Engineer 💻</Text>
+        </View>
+      </View>
       <Pressable
         style={styles.buttonContainer}
         onPress={() => {
@@ -28,7 +32,7 @@ export default function UserHeaderComponent() {
         <LinearGradient
           colors={['#CE9FFC', '#7367F0']}
           style={styles.linearContainer}>
-          <Text style={styles.manageButton}>Employee Management</Text>
+          <Text style={styles.manageButton}>Invitation management</Text>
         </LinearGradient>
       </Pressable>
     </View>

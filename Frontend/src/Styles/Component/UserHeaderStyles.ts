@@ -2,28 +2,36 @@ import {StyleSheet} from 'react-native';
 import Colors from '../Common/Colors';
 
 export const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
+  horizontalView: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
   },
   name: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: Colors.gray1,
+    color: Colors.charcoal,
     marginVertical: 5,
   },
   nameDetail: {
+    marginTop: 5,
     fontSize: 16,
     fontWeight: 'bold',
     color: Colors.gray2,
   },
+  profileTextBox: {
+    marginTop: 20,
+    marginLeft: 15,
+  },
   profile: {
+    marginLeft: 10,
     marginTop: 20,
     borderRadius: 30,
-    width: 60,
-    height: 60,
+    width: 70,
+    height: 70,
     alignSelf: 'center',
   },
   buttonContainer: {
+    alignSelf: 'center',
     width: '70%',
   },
   linearContainer: {

@@ -8,6 +8,7 @@ import {ChatRoomScreen} from '../Screens/ChatRoomScreen';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';
 import UserListScreen from '../Screens/UserListScreen';
 import InvitationScreen from '../Screens/InvitationScreen';
+import UserSearchListScreen from '../Screens/UserSearchListScreen';
 
 export type RootStackParamList = {
   LoginScreen: undefined;
@@ -15,6 +16,7 @@ export type RootStackParamList = {
   ChatScreen: {room: string};
   UserListScreen: undefined;
   InvitationScreen: undefined;
+  UserSearchListScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator();
@@ -28,6 +30,10 @@ export default function Navigation() {
         <Stack.Screen name={screens.Chat} component={ChatScreen} />
         <Stack.Screen name={screens.UserList} component={UserListScreen} />
         <Stack.Screen name={screens.Invitation} component={InvitationScreen} />
+        <Stack.Screen
+          name={screens.UserSearchList}
+          component={UserSearchListScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -13,6 +13,7 @@ const Colors = {
   charcoal: '#353839',
   blue: '#6699CC',
   lightBlue: '#89CFF0',
+  ivory: '#FFFFFA',
 };
 
 export default Colors;

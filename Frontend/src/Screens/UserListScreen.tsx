@@ -78,7 +78,10 @@ export default function UserListScreen() {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Pressable onPress={() => {}}>
+        <Pressable
+          onPress={() => {
+            navigation.navigate(screens.UserSearchList);
+          }}>
           <Icon style={styles.addUser} name="person-add"></Icon>
         </Pressable>
       ),
@@ -89,12 +92,17 @@ export default function UserListScreen() {
     navigation.setOptions({
       title: 'Users',
       headerTitleAlign: 'center',
+      headerStyle: {
+        backgroundColor: Colors.white,
+      },
+      headerTintColor: Colors.black,
     });
   }, [navigation]);
 
   return (
-    <View style={{backgroundColor: '#F7F7F7'}}>
+    <View>
       <SectionList
+        style={styles.sectionList}
         sections={users}
         renderItem={({item}) => (
           <UserComponent
