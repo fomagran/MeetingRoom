@@ -22,7 +22,7 @@ const Stack = createNativeStackNavigator();
 export default function Navigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={screens.Invitation}>
+      <Stack.Navigator initialRouteName={screens.Login}>
         <Stack.Screen name={screens.Login} component={LoginScreen} />
         <Stack.Screen name={screens.ChatRoom} component={ChatRoomScreen} />
         <Stack.Screen name={screens.Chat} component={ChatScreen} />

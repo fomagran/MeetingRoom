@@ -32,23 +32,35 @@ export default function UserListScreen() {
     {
       department: 'HR',
       data: [
-        {id: '1', name: 'Volt', imageURI: USERS_IMAGE_URL['Beenzino']},
-        {id: '2', name: 'Chris', imageURI: USERS_IMAGE_URL['MacMiller']},
-        {id: '3', name: 'Ben', imageURI: USERS_IMAGE_URL['Khalid']},
+        {id: '1', name: 'Beenzino', imageURI: USERS_IMAGE_URL['Beenzino']},
+        {id: '2', name: 'Mac Miller', imageURI: USERS_IMAGE_URL['MacMiller']},
+        {id: '3', name: 'Khalid', imageURI: USERS_IMAGE_URL['Khalid']},
       ],
     },
     {
       department: 'Design',
       data: [
-        {id: '4', name: 'June', imageURI: USERS_IMAGE_URL['Khalid']},
-        {id: '5', name: 'Kayla', imageURI: USERS_IMAGE_URL['Beenzino']},
+        {
+          id: '4',
+          name: 'Chance the rapper',
+          imageURI: USERS_IMAGE_URL['ChanceTheRapper'],
+        },
+        {id: '5', name: 'Tom Hardy', imageURI: USERS_IMAGE_URL['TomHardy']},
       ],
     },
     {
       department: 'Development',
       data: [
-        {id: '6', name: 'Xion', imageURI: USERS_IMAGE_URL['MacMiller']},
-        {id: '7', name: 'Tom', imageURI: USERS_IMAGE_URL['Khalid']},
+        {
+          id: '6',
+          name: 'Tatiana Manaois',
+          imageURI: USERS_IMAGE_URL['TatianaManaois'],
+        },
+        {
+          id: '7',
+          name: 'Dominic Fike',
+          imageURI: USERS_IMAGE_URL['DominicFike'],
+        },
       ],
     },
   ];
