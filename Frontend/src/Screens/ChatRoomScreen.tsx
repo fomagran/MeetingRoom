@@ -2,7 +2,7 @@ import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {FlatList, Pressable, View, Animated} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import ChatRoomCell from '../Components/ChatRoomCell';
-import {RootState} from '../redux/store';
+import {RootState} from '../Redux/store';
 import Icon from 'react-native-vector-icons/Fontisto';
 import {useNavigation} from '@react-navigation/core';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -12,14 +12,14 @@ import {
   useAddChatRoomMutation,
   useGetAllChatRoomsQuery,
   useEditChatRoomMutation,
-} from '../api/ChatRoomAPISlice';
+} from '../API/ChatRoomAPISlice';
 import {BASE_URL} from '../Constants';
 import io from 'socket.io-client';
 import {Swipeable, GestureHandlerRootView} from 'react-native-gesture-handler';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';
-import {useDeleteChatRoomMutation} from '../api/ChatRoomAPISlice';
-import {useGetAllReadDatesQuery} from '../api/readDatesAPISlice';
-import chatRoomSlice from '../redux/ChatRoomSlice';
+import {useDeleteChatRoomMutation} from '../API/ChatRoomAPISlice';
+import {useGetAllReadDatesQuery} from '../API/readDatesAPISlice';
+import chatRoomSlice from '../Redux/ChatRoomSlice';
 import ChatRoomPasswordModal from '../Components/ChatRoomPasswordModal';
 
 export function ChatRoomScreen() {

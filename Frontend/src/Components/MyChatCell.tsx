@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Text, View, Image} from 'react-native';
 import {useSelector} from 'react-redux';
-import {RootState} from '../redux/store';
+import {RootState} from '../Redux/store';
 import {styles} from '../Styles/Component/MyChatStyles';
 
 interface ChatProps {

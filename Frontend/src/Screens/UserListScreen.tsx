@@ -7,10 +7,10 @@ import {RootStackParamList} from '../Navigation';
 import Colors from '../Styles/Common/Colors';
 import {USERS_IMAGE_URL} from '../Constants';
 import UserHeaderComponent from '../Components/UserHeaderComponent';
-import {RootState} from '../redux/store';
+import {RootState} from '../Redux/store';
 import {useSelector} from 'react-redux';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';
-import userListSlice from '../redux/UserListSlice';
+import userListSlice from '../Redux/UserListSlice';
 import {useDispatch} from 'react-redux';
 
 export default function UserListScreen() {

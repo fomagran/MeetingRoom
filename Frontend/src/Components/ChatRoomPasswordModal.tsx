@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {View, Modal, Text, Pressable} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import chatRoomSlice from '../redux/ChatRoomSlice';
-import {RootState} from '../redux/store';
+import chatRoomSlice from '../Redux/ChatRoomSlice';
+import {RootState} from '../Redux/store';
 import {styles} from '../Styles/Component/ChatRoomPasswordModalStyles';
 import Icon from 'react-native-vector-icons/AntDesign';
 import PasscodeKey from './PasscodeKey';

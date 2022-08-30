@@ -1,8 +1,8 @@
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
-import {chatAPISlice} from '../api/ChatAPISlice';
-import {chatRoomAPISlice} from '../api/ChatRoomAPISlice';
-import {readDatesAPISlice} from '../api/readDatesAPISlice';
-import {userAPISlice} from '../api/UserAPISlice';
+import {chatAPISlice} from '../API/ChatAPISlice';
+import {chatRoomAPISlice} from '../API/ChatRoomAPISlice';
+import {readDatesAPISlice} from '../API/readDatesAPISlice';
+import {userAPISlice} from '../API/UserAPISlice';
 import chatRoomSlice from './ChatRoomSlice';
 import loginSlice from './LoginSlice';
 import userListSlice from './UserListSlice';

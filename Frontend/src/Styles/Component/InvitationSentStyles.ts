@@ -3,10 +3,11 @@ import Colors from '../Common/Colors';
 
 export const styles = StyleSheet.create({
   card: {
-    marginVertical: 5,
     backgroundColor: Colors.white,
     borderRadius: 10,
     padding: 30,
+    borderBottomWidth: 1,
+    borderColor: Colors.gray4,
   },
   horizontalView: {
     flexDirection: 'row',

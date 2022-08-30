@@ -12,9 +12,9 @@ import {ApiProvider} from '@reduxjs/toolkit/dist/query/react';
 import React from 'react';
 import {Provider} from 'react-redux';
 
-import {userAPISlice} from './src/api/UserAPISlice';
+import {userAPISlice} from './src/API/UserAPISlice';
 import Navigation from './src/Navigation';
-import store from './src/redux/store';
+import store from './src/Redux/store';
 
 const App = () => {
   return (
