@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import React, {useEffect, useLayoutEffect} from 'react';
-import {View, Text, SectionList} from 'react-native';
+import {View, Text, SectionList, Pressable} from 'react-native';
 import UserComponent from '../Components/UserComponent';
 import {RootStackParamList} from '../Navigation';
 import Colors from '../Styles/Common/Colors';
@@ -12,6 +12,8 @@ import {useSelector} from 'react-redux';
 import {ScreenEnums as screens} from '../Models/ScreenEnums';
 import userListSlice from '../Redux/UserListSlice';
 import {useDispatch} from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {styles} from '../Styles/Screen/UserListStyles';
 
 export default function UserListScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -20,14 +22,6 @@ export default function UserListScreen() {
   );
   const actions = userListSlice.actions;
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (userListState.tapManagementButton) {
-      navigation.navigate(screens.Invitation);
-      dispatch(actions.tapManagement({isTapManagementButton: false}));
-    }
-  }, [userListState]);
-
   const users: any[] = [
     {
       department: 'HR',
@@ -73,6 +67,23 @@ export default function UserListScreen() {
     fontSize: 16,
     fontWeight: 'bold',
   };
+
+  useEffect(() => {
+    if (userListState.tapManagementButton) {
+      navigation.navigate(screens.Invitation);
+      dispatch(actions.tapManagement({isTapManagementButton: false}));
+    }
+  }, [userListState]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Pressable onPress={() => {}}>
+          <Icon style={styles.addUser} name="person-add"></Icon>
+        </Pressable>
+      ),
+    });
+  }, [navigation]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
