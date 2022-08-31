@@ -9,6 +9,8 @@ export default class UserController {
       const user = {
         name: req.body.name,
         profileImage: req.body.profileImage,
+        department: req.body.department,
+        role: req.body.role,
       };
 
       await prisma.user

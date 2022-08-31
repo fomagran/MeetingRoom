@@ -11,14 +11,24 @@ datasource db {
 }
 
 model User {
-  id           String         @id @default(uuid())
-  name         String         @unique
-  profileImage String
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  chat         Chat[]
-  chatRooms    ChatRoomUser[]
-  readDates    ReadDates[]
+  id             String           @id @default(uuid())
+  name           String           @unique
+  profileImage   String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  department     String
+  role           String
+  chat           Chat[]
+  chatRooms      ChatRoomUser[]
+  readDates      ReadDates[]
+  connectedUsers ConnectedUsers[]
+}
+
+model ConnectedUsers {
+  id              String @id @default(uuid())
+  userId          String
+  connectedUserId String
+  connected       User   @relation(fields: [connectedUserId], references: [id])
 }
 
 model ChatRoom {

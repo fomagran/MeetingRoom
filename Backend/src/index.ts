@@ -2,6 +2,7 @@ import express from "express";
 import { Message } from "./models/Message";
 import chatRoomRouter from "./routers/ChatRoomRouter";
 import chatRouter from "./routers/ChatRouter";
+import connectedUserRouter from "./routers/ConnectedUserRouter";
 import readDatesRouter from "./routers/ReadDatesRouter";
 import userRouter from "./routers/UserRouter";
 
@@ -12,6 +13,7 @@ let io = require("socket.io")(http);
 
 app.use("/api", chatRouter);
 app.use("/api", userRouter);
+app.use("/api", connectedUserRouter);
 app.use("/api", chatRoomRouter);
 app.use("/api", readDatesRouter);
 
