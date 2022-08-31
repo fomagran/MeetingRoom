@@ -18,7 +18,7 @@ export default function UserHeaderComponent() {
         <Image
           style={styles.profile}
           source={{
-            uri: USERS_IMAGE_URL['Fomagran'],
+            uri: user.profileImage,
           }}
         />
         <View style={styles.profileTextBox}>

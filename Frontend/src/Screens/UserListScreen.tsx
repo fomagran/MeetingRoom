@@ -30,65 +30,6 @@ export default function UserListScreen() {
   const dispatch = useDispatch();
   const connectedUsers = useGetAllConnectedUserByIdQuery(user.id).data;
   const [sectionUsers, setSectionUsers] = useState([]);
-  const users: any[] = [
-    {
-      department: 'HR',
-      data: [
-        {
-          id: '1',
-          name: 'Beenzino',
-          profileImage: USERS_IMAGE_URL['Beenzino'],
-          role: 'HR Director',
-        },
-        {
-          id: '2',
-          name: 'Mac Miller',
-          profileImage: USERS_IMAGE_URL['MacMiller'],
-          role: 'HR Manager',
-        },
-        {
-          id: '3',
-          name: 'Khalid',
-          profileImage: USERS_IMAGE_URL['Khalid'],
-          role: 'Recruiter',
-        },
-      ],
-    },
-    {
-      department: 'Design',
-      data: [
-        {
-          id: '4',
-          name: 'Chance the rapper',
-          profileImage: USERS_IMAGE_URL['ChanceTheRapper'],
-          role: 'UI Designer',
-        },
-        {
-          id: '5',
-          name: 'Tom Hardy',
-          profileImage: USERS_IMAGE_URL['TomHardy'],
-          role: 'UX Designer',
-        },
-      ],
-    },
-    {
-      department: 'Development',
-      data: [
-        {
-          id: '6',
-          name: 'Tatiana Manaois',
-          profileImage: USERS_IMAGE_URL['TatianaManaois'],
-          role: 'Frontend Engineer',
-        },
-        {
-          id: '7',
-          name: 'Dominic Fike',
-          profileImage: USERS_IMAGE_URL['DominicFike'],
-          role: 'Backend Engineer',
-        },
-      ],
-    },
-  ];
 
   const sectionStyle = {
     backgroundColor: Colors.transparent,

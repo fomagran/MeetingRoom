@@ -1,5 +1,5 @@
 {
-  "name": "Frontend",
+  "name": "MeetingRoom",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^1.7.2",
     "@types/react": "^18.0.17",
     "axios": "^0.25.0",
+    "expo-linear-gradient": "^11.4.0",
     "react": "17.0.1",
     "react-native": "0.64.0",
     "react-native-device-info": "^8.4.5",
@@ -25,7 +26,8 @@
     "react-native-vector-icons": "^8.1.0",
     "react-redux": "^8.0.0",
     "redux": "^4.2.0",
-    "socket.io-client": "^4.5.1"
+    "socket.io-client": "^4.5.1",
+    "uninstall": "0.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
