@@ -36,10 +36,11 @@ export default class ConnectedUserController {
   getAllConnectedUserById = async (req: Request, res: Response) => {
     try {
       await prisma.connectedUsers
-        .findFirst({
+        .findMany({
           where: {
             userId: req.params.userId,
           },
+          include: { connected: true },
         })
         .then((data) => {
           res.json(data);

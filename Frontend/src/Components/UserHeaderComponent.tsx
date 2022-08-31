@@ -4,11 +4,13 @@ import {styles} from '../Styles/Component/UserHeaderStyles';
 import {USERS_IMAGE_URL} from '../Constants';
 import LinearGradient from 'react-native-linear-gradient';
 import userListSlice from '../Redux/UserListSlice';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../Redux/store';
 
 export default function UserHeaderComponent() {
   const actions = userListSlice.actions;
   const dispatch = useDispatch();
+  const user = useSelector<RootState, User>(state => state.login.user);
 
   return (
     <View style={styles.container}>
@@ -20,8 +22,8 @@ export default function UserHeaderComponent() {
           }}
         />
         <View style={styles.profileTextBox}>
-          <Text style={styles.name}>Fomagran</Text>
-          <Text style={styles.nameDetail}>Software Engineer 💻</Text>
+          <Text style={styles.name}>{user.name}</Text>
+          <Text style={styles.nameDetail}>{user.role}</Text>
         </View>
       </View>
       <Pressable
