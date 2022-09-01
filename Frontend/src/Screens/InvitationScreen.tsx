@@ -5,25 +5,22 @@ import {RootStackParamList} from '../Navigation';
 import {View, Text, Pressable} from 'react-native';
 import {styles} from '../Styles/Screen/InvitationScreenStyles';
 import {FlatList} from 'react-native-gesture-handler';
-import {USERS_IMAGE_URL} from '../Constants';
 import InvitationSentComponent from '../Components/InvitationSentComponent';
 import InvitationReceivedComponent from '../Components/InvitationReceivedComponent';
 import Colors from '../Styles/Common/Colors';
 import {useSelector} from 'react-redux';
 import {RootState} from '../Redux/store';
-import {useGetAllInvitationsQuery} from '../API/InvitationAPISlice';
 
 export default function InvitationScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [selectedTab, setSelectedTab] = useState('received');
-  const user = useSelector<RootState, User>(state => state.login.user);
-  const invitations = useGetAllInvitationsQuery(user.id).data;
+  const invitations = useSelector<RootState, Invitation[]>(
+    state => state.invitation.invitations,
+  );
   const [sentUsers, setSentUsers] = useState<User[]>([]);
   const [receivedUsers, setReceivedUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    console.log(invitations);
-
     if (invitations !== undefined) {
       const sent = invitations
         .filter(inv => !inv.isReceived)
@@ -33,8 +30,6 @@ export default function InvitationScreen() {
         .map(inv => inv.fromUser);
       setSentUsers(sent);
       setReceivedUsers(received);
-
-      console.log(sent, received);
     }
   }, [invitations]);
 

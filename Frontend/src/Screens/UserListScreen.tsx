@@ -15,6 +15,8 @@ import {useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {styles} from '../Styles/Screen/UserListStyles';
 import {useGetAllConnectedUserByIdQuery} from '../API/ConnectedUserAPISlice';
+import {useGetAllInvitationsQuery} from '../API/InvitationAPISlice';
+import invitationSlice from '../Redux/InvitationSlice';
 
 interface SectionDictionary {
   [key: string]: User[];
@@ -30,6 +32,8 @@ export default function UserListScreen() {
   const dispatch = useDispatch();
   const connectedUsers = useGetAllConnectedUserByIdQuery(user.id).data;
   const [sectionUsers, setSectionUsers] = useState([]);
+  const invitations = useGetAllInvitationsQuery(user.id).data;
+  const invitationActions = invitationSlice.actions;
 
   const sectionStyle = {
     backgroundColor: Colors.transparent,
@@ -41,7 +45,13 @@ export default function UserListScreen() {
   };
 
   useEffect(() => {
+    dispatch(invitationActions.loadedInvitations({invitations: invitations}));
+  }, [invitations]);
+
+  useEffect(() => {
     if (connectedUsers !== undefined) {
+      const cu = connectedUsers.map(cu => cu.connected);
+      dispatch(actions.loadedConnectedUsers({connectedUsers: cu}));
       let map: SectionDictionary = {};
       for (let connectUser of connectedUsers) {
         if (map[connectUser.connected.department] === undefined) {

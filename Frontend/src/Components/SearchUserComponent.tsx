@@ -6,13 +6,13 @@ import Colors from '../Styles/Common/Colors';
 
 interface SearchUserProps {
   name: string;
-  imageURI: string;
+  profileImage: string;
   exist: boolean;
 }
 
 export default function SearchUserComponent({
   name,
-  imageURI,
+  profileImage,
   exist,
 }: SearchUserProps) {
   const [existUser, setExistUser] = useState<boolean>(exist);
@@ -27,7 +27,7 @@ export default function SearchUserComponent({
         <Image
           style={styles.profile}
           source={{
-            uri: imageURI,
+            uri: profileImage,
           }}
         />
         <Text style={styles.name}>{name}</Text>

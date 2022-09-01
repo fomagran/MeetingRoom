@@ -5,3 +5,7 @@ interface Invitation {
   isReceived: boolean;
   fromUser: User;
 }
+
+interface InvitationState {
+  invitations: Invitation[];
+}

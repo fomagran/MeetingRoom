@@ -8,12 +8,14 @@ import {userAPISlice} from '../API/UserAPISlice';
 import chatRoomSlice from './ChatRoomSlice';
 import loginSlice from './LoginSlice';
 import userListSlice from './UserListSlice';
+import invitationSlice from './InvitationSlice';
 
 const store = configureStore({
   reducer: {
     login: loginSlice.reducer,
     chatRoom: chatRoomSlice.reducer,
     userList: userListSlice.reducer,
+    invitation: invitationSlice.reducer,
     [chatAPISlice.reducerPath]: chatAPISlice.reducer,
     [chatRoomAPISlice.reducerPath]: chatRoomAPISlice.reducer,
     [userAPISlice.reducerPath]: userAPISlice.reducer,
