@@ -59,6 +59,9 @@ export default class InvitationController {
             userId: {
               equals: req.params.userId,
             },
+            fromUserId: {
+              equals: req.body.fromUserId,
+            },
           },
         })
         .then((data) => {

@@ -30,19 +30,8 @@ export default function UserListScreen() {
   const connectedUsers = useGetAllConnectedUserByIdQuery(user.id).data;
   const [sectionUsers, setSectionUsers] = useState([]);
 
-  const sectionStyle = {
-    backgroundColor: Colors.transparent,
-    color: Colors.gray2,
-    marginLeft: 20,
-    marginVertical: 20,
-    fontSize: 16,
-    fontWeight: 'bold',
-  };
-
   useEffect(() => {
     if (connectedUsers !== undefined) {
-      const cu = connectedUsers.map(cu => cu.connected);
-      dispatch(actions.loadedConnectedUsers({connectedUsers: cu}));
       let map: SectionDictionary = {};
       for (let connectUser of connectedUsers) {
         if (map[connectUser.connected.department] === undefined) {
@@ -57,8 +46,6 @@ export default function UserListScreen() {
       for (let key of Object.keys(map)) {
         sectionList.push({department: key, data: map[key]});
       }
-
-      console.log(sectionList);
 
       setSectionUsers(sectionList);
     }
@@ -107,7 +94,7 @@ export default function UserListScreen() {
             position={item.role}></UserComponent>
         )}
         renderSectionHeader={({section}) => (
-          <Text style={sectionStyle}>{section.department}</Text>
+          <Text style={styles.sectionTitle}>{section.department}</Text>
         )}
         keyExtractor={item => `${item.id}`}
         ListHeaderComponent={UserHeaderComponent}

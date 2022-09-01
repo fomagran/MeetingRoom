@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Text, View, Image, Pressable} from 'react-native';
 import {styles} from '../Styles/Component/InvitationSentStyles';
 
@@ -13,23 +13,6 @@ export default function InvitationSentComponent({
   profileImage,
   role,
 }: InvitationSentProps) {
-  const [selectedWithdraw, setSelectedWithdraw] = useState<boolean>(false);
-
-  const withdrawStyle = (isSelected: boolean) => {
-    if (isSelected == true) {
-      return styles.selelctedWithdraw;
-    } else {
-      return styles.deselectedWithdraw;
-    }
-  };
-
-  const withdrawTextStyle = (isSelected: boolean) => {
-    if (isSelected == true) {
-      return styles.selectedWithdrawText;
-    } else {
-      return styles.deselectedWithdrawText;
-    }
-  };
   return (
     <View style={styles.card}>
       <View style={styles.horizontalView}>
@@ -43,13 +26,8 @@ export default function InvitationSentComponent({
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.nameDetail}>{role}</Text>
         </View>
-        <Pressable
-          onPress={() => {
-            console.log('??');
-            setSelectedWithdraw(!selectedWithdraw);
-          }}
-          style={withdrawStyle(selectedWithdraw)}>
-          <Text style={withdrawTextStyle(selectedWithdraw)}> Withdraw </Text>
+        <Pressable onPress={() => {}} style={styles.withdrawButton}>
+          <Text style={styles.withdrawButtonText}> Withdraw </Text>
         </Pressable>
       </View>
     </View>

@@ -11,18 +11,17 @@ import {useGetAllUsersQuery} from '../API/UserAPISlice';
 import {RootState} from '../Redux/store';
 import {useSelector} from 'react-redux';
 import {useGetAllInvitationsQuery} from '../API/InvitationAPISlice';
+import {useGetAllConnectedUserByIdQuery} from '../API/ConnectedUserAPISlice';
 
 export default function UserSearchListScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const allUsers = useGetAllUsersQuery('').data;
-  const userListState = useSelector<RootState, UserListState>(
-    state => state.userList,
-  );
   const [unconnectedUsers, setUnconnectedUsers] = useState<User[]>([]);
   const [searchUsers, setSearchUsers] = useState<any[]>([]);
   const user = useSelector<RootState, User>(state => state.login.user);
   const [sentInvitationIds, setSentInvitationIds] = useState<string[]>([]);
   const invitations = useGetAllInvitationsQuery(user.id).data;
+  const connectedUsers = useGetAllConnectedUserByIdQuery(user.id).data;
 
   useEffect(() => {
     if (invitations !== undefined) {
@@ -35,7 +34,7 @@ export default function UserSearchListScreen() {
 
   useEffect(() => {
     if (allUsers !== undefined) {
-      const connectedUserIds = userListState.connectedUsers.map(cu => cu.id);
+      const connectedUserIds = connectedUsers.map(cu => cu.connectedUserId);
       const filterUser = allUsers.filter(
         u => u.id !== user.id && !connectedUserIds.includes(u.id),
       );

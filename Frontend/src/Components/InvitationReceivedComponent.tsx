@@ -1,54 +1,48 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Text, View, Image, Pressable} from 'react-native';
+import {useDeleteInvitationMutation} from '../API/InvitationAPISlice';
+import {useAddUserMutation} from '../API/ConnectedUserAPISlice';
 import {styles} from '../Styles/Component/InvitationReceivedStyles';
+import {useSelector} from 'react-redux';
+import {RootState} from '../Redux/store';
 
 interface InvitationReceivedProps {
-  name: string;
-  profileImage: string;
-  role: string;
+  user: User;
 }
 
 export default function InvitationReceivedComponent({
-  name,
-  profileImage,
-  role,
+  user,
 }: InvitationReceivedProps) {
-  const [selectedWithdraw, setSelectedWithdraw] = useState<boolean>(false);
+  const [deleteInvitation] = useDeleteInvitationMutation();
+  const [addUser] = useAddUserMutation();
+  const currentUser = useSelector<RootState, User>(state => state.login.user);
 
-  const withdrawStyle = (isSelected: boolean) => {
-    if (isSelected == true) {
-      return styles.selelctedWithdraw;
-    } else {
-      return styles.deselectedWithdraw;
-    }
-  };
-
-  const withdrawTextStyle = (isSelected: boolean) => {
-    if (isSelected == true) {
-      return styles.selectedWithdrawText;
-    } else {
-      return styles.deselectedWithdrawText;
-    }
-  };
   return (
     <View style={styles.card}>
       <View style={styles.horizontalView}>
         <Image
           style={styles.profile}
           source={{
-            uri: profileImage,
+            uri: user.profileImage,
           }}
         />
         <View style={styles.nameBox}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.nameDetail}>{role}</Text>
+          <Text style={styles.name}>{user.name}</Text>
+          <Text style={styles.nameDetail}>{user.role}</Text>
         </View>
         <Pressable
           onPress={() => {
-            setSelectedWithdraw(!selectedWithdraw);
+            deleteInvitation({userId: currentUser.id, fromUserId: user.id});
+            deleteInvitation({userId: user.id, fromUserId: currentUser.id});
+            addUser({
+              id: '',
+              userId: currentUser.id,
+              connectedUserId: user.id,
+              connected: undefined,
+            });
           }}
-          style={withdrawStyle(selectedWithdraw)}>
-          <Text style={withdrawTextStyle(selectedWithdraw)}> Accept </Text>
+          style={styles.acceptButton}>
+          <Text style={styles.acceptButtonText}> Accept </Text>
         </Pressable>
       </View>
     </View>

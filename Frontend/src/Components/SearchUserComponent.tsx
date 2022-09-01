@@ -3,10 +3,7 @@ import {Text, View, Image, Pressable} from 'react-native';
 import {styles} from '../Styles/Component/SearchUserStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from '../Styles/Common/Colors';
-import {
-  useAddInvitationMutation,
-  useGetAllInvitationsQuery,
-} from '../API/InvitationAPISlice';
+import {useAddInvitationMutation} from '../API/InvitationAPISlice';
 import {useSelector} from 'react-redux';
 import {RootState} from '../Redux/store';
 

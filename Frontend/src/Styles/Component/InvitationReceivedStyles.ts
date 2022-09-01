@@ -34,25 +34,14 @@ export const styles = StyleSheet.create({
     width: 60,
     height: 60,
   },
-  selelctedWithdraw: {
+  acceptButton: {
     padding: 8,
     borderRadius: 20,
     backgroundColor: Colors.charcoal,
   },
-  deselectedWithdraw: {
-    padding: 8,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: Colors.gray1,
-  },
-  selectedWithdrawText: {
+  acceptButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
     color: Colors.white,
-  },
-  deselectedWithdrawText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: Colors.gray1,
   },
 });

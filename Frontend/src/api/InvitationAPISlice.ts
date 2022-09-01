@@ -26,9 +26,10 @@ export const invitationAPISlice = createApi({
       invalidatesTags: ['Invitations'],
     }),
     deleteInvitation: builder.mutation({
-      query: (id: string) => ({
-        url: `/invitations/${id}`,
+      query: (ids: {userId: string; fromUserId: string}) => ({
+        url: `/invitations/${ids.userId}`,
         method: 'DELETE',
+        body: ids.fromUserId,
       }),
       invalidatesTags: ['Invitations'],
     }),

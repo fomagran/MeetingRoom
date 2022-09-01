@@ -85,9 +85,7 @@ export default function InvitationScreen() {
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <InvitationReceivedComponent
-              name={item.name}
-              profileImage={item.profileImage}
-              role={item.role}></InvitationReceivedComponent>
+              user={item}></InvitationReceivedComponent>
           )}
         />
       ) : (
