@@ -16,7 +16,7 @@ import {useGetAllConnectedUserByIdQuery} from '../API/ConnectedUserAPISlice';
 export default function UserSearchListScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const allUsers = useGetAllUsersQuery('').data;
-  const [unconnectedUsers, setUnconnectedUsers] = useState<User[]>([]);
+  const [unconnectedUsers, setUnconnectedUsers] = useState<User[]>(allUsers);
   const [searchUsers, setSearchUsers] = useState<any[]>([]);
   const user = useSelector<RootState, User>(state => state.login.user);
   const [sentInvitationIds, setSentInvitationIds] = useState<string[]>([]);
@@ -33,15 +33,15 @@ export default function UserSearchListScreen() {
   }, [invitations]);
 
   useEffect(() => {
-    if (allUsers !== undefined) {
+    if (allUsers !== undefined && connectedUsers !== undefined) {
       const connectedUserIds = connectedUsers.map(cu => cu.connectedUserId);
-      const filterUser = allUsers.filter(
+      const filterUser = unconnectedUsers.filter(
         u => u.id !== user.id && !connectedUserIds.includes(u.id),
       );
       setUnconnectedUsers(filterUser);
       setSearchUsers(filterUser);
     }
-  }, [allUsers]);
+  }, [allUsers, connectedUsers]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
