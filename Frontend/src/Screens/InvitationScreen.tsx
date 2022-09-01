@@ -8,10 +8,9 @@ import {FlatList} from 'react-native-gesture-handler';
 import InvitationSentComponent from '../Components/InvitationSentComponent';
 import InvitationReceivedComponent from '../Components/InvitationReceivedComponent';
 import Colors from '../Styles/Common/Colors';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {RootState} from '../Redux/store';
 import {useGetAllInvitationsQuery} from '../API/InvitationAPISlice';
-import invitationSlice from '../Redux/InvitationSlice';
 
 export default function InvitationScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -20,8 +19,6 @@ export default function InvitationScreen() {
   const invitations = useGetAllInvitationsQuery(user.id).data;
   const [sentUsers, setSentUsers] = useState<User[]>([]);
   const [receivedUsers, setReceivedUsers] = useState<User[]>([]);
-  const dispatch = useDispatch();
-  const actions = invitationSlice.actions;
 
   useEffect(() => {
     if (invitations !== undefined) {
