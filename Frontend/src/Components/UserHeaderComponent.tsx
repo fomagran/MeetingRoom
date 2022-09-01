@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, Text, Image, Pressable} from 'react-native';
 import {styles} from '../Styles/Component/UserHeaderStyles';
-import {USERS_IMAGE_URL} from '../Constants';
 import LinearGradient from 'react-native-linear-gradient';
 import userListSlice from '../Redux/UserListSlice';
 import {useDispatch, useSelector} from 'react-redux';

@@ -4,18 +4,16 @@ import {styles} from '../Styles/Component/InvitationReceivedStyles';
 
 interface InvitationReceivedProps {
   name: string;
-  imageURI: string;
-  isAccepted: boolean;
-  position: string;
+  profileImage: string;
+  role: string;
 }
 
 export default function InvitationReceivedComponent({
   name,
-  imageURI,
-  isAccepted,
-  position,
+  profileImage,
+  role,
 }: InvitationReceivedProps) {
-  const [selectedWithdraw, setSelectedWithdraw] = useState<boolean>(isAccepted);
+  const [selectedWithdraw, setSelectedWithdraw] = useState<boolean>(false);
 
   const withdrawStyle = (isSelected: boolean) => {
     if (isSelected == true) {
@@ -38,12 +36,12 @@ export default function InvitationReceivedComponent({
         <Image
           style={styles.profile}
           source={{
-            uri: imageURI,
+            uri: profileImage,
           }}
         />
         <View style={styles.nameBox}>
           <Text style={styles.name}>{name}</Text>
-          <Text style={styles.nameDetail}>{position}</Text>
+          <Text style={styles.nameDetail}>{role}</Text>
         </View>
         <Pressable
           onPress={() => {

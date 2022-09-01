@@ -4,18 +4,16 @@ import {styles} from '../Styles/Component/InvitationSentStyles';
 
 interface InvitationSentProps {
   name: string;
-  imageURI: string;
-  isWithdraw: boolean;
-  position: string;
+  profileImage: string;
+  role: string;
 }
 
 export default function InvitationSentComponent({
   name,
-  imageURI,
-  isWithdraw,
-  position,
+  profileImage,
+  role,
 }: InvitationSentProps) {
-  const [selectedWithdraw, setSelectedWithdraw] = useState<boolean>(isWithdraw);
+  const [selectedWithdraw, setSelectedWithdraw] = useState<boolean>(false);
 
   const withdrawStyle = (isSelected: boolean) => {
     if (isSelected == true) {
@@ -38,12 +36,12 @@ export default function InvitationSentComponent({
         <Image
           style={styles.profile}
           source={{
-            uri: imageURI,
+            uri: profileImage,
           }}
         />
         <View style={styles.nameBox}>
           <Text style={styles.name}>{name}</Text>
-          <Text style={styles.nameDetail}>{position}</Text>
+          <Text style={styles.nameDetail}>{role}</Text>
         </View>
         <Pressable
           onPress={() => {

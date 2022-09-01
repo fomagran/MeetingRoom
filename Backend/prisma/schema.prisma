@@ -22,6 +22,7 @@ model User {
   chatRooms      ChatRoomUser[]
   readDates      ReadDates[]
   connectedUsers ConnectedUsers[]
+  invitations    Invitation[]
 }
 
 model ConnectedUsers {
@@ -29,6 +30,14 @@ model ConnectedUsers {
   userId          String
   connectedUserId String
   connected       User   @relation(fields: [connectedUserId], references: [id])
+}
+
+model Invitation {
+  id         String  @id @default(uuid())
+  userId     String
+  fromUserId String
+  fromUser   User    @relation(fields: [fromUserId], references: [id])
+  isReceived Boolean
 }
 
 model ChatRoom {

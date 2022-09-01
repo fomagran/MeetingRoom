@@ -1,3 +1,4 @@
+import {invitationAPISlice} from '../API/InvitationAPISlice';
 import {configureStore} from '@reduxjs/toolkit';
 import {chatAPISlice} from '../API/ChatAPISlice';
 import {chatRoomAPISlice} from '../API/ChatRoomAPISlice';
@@ -18,6 +19,7 @@ const store = configureStore({
     [userAPISlice.reducerPath]: userAPISlice.reducer,
     [readDatesAPISlice.reducerPath]: readDatesAPISlice.reducer,
     [connectedUserAPISlice.reducerPath]: connectedUserAPISlice.reducer,
+    [invitationAPISlice.reducerPath]: invitationAPISlice.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
@@ -26,6 +28,7 @@ const store = configureStore({
       userAPISlice.middleware,
       readDatesAPISlice.middleware,
       connectedUserAPISlice.middleware,
+      invitationAPISlice.middleware,
     ),
 });
 

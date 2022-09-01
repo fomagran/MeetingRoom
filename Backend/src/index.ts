@@ -3,6 +3,7 @@ import { Message } from "./models/Message";
 import chatRoomRouter from "./routers/ChatRoomRouter";
 import chatRouter from "./routers/ChatRouter";
 import connectedUserRouter from "./routers/ConnectedUserRouter";
+import invitationRouter from "./routers/InvitationRouter";
 import readDatesRouter from "./routers/ReadDatesRouter";
 import userRouter from "./routers/UserRouter";
 
@@ -16,6 +17,7 @@ app.use("/api", userRouter);
 app.use("/api", connectedUserRouter);
 app.use("/api", chatRoomRouter);
 app.use("/api", readDatesRouter);
+app.use("/api", invitationRouter);
 
 const chat = io.of("/chat");
 const chatRoom = io.of("/chatRoom");
