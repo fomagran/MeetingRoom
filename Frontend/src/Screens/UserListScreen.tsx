@@ -5,7 +5,6 @@ import {View, Text, SectionList, Pressable} from 'react-native';
 import UserComponent from '../Components/UserComponent';
 import {RootStackParamList} from '../Navigation';
 import Colors from '../Styles/Common/Colors';
-import {USERS_IMAGE_URL} from '../Constants';
 import UserHeaderComponent from '../Components/UserHeaderComponent';
 import {RootState} from '../Redux/store';
 import {useSelector} from 'react-redux';
@@ -15,8 +14,6 @@ import {useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {styles} from '../Styles/Screen/UserListStyles';
 import {useGetAllConnectedUserByIdQuery} from '../API/ConnectedUserAPISlice';
-import {useGetAllInvitationsQuery} from '../API/InvitationAPISlice';
-import invitationSlice from '../Redux/InvitationSlice';
 
 interface SectionDictionary {
   [key: string]: User[];
@@ -32,8 +29,6 @@ export default function UserListScreen() {
   const dispatch = useDispatch();
   const connectedUsers = useGetAllConnectedUserByIdQuery(user.id).data;
   const [sectionUsers, setSectionUsers] = useState([]);
-  const invitations = useGetAllInvitationsQuery(user.id).data;
-  const invitationActions = invitationSlice.actions;
 
   const sectionStyle = {
     backgroundColor: Colors.transparent,
@@ -43,10 +38,6 @@ export default function UserListScreen() {
     fontSize: 16,
     fontWeight: 'bold',
   };
-
-  useEffect(() => {
-    dispatch(invitationActions.loadedInvitations({invitations: invitations}));
-  }, [invitations]);
 
   useEffect(() => {
     if (connectedUsers !== undefined) {

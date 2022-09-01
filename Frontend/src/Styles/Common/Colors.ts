@@ -4,7 +4,7 @@ const Colors = {
   orange: '#ff781f',
   green: '#00FF00',
   ligthRed: '#FF7F7F',
-  transparent: '00FFFFFF',
+  transparent: '#00FFFFF',
   gray1: '#696969',
   gray2: '#adadad',
   gray3: '#bababa',

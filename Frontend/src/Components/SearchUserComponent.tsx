@@ -3,19 +3,22 @@ import {Text, View, Image, Pressable} from 'react-native';
 import {styles} from '../Styles/Component/SearchUserStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from '../Styles/Common/Colors';
+import {
+  useAddInvitationMutation,
+  useGetAllInvitationsQuery,
+} from '../API/InvitationAPISlice';
+import {useSelector} from 'react-redux';
+import {RootState} from '../Redux/store';
 
 interface SearchUserProps {
-  name: string;
-  profileImage: string;
-  exist: boolean;
+  user: User;
+  isSent: boolean;
 }
 
-export default function SearchUserComponent({
-  name,
-  profileImage,
-  exist,
-}: SearchUserProps) {
-  const [existUser, setExistUser] = useState<boolean>(exist);
+export default function SearchUserComponent({user, isSent}: SearchUserProps) {
+  const [sent, setSentUser] = useState<boolean>(isSent);
+  const [addInvitation] = useAddInvitationMutation();
+  const currentUser = useSelector<RootState, User>(state => state.login.user);
 
   const existColor = (exist: boolean) => {
     return exist ? Colors.charcoal : Colors.blue;
@@ -27,21 +30,38 @@ export default function SearchUserComponent({
         <Image
           style={styles.profile}
           source={{
-            uri: profileImage,
+            uri: user.profileImage,
           }}
         />
-        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.name}>{user.name}</Text>
         <Pressable
           onPress={() => {
-            if (!existUser) {
-              setExistUser(!existUser);
+            if (!sent) {
+              setSentUser(!sent);
+              addInvitation({
+                id: '',
+                userId: currentUser.id,
+                fromUserId: user.id,
+                isReceived: false,
+                fromUser: undefined,
+              });
+              addInvitation({
+                id: '',
+                userId: user.id,
+                fromUserId: currentUser.id,
+                fromUser: undefined,
+                isReceived: true,
+              });
             }
           }}>
           <Icon
-            style={{...styles.addUser, ...{color: existColor(existUser)}}}
-            name={existUser ? 'md-checkmark-circle' : 'person-add'}></Icon>
+            style={{...styles.addUser, ...{color: existColor(sent)}}}
+            name={sent ? 'ios-time' : 'person-add'}></Icon>
         </Pressable>
       </View>
     </View>
   );
+}
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.');
 }

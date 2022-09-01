@@ -10,6 +10,9 @@ import {useNavigation} from '@react-navigation/native';
 import {useGetAllUsersQuery} from '../API/UserAPISlice';
 import {RootState} from '../Redux/store';
 import {useSelector} from 'react-redux';
+import invitationSlice from '../Redux/InvitationSlice';
+import {useGetAllInvitationsQuery} from '../API/InvitationAPISlice';
+import {useDispatch} from 'react-redux';
 
 export default function UserSearchListScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -25,8 +28,12 @@ export default function UserSearchListScreen() {
   )
     .filter(inv => !inv.isReceived)
     .map(sentInv => sentInv.fromUserId);
+  const invitations = useGetAllInvitationsQuery(user.id).data;
+  const invitationActions = invitationSlice.actions;
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(invitationActions.loadedInvitations({invitations: invitations}));
     if (allUsers !== undefined) {
       const connectedUserIds = userListState.connectedUsers.map(cu => cu.id);
       const filterUser = allUsers.filter(
@@ -74,9 +81,8 @@ export default function UserSearchListScreen() {
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <SearchUserComponent
-            name={item.name}
-            profileImage={item.profileImage}
-            exist={sentInvitationIds.includes(item.id)}></SearchUserComponent>
+            user={item}
+            isSent={sentInvitationIds.includes(item.id)}></SearchUserComponent>
         )}
       />
     </View>
