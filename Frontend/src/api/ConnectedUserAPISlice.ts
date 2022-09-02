@@ -9,6 +9,16 @@ export const connectedUserAPISlice = createApi({
       query: (id: string) => `/connectedUser/${id}`,
       providesTags: ['ConnectedUser'],
     }),
+    getConnectedUser: builder.mutation({
+      query: (id: string) => ({
+        url: `/connectedUser/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: (response: ConnectedUser[]) => {
+        return response;
+      },
+      invalidatesTags: ['ConnectedUser'],
+    }),
     addUser: builder.mutation({
       query: (user: ConnectedUser) => ({
         url: '/addConnectedUser',
@@ -40,6 +50,7 @@ export const {
   useAddUserMutation,
   useEditUserMutation,
   useDeleteUserMutation,
+  useGetConnectedUserMutation,
 } = connectedUserAPISlice;
 
 export default connectedUserAPISlice;

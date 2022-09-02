@@ -9,9 +9,11 @@ import chatRoomSlice from './ChatRoomSlice';
 import loginSlice from './LoginSlice';
 import userListSlice from './UserListSlice';
 import invitationSlice from './InvitationSlice';
+import appSlice from './AppSlice';
 
 const store = configureStore({
   reducer: {
+    app: appSlice.reducer,
     login: loginSlice.reducer,
     chatRoom: chatRoomSlice.reducer,
     userList: userListSlice.reducer,

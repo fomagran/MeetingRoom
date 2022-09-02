@@ -21,33 +21,18 @@ interface SectionDictionary {
 
 export default function UserListScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  const user = useSelector<RootState, User>(state => state.login.user);
+  const currentUser = useSelector<RootState, User>(state => state.login.user);
   const userListState = useSelector<RootState, UserListState>(
     state => state.userList,
   );
   const actions = userListSlice.actions;
   const dispatch = useDispatch();
-  const connectedUsers = useGetAllConnectedUserByIdQuery(user.id).data;
   const [sectionUsers, setSectionUsers] = useState([]);
+  const connectedUsers = useGetAllConnectedUserByIdQuery(currentUser.id).data;
 
   useEffect(() => {
     if (connectedUsers !== undefined) {
-      let map: SectionDictionary = {};
-      for (let connectUser of connectedUsers) {
-        if (map[connectUser.connected.department] === undefined) {
-          map[connectUser.connected.department] = [connectUser.connected];
-        } else {
-          map[connectUser.connected.department].push(connectUser.connected);
-        }
-      }
-
-      let sectionList = [];
-
-      for (let key of Object.keys(map)) {
-        sectionList.push({department: key, data: map[key]});
-      }
-
-      setSectionUsers(sectionList);
+      makeSectionList(connectedUsers);
     }
   }, [connectedUsers]);
 
@@ -81,6 +66,29 @@ export default function UserListScreen() {
       headerTintColor: Colors.black,
     });
   }, [navigation]);
+
+  const makeSectionList = (connectedUsers: any[]) => {
+    let map: SectionDictionary = {};
+    for (let connectUser of connectedUsers) {
+      if (map[connectUser.connected.department] === undefined) {
+        map[connectUser.connected.department] = [connectUser.connected];
+      } else {
+        map[connectUser.connected.department].push(connectUser.connected);
+      }
+    }
+
+    let sectionList = [];
+
+    for (let key of Object.keys(map)) {
+      if (key == currentUser.department) {
+        sectionList.splice(0, 0, {department: key, data: map[key]});
+      } else {
+        sectionList.push({department: key, data: map[key]});
+      }
+    }
+
+    setSectionUsers(sectionList);
+  };
 
   return (
     <View>

@@ -4,3 +4,7 @@ interface ConnectedUser {
   connectedUserId: string;
   connected: User;
 }
+
+interface ConnectedUserState {
+  connectedUser: User[];
+}
