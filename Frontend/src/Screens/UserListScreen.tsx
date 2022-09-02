@@ -96,10 +96,15 @@ export default function UserListScreen() {
         style={styles.sectionList}
         sections={sectionUsers}
         renderItem={({item}) => (
-          <UserComponent
-            name={item.name}
-            imageURI={item.profileImage}
-            position={item.role}></UserComponent>
+          <Pressable
+            onPress={() => {
+              navigation.navigate(screens.Chat, {room: item.id});
+            }}>
+            <UserComponent
+              name={item.name}
+              imageURI={item.profileImage}
+              position={item.role}></UserComponent>
+          </Pressable>
         )}
         renderSectionHeader={({section}) => (
           <Text style={styles.sectionTitle}>{section.department}</Text>
