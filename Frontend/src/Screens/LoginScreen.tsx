@@ -70,28 +70,21 @@ export default function LoginScreen() {
         currentUser.id,
       ).unwrap();
 
-      let count = 0;
-      console.log(connectedUsers);
+      const connectedUserIds = connectedUsers.map(user => user.connected.id);
 
-      for (const connectedUser of connectedUsers) {
-        if (connectedUser.connected.department == currentUser.department) {
-          count += 1;
-        }
-      }
-
-      if (count == 0) {
-        for (let user of allUsers) {
-          if (
-            user.department == currentUser.department &&
-            user.id != currentUser.id
-          ) {
-            addUser({
-              id: '',
-              userId: currentUser.id,
-              connectedUserId: user.id,
-              connected: undefined,
-            });
-          }
+      for (let user of allUsers) {
+        //현재 부서 중 자신을 제외한 사람이 친구로 등록되어 있지 않은 경우
+        if (
+          user.department == currentUser.department &&
+          user.id != currentUser.id &&
+          !connectedUserIds.includes(user.id)
+        ) {
+          addUser({
+            id: '',
+            userId: currentUser.id,
+            connectedUserId: user.id,
+            connected: undefined,
+          });
         }
       }
     } catch (err) {

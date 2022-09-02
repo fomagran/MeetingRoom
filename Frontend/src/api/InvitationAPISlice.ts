@@ -29,7 +29,7 @@ export const invitationAPISlice = createApi({
       query: (ids: {userId: string; fromUserId: string}) => ({
         url: `/invitations/${ids.userId}`,
         method: 'DELETE',
-        body: ids.fromUserId,
+        body: {fromUserId: ids.fromUserId},
       }),
       invalidatesTags: ['Invitations'],
     }),

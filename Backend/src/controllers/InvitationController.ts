@@ -52,16 +52,14 @@ export default class InvitationController {
   };
 
   deleteInvitation = async (req: Request, res: Response) => {
+    console.log(req.params.userId, req.body.fromUser);
+
     try {
       await prisma.invitation
         .deleteMany({
           where: {
-            userId: {
-              equals: req.params.userId,
-            },
-            fromUserId: {
-              equals: req.body.fromUserId,
-            },
+            userId: req.params.userId,
+            fromUserId: req.body.fromUserId,
           },
         })
         .then((data) => {
