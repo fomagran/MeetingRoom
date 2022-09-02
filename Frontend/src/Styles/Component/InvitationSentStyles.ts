@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
   withdrawButton: {
     padding: 8,
     borderRadius: 20,
-    backgroundColor: Colors.charcoal,
+    backgroundColor: Colors.crimsonRed,
     justifyContent: 'flex-end',
   },
   withdrawButtonText: {

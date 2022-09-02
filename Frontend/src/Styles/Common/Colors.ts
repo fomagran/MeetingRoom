@@ -14,6 +14,7 @@ const Colors = {
   blue: '#6699CC',
   lightBlue: '#89CFF0',
   ivory: '#FFFFFA',
+  crimsonRed: '#CC1100',
 };
 
 export default Colors;
