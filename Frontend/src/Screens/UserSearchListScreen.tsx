@@ -14,17 +14,22 @@ import {useGetAllInvitationsQuery} from '../API/InvitationAPISlice';
 import {useGetAllConnectedUserByIdQuery} from '../API/ConnectedUserAPISlice';
 
 export default function UserSearchListScreen() {
+  //MARK: - Properties
+
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const allUsers = useGetAllUsersQuery('').data;
   const [unconnectedUsers, setUnconnectedUsers] = useState<User[]>(allUsers);
   const [searchUsers, setSearchUsers] = useState<any[]>([]);
-  const user = useSelector<RootState, User>(state => state.login.user);
+  const currentUser = useSelector<RootState, User>(state => state.login.user);
   const [sentInvitationIds, setSentInvitationIds] = useState<string[]>([]);
-  const invitations = useGetAllInvitationsQuery(user.id).data;
-  const connectedUsers = useGetAllConnectedUserByIdQuery(user.id).data;
+  const invitations = useGetAllInvitationsQuery(currentUser.id).data;
+  const connectedUsers = useGetAllConnectedUserByIdQuery(currentUser.id).data;
+
+  //MARK: - Life Cycle
 
   useEffect(() => {
     if (invitations !== undefined) {
+      //전체 초대 목록 중 친구 요청을 보낸 유저의 id만 필터링 한다.
       const filterInvitation = invitations
         .filter(inv => !inv.isReceived)
         .map(sentInv => sentInv.fromUserId);
@@ -35,8 +40,9 @@ export default function UserSearchListScreen() {
   useEffect(() => {
     if (allUsers !== undefined && connectedUsers !== undefined) {
       const connectedUserIds = connectedUsers.map(cu => cu.connectedUserId);
-      const filterUser = unconnectedUsers.filter(
-        u => u.id !== user.id && !connectedUserIds.includes(u.id),
+      //로그인 된 유저와 이미 친구로 연결된 유저를 필터링 한다.
+      const filterUser = allUsers.filter(
+        u => u.id !== currentUser.id && !connectedUserIds.includes(u.id),
       );
       setUnconnectedUsers(filterUser);
       setSearchUsers(filterUser);
@@ -54,6 +60,8 @@ export default function UserSearchListScreen() {
     });
   }, [navigation]);
 
+  //MARK: - Functions
+
   const filterUsersBySearchText = (searchText: string) => {
     setSearchUsers(
       unconnectedUsers.filter(
@@ -61,6 +69,8 @@ export default function UserSearchListScreen() {
       ),
     );
   };
+
+  //View
 
   return (
     <View>
