@@ -70,7 +70,7 @@ export default function UserSearchListScreen() {
     );
   };
 
-  //View
+  //MARK: - View
 
   return (
     <View>

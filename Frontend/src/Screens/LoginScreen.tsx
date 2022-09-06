@@ -16,6 +16,8 @@ import {useGetConnectedUserMutation} from '../API/ConnectedUserAPISlice';
 import {useAddUserMutation} from '../API/ConnectedUserAPISlice';
 
 export default function LoginScreen() {
+  //MARK: - Properties
+
   const [inputText, setInputText] = useState<string>('');
   const dispatch = useDispatch();
   const [login] = useGetUserByNameMutation();
@@ -26,11 +28,15 @@ export default function LoginScreen() {
   const [getConnectedUsersMutation] = useGetConnectedUserMutation();
   const [addUser] = useAddUserMutation();
 
+  //MARK: - Life Cycle
+
   useEffect(() => {
     if (allUsers !== undefined) {
       dispatch(appActions.loadedAllUsers({allUsers: allUsers}));
     }
   }, [allUsers]);
+
+  //MARK: - Functions
 
   const handleLogin = async () => {
     try {
@@ -91,6 +97,8 @@ export default function LoginScreen() {
       console.log(err);
     }
   }
+
+  //MARK: - View
 
   return (
     <View style={styles.container}>

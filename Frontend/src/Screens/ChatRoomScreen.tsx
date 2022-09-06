@@ -23,6 +23,8 @@ import chatRoomSlice from '../Redux/ChatRoomSlice';
 import ChatRoomPasswordModal from '../Components/ChatRoomPasswordModal';
 
 export function ChatRoomScreen() {
+  //MARK: - Properties
+
   const user = useSelector<RootState, User>(state => state.login.user);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [addChatRoom] = useAddChatRoomMutation();
@@ -37,6 +39,8 @@ export function ChatRoomScreen() {
     state => state.chatRoom,
   );
   const actions = chatRoomSlice.actions;
+
+  //MARK: - Life Cycle
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -83,6 +87,8 @@ export function ChatRoomScreen() {
     };
   }, []);
 
+  //MARK: - Functions
+
   const handleCreateChatRoom = async () => {
     try {
       const payload: ChatRoomPayload = {
@@ -123,6 +129,8 @@ export function ChatRoomScreen() {
       </Pressable>
     );
   };
+
+  //MARK: - View
 
   return (
     <View>

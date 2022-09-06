@@ -19,6 +19,8 @@ import {
 type ScreenRouteProp = RouteProp<RootStackParamList, ScreenEnums.Chat>;
 
 export default function ChatScreen() {
+  //MARK: - Properties
+
   const [messageText, setMessageText] = useState('');
   const [serverMessages, setServerMessages] = useState([]);
   const serverMessagesList: Chat[] = [];
@@ -29,6 +31,8 @@ export default function ChatScreen() {
   const [addChat] = useAddChatMutation();
   const [addReadDates] = useAddReadDatesMutation();
   const [editReadDates] = useEditReadDatesMutation();
+
+  //MARK: - Life Cycle
 
   useEffect(() => {
     // const readDates: ReadDates = {
@@ -96,6 +100,8 @@ export default function ChatScreen() {
     };
   }, []);
 
+  //MARK: - Functions
+
   const sendMessage = () => {
     let message = {
       type: 'Chat',
@@ -126,6 +132,8 @@ export default function ChatScreen() {
       console.log('Error', err);
     }
   };
+
+  //MARK: - View
 
   return (
     <View>

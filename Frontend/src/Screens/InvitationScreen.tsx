@@ -13,12 +13,16 @@ import {RootState} from '../Redux/store';
 import {useGetAllInvitationsQuery} from '../API/InvitationAPISlice';
 
 export default function InvitationScreen() {
+  //MARK: - Properties
+
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [selectedTab, setSelectedTab] = useState('received');
   const user = useSelector<RootState, User>(state => state.login.user);
   const invitations = useGetAllInvitationsQuery(user.id).data;
   const [sentUsers, setSentUsers] = useState<User[]>([]);
   const [receivedUsers, setReceivedUsers] = useState<User[]>([]);
+
+  //MARK: - Life Cycle
 
   useEffect(() => {
     if (invitations !== undefined) {
@@ -44,6 +48,8 @@ export default function InvitationScreen() {
     });
   }, [navigation]);
 
+  //MARK: - Functions
+
   const tabButtonStyle = (current: string) => {
     if (current == selectedTab) {
       return styles.selectedButton;
@@ -59,6 +65,8 @@ export default function InvitationScreen() {
       return styles.deselectedButtonText;
     }
   };
+
+  //MARK: - View
 
   return (
     <View>

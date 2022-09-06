@@ -20,6 +20,8 @@ interface SectionDictionary {
 }
 
 export default function UserListScreen() {
+  //MARK:- Properties
+
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const currentUser = useSelector<RootState, User>(state => state.login.user);
   const userListState = useSelector<RootState, UserListState>(
@@ -29,6 +31,8 @@ export default function UserListScreen() {
   const dispatch = useDispatch();
   const [sectionUsers, setSectionUsers] = useState([]);
   const connectedUsers = useGetAllConnectedUserByIdQuery(currentUser.id).data;
+
+  //MARK:- Life Cycle
 
   useEffect(() => {
     if (connectedUsers !== undefined) {
@@ -45,6 +49,12 @@ export default function UserListScreen() {
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      title: 'Users',
+      headerTitleAlign: 'center',
+      headerStyle: {
+        backgroundColor: Colors.white,
+      },
+      headerTintColor: Colors.black,
       headerRight: () => (
         <Pressable
           onPress={() => {
@@ -56,16 +66,7 @@ export default function UserListScreen() {
     });
   }, [navigation]);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      title: 'Users',
-      headerTitleAlign: 'center',
-      headerStyle: {
-        backgroundColor: Colors.white,
-      },
-      headerTintColor: Colors.black,
-    });
-  }, [navigation]);
+  //MARK: - Functions
 
   const makeSectionList = (connectedUsers: any[]) => {
     let map: SectionDictionary = {};
@@ -89,6 +90,8 @@ export default function UserListScreen() {
 
     setSectionUsers(sectionList);
   };
+
+  //MARK: - View
 
   return (
     <View>
