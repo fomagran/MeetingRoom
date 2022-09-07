@@ -5,4 +5,5 @@ export enum ScreenEnums {
   UserList = 'UserListScreen',
   Invitation = 'InvitationScreen',
   UserSearchList = 'UserSearchListScreen',
+  BottomTab = 'BottomTabScreen',
 }

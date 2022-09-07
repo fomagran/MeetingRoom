@@ -47,7 +47,7 @@ export default function LoginScreen() {
         let payload: LoginPayload = {isLogin: true, user: user};
         dispatch(actions.loginSuccess(payload));
         getConnectedUsers(user);
-        navigation.navigate(screens.UserList);
+        navigation.navigate(screens.BottomTab);
       }
     } catch (err) {
       console.log(err);
