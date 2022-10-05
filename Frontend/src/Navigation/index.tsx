@@ -11,6 +11,7 @@ import UserListScreen from '../Screens/UserListScreen';
 import InvitationScreen from '../Screens/InvitationScreen';
 import UserSearchListScreen from '../Screens/UserSearchListScreen';
 import DropdownScreen from '../Screens/DropdownScreen';
+import BottomSheeScreen from '../Screens/BottomSheetScreen';
 
 export type RootStackParamList = {
   LoginScreen: undefined;
@@ -29,6 +30,7 @@ export default function Navigation() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={'DropdownScreen'}>
         <Stack.Screen name={'DropdownScreen'} component={DropdownScreen} />
+        <Stack.Screen name={'BottomSheeScreen'} component={BottomSheeScreen} />
         <Stack.Screen name={screens.Login} component={LoginScreen} />
         <Stack.Screen name={screens.BottomTab} component={BottomTabNavigator} />
         <BottomTab.Screen name={screens.Chat} component={ChatScreen} />

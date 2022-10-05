@@ -1,5 +1,5 @@
 import {View, Pressable, Text} from 'react-native';
-import React, {useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import {FlatList} from 'react-native-gesture-handler';
 import UserComponent from '../Components/UserComponent';
 import {MOCK_USER_DATA} from '../Constants';
@@ -7,8 +7,12 @@ import Colors from '../Styles/Common/Colors';
 import {styles} from '../Styles/Screen/DropdownStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Spinner from 'react-native-loading-spinner-overlay';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../Navigation';
 
 export default function DropdownScreen() {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [filteredData, setFilteredData] = useState(MOCK_USER_DATA);
   const categories = [
     {id: '1', category: 'All'},
@@ -33,12 +37,18 @@ export default function DropdownScreen() {
       }
       setSelectedCategory(item.category);
       setHeight(0);
-    }, 100);
+    }, 0);
   };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, [navigation]);
 
   return (
     <View>
-      <Spinner visible={loadingVisible} textStyle={{color: Colors.white}} />
+      {/* <Spinner visible={loadingVisible} textStyle={{color: Colors.white}} /> */}
       <Pressable
         onPress={() => {
           setHeight(height == 0 ? 300 : 0);
