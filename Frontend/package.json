@@ -22,6 +22,7 @@
     "react-native-device-info": "^8.4.5",
     "react-native-gesture-handler": "^2.5.0",
     "react-native-linear-gradient": "^2.6.2",
+    "react-native-loading-spinner-overlay": "^3.0.1",
     "react-native-safe-area-context": "^3.4.1",
     "react-native-screens": "^3.17.0",
     "react-native-vector-icons": "^8.1.0",

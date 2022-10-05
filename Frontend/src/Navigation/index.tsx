@@ -10,6 +10,7 @@ import {ScreenEnums as screens} from '../Models/ScreenEnums';
 import UserListScreen from '../Screens/UserListScreen';
 import InvitationScreen from '../Screens/InvitationScreen';
 import UserSearchListScreen from '../Screens/UserSearchListScreen';
+import DropdownScreen from '../Screens/DropdownScreen';
 
 export type RootStackParamList = {
   LoginScreen: undefined;
@@ -26,9 +27,19 @@ const Stack = createNativeStackNavigator();
 export default function Navigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={screens.Login}>
+      <Stack.Navigator initialRouteName={'DropdownScreen'}>
+        <Stack.Screen name={'DropdownScreen'} component={DropdownScreen} />
         <Stack.Screen name={screens.Login} component={LoginScreen} />
         <Stack.Screen name={screens.BottomTab} component={BottomTabNavigator} />
+        <BottomTab.Screen name={screens.Chat} component={ChatScreen} />
+        <BottomTab.Screen
+          name={screens.Invitation}
+          component={InvitationScreen}
+        />
+        <BottomTab.Screen
+          name={screens.UserSearchList}
+          component={UserSearchListScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -37,17 +48,8 @@ const BottomTab = createBottomTabNavigator();
 function BottomTabNavigator() {
   return (
     <BottomTab.Navigator initialRouteName={screens.UserList}>
-      <BottomTab.Screen name={screens.ChatRoom} component={ChatRoomScreen} />
-      <BottomTab.Screen name={screens.Chat} component={ChatScreen} />
       <BottomTab.Screen name={screens.UserList} component={UserListScreen} />
-      <BottomTab.Screen
-        name={screens.Invitation}
-        component={InvitationScreen}
-      />
-      <BottomTab.Screen
-        name={screens.UserSearchList}
-        component={UserSearchListScreen}
-      />
+      <BottomTab.Screen name={screens.ChatRoom} component={ChatRoomScreen} />
     </BottomTab.Navigator>
   );
 }

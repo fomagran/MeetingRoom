@@ -32,3 +32,84 @@ export const USERS_IMAGE_URL: Dictionary = {
   TatianaManaois:
     'https://user-images.githubusercontent.com/47676921/187486181-790000a4-4c71-4539-a253-7a4968c38d8f.jpg',
 };
+
+export const MOCK_USER_DATA = [
+  {
+    name: 'Fomagran',
+    profileImage: USERS_IMAGE_URL['Fomagran'],
+    role: 'Software Engineer',
+    type: 'Engineer',
+  },
+  {
+    name: 'Khalid',
+    profileImage: USERS_IMAGE_URL['Khalid'],
+    role: 'Fullstack Engineer',
+    type: 'Engineer',
+  },
+  {
+    name: 'Beenzino',
+    profileImage: USERS_IMAGE_URL['Beenzino'],
+    role: 'Android Engineer',
+    type: 'Engineer',
+  },
+  {
+    name: 'JayZ',
+    profileImage: USERS_IMAGE_URL['JayZ'],
+    role: 'iOS Engineer',
+    type: 'Engineer',
+  },
+  {
+    name: 'ChanceTheRapper',
+    profileImage: USERS_IMAGE_URL['ChanceTheRapper'],
+    role: 'Backend Engineer',
+    type: 'Engineer',
+  },
+  {
+    name: 'Future',
+    profileImage: USERS_IMAGE_URL['Future'],
+    role: 'Frontend Engineer',
+    type: 'Engineer',
+  },
+  {
+    name: 'Dababy',
+    profileImage: USERS_IMAGE_URL['Dababy'],
+    role: 'HR Manager',
+    type: 'Manager',
+  },
+  {
+    name: 'Eminem',
+    profileImage: USERS_IMAGE_URL['Eminem'],
+    role: 'Sales Engineer',
+    type: 'Manager',
+  },
+  {
+    name: 'Drake',
+    profileImage: USERS_IMAGE_URL['Drake'],
+    role: 'Marketing Engineer',
+    type: 'Manager',
+  },
+  {
+    name: 'TomHardy',
+    profileImage: USERS_IMAGE_URL['TomHardy'],
+    role: 'Product Designer',
+    type: 'Designer',
+  },
+  {
+    name: 'TatianaManaois',
+    profileImage: USERS_IMAGE_URL['TatianaManaois'],
+    role: 'Graphick Designer',
+    type: 'Designer',
+  },
+  {
+    name: 'MacMiller',
+    profileImage: USERS_IMAGE_URL['MacMiller'],
+    role: 'UX Designer',
+    type: 'Designer',
+  },
+  {
+    name: 'KanyeWest',
+    profileImage: USERS_IMAGE_URL['KanyeWest'],
+    role: 'UI Designer',
+    type: 'Designer',
+  },
+];
