@@ -6,7 +6,7 @@ import {MOCK_USER_DATA} from '../Constants';
 import Colors from '../Styles/Common/Colors';
 import {styles} from '../Styles/Screen/DropdownStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
-Icon.loadFont()
+Icon.loadFont();
 import Spinner from 'react-native-loading-spinner-overlay';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -22,7 +22,7 @@ export default function BottomSheetScreen() {
     {id: '4', category: 'Designer'},
     {id: '5', category: 'Community Ourreach'},
   ];
-  const [height, setHeight] = useState(0);
+  const [opacity, setOpacity] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState('Categories');
   const [loadingVisible, setLoadingVisible] = useState(false);
   const [filterIconOpacity, setFilterIconOpacity] = useState(1);
@@ -46,32 +46,36 @@ export default function BottomSheetScreen() {
         );
       }
       setSelectedCategory(item.category);
-      setHeight(0);
+      setOpacity(0);
       setFilterIconOpacity(1);
     }, 100);
   };
 
   return (
     <View>
-      <View style={{       marginHorizontal: 100,
-          marginVertical: 20,       padding: 10,
-          borderRadius: 20,          backgroundColor: '#002C5F',
+      <View
+        style={{
+          marginHorizontal: 100,
+          marginVertical: 20,
+          padding: 10,
+          borderRadius: 20,
+          backgroundColor: '#002C5F',
           shadowColor: '#000',
           shadowOffset: {width: 1, height: 1},
           shadowOpacity: 1,
           shadowRadius: 1,
           elevation: 10,
-          zIndex: 10,}}>
-      <Text
-        style={{
-          textAlign: 'center',
-          fontSize: 16,
-          fontWeight: 'bold',
-          color: 'white',
-
+          zIndex: 10,
         }}>
-        {selectedCategory}
-      </Text>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 16,
+            fontWeight: 'bold',
+            color: 'white',
+          }}>
+          {selectedCategory}
+        </Text>
       </View>
       <View
         style={{
@@ -93,13 +97,14 @@ export default function BottomSheetScreen() {
         />
         <View
           style={{
-            height: height,
+            height: '100%',
             position: 'absolute',
             top: 0,
             right: 0,
             bottom: 0,
             left: 0,
             backgroundColor: 'rgba(0,0,0,0.5)',
+            opacity: opacity,
           }}>
           <FlatList
             style={{
@@ -130,7 +135,7 @@ export default function BottomSheetScreen() {
           }}>
           <Pressable
             onPress={() => {
-              setHeight(620);
+              setOpacity(1);
               setFilterIconOpacity(0);
             }}
             style={{
