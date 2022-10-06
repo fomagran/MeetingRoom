@@ -6,6 +6,7 @@ import {MOCK_USER_DATA} from '../Constants';
 import Colors from '../Styles/Common/Colors';
 import {styles} from '../Styles/Screen/DropdownStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
+Icon.loadFont()
 import Spinner from 'react-native-loading-spinner-overlay';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';

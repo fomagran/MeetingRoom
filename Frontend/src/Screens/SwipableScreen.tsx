@@ -6,6 +6,7 @@ import {MOCK_USER_DATA} from '../Constants';
 import Colors from '../Styles/Common/Colors';
 import {styles} from '../Styles/Screen/DropdownStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
+Icon.loadFont()
 import Spinner from 'react-native-loading-spinner-overlay';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -69,16 +70,17 @@ export default function SwipableScreen() {
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <Pressable
-              style={{alignItems: 'center', justifyContent: 'center'}}
+              style={{alignItems: 'center', justifyContent: 'center',paddingHorizontal: 15,
+              paddingVertical: 10,
+              backgroundColor:
+                item.category === selectedCategory ? '#002C5F' : 'gray',
+              borderRadius: 15,
+              marginVertical: 30,
+            marginHorizontal:10,}}
               onPress={() => changeCategory(item)}>
               <Text
                 style={{
-                  paddingHorizontal: 15,
-                  paddingVertical: 10,
-                  backgroundColor:
-                    item.category === selectedCategory ? '#002C5F' : 'gray',
-                  borderRadius: 15,
-                  margin: 10,
+
                   textAlign: 'center',
                   fontSize: 14,
                   fontWeight: 'bold',

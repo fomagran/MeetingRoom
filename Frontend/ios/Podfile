@@ -12,10 +12,6 @@ target 'Frontend' do
     :hermes_enabled => false
   )
 
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
-
-  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
-
   target 'FrontendTests' do
     inherit! :complete
     # Pods for testing
@@ -25,7 +21,7 @@ target 'Frontend' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
-  use_flipper!()
+  # use_flipper!()
 
   post_install do |installer|
     react_native_post_install(installer)

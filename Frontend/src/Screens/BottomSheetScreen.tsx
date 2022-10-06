@@ -1,4 +1,4 @@
-import {View, Pressable, Text, Dimensions} from 'react-native';
+import {View, Pressable, Text, Dimensions, Platform} from 'react-native';
 import React, {useLayoutEffect, useState} from 'react';
 import {FlatList} from 'react-native-gesture-handler';
 import UserComponent from '../Components/UserComponent';
@@ -6,6 +6,7 @@ import {MOCK_USER_DATA} from '../Constants';
 import Colors from '../Styles/Common/Colors';
 import {styles} from '../Styles/Screen/DropdownStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
+Icon.loadFont()
 import Spinner from 'react-native-loading-spinner-overlay';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -52,26 +53,26 @@ export default function BottomSheetScreen() {
 
   return (
     <View>
-      <Text
-        style={{
-          textAlign: 'center',
-          marginHorizontal: 100,
-          marginVertical: 20,
-          fontFamily: 'lucida grande',
-          fontSize: 16,
-          padding: 10,
-          borderRadius: 20,
-          fontWeight: 'bold',
-          color: 'white',
-          backgroundColor: '#002C5F',
+      <View style={{       marginHorizontal: 100,
+          marginVertical: 20,       padding: 10,
+          borderRadius: 20,          backgroundColor: '#002C5F',
           shadowColor: '#000',
           shadowOffset: {width: 1, height: 1},
           shadowOpacity: 1,
           shadowRadius: 1,
           elevation: 10,
+          zIndex: 10,}}>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: 16,
+          fontWeight: 'bold',
+          color: 'white',
+
         }}>
         {selectedCategory}
       </Text>
+      </View>
       <View
         style={{
           flexDirection: 'row',
@@ -105,7 +106,7 @@ export default function BottomSheetScreen() {
               width: '100%',
               flexDirection: 'column',
               height: '100%',
-              marginTop: 180,
+              marginTop: Platform.OS == 'ios' ? 250 : 180,
             }}
             data={categories}
             contentContainerStyle={{paddingBottom: 150}}
@@ -123,7 +124,7 @@ export default function BottomSheetScreen() {
         </View>
         <View
           style={{
-            marginTop: 620 - 200,
+            marginTop: Platform.OS == 'ios' ? 620 - 130 : 620 - 200,
             position: 'absolute',
             padding: 25,
           }}>
@@ -137,6 +138,7 @@ export default function BottomSheetScreen() {
               padding: 15,
               borderRadius: 30,
               elevation: 20,
+              zIndex: 20,
               shadowColor: 'black',
               shadowOffset: {width: 1, height: 1},
               shadowOpacity: 1,

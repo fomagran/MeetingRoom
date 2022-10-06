@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 1,
     elevation: 10,
+    zIndex: 10,
   },
   horizontalView: {
     flexDirection: 'row',

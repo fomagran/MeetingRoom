@@ -9,7 +9,6 @@ export const styles = StyleSheet.create({
     },
     categoryButton: {
         backgroundColor: '#002C5F',
-
         margin: 5,
         padding: 5,
         height: 50,
@@ -17,6 +16,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         elevation: 10,
+        zIndex: 10,
         borderRadius: 30,
         shadowColor: '#000',
         shadowOffset: { width: 1, height: 1 },
@@ -40,5 +40,6 @@ export const styles = StyleSheet.create({
         shadowOffset: { width: 1, height: 1 },
         shadowOpacity: 1,
         elevation: 100,
+        zIndex: 100,
     }
 });

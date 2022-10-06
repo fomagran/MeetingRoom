@@ -2,6 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
+import {Platform} from 'react-native'
 
 import LoginScreen from '../Screens/LoginScreen';
 import ChatScreen from '../Screens/ChatScreen';
@@ -32,7 +33,7 @@ export default function Navigation() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
-          headerShown: false,
+          headerShown: Platform.OS == 'ios',
         }}
         initialRouteName={screens.BottomTab}>
         <Stack.Screen name={screens.Login} component={LoginScreen} />
