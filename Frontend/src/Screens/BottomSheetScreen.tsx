@@ -11,7 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../Navigation';
 
-export default function BottomSheeScreen() {
+export default function BottomSheetScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const [filteredData, setFilteredData] = useState(MOCK_USER_DATA);
   const categories = [
@@ -24,7 +24,6 @@ export default function BottomSheeScreen() {
   const [height, setHeight] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState('Categories');
   const [loadingVisible, setLoadingVisible] = useState(false);
-  const windowHeight = Dimensions.get('window').height;
   const [filterIconOpacity, setFilterIconOpacity] = useState(1);
 
   useLayoutEffect(() => {
@@ -63,7 +62,8 @@ export default function BottomSheeScreen() {
           padding: 10,
           borderRadius: 20,
           fontWeight: 'bold',
-          backgroundColor: 'white',
+          color: 'white',
+          backgroundColor: '#002C5F',
           shadowColor: '#000',
           shadowOffset: {width: 1, height: 1},
           shadowOpacity: 1,
@@ -76,7 +76,7 @@ export default function BottomSheeScreen() {
         style={{
           flexDirection: 'row',
           justifyContent: 'flex-end',
-          height: windowHeight,
+          height: '100%',
         }}>
         {/* <Spinner visible={loadingVisible} textStyle={{color: Colors.white}} /> */}
         <FlatList
@@ -105,7 +105,7 @@ export default function BottomSheeScreen() {
               width: '100%',
               flexDirection: 'column',
               height: '100%',
-              marginTop: 220,
+              marginTop: 180,
             }}
             data={categories}
             contentContainerStyle={{paddingBottom: 150}}
@@ -123,17 +123,17 @@ export default function BottomSheeScreen() {
         </View>
         <View
           style={{
-            marginTop: windowHeight - 200,
+            marginTop: 620 - 200,
             position: 'absolute',
             padding: 25,
           }}>
           <Pressable
             onPress={() => {
-              setHeight(windowHeight);
+              setHeight(620);
               setFilterIconOpacity(0);
             }}
             style={{
-              backgroundColor: 'orange',
+              backgroundColor: '#002C5F',
               padding: 15,
               borderRadius: 30,
               elevation: 20,

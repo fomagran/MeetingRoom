@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     categoryButton: {
-        backgroundColor: 'white',
+        backgroundColor: '#002C5F',
+
         margin: 5,
         padding: 5,
         height: 50,
@@ -27,14 +28,14 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 16,
         fontWeight: 'bold',
-        color: Colors.charcoal,
+        color: Colors.white,
     },
     dropdownComponent: {
         marginHorizontal: 30,
         padding: 15,
         marginTop: 10,
         borderRadius: 10,
-        backgroundColor: 'white',
+        backgroundColor: '#002C5F',
         shadowColor: 'black',
         shadowOffset: { width: 1, height: 1 },
         shadowOpacity: 1,

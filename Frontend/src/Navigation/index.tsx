@@ -11,7 +11,9 @@ import UserListScreen from '../Screens/UserListScreen';
 import InvitationScreen from '../Screens/InvitationScreen';
 import UserSearchListScreen from '../Screens/UserSearchListScreen';
 import DropdownScreen from '../Screens/DropdownScreen';
-import BottomSheeScreen from '../Screens/BottomSheetScreen';
+import BottomSheetScreen from '../Screens/BottomSheetScreen';
+import SwipableScreen from '../Screens/SwipableScreen';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export type RootStackParamList = {
   LoginScreen: undefined;
@@ -28,20 +30,14 @@ const Stack = createNativeStackNavigator();
 export default function Navigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'BottomSheeScreen'}>
-        <Stack.Screen name={'DropdownScreen'} component={DropdownScreen} />
-        <Stack.Screen name={'BottomSheeScreen'} component={BottomSheeScreen} />
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+        initialRouteName={screens.BottomTab}>
         <Stack.Screen name={screens.Login} component={LoginScreen} />
         <Stack.Screen name={screens.BottomTab} component={BottomTabNavigator} />
         <BottomTab.Screen name={screens.Chat} component={ChatScreen} />
-        <BottomTab.Screen
-          name={screens.Invitation}
-          component={InvitationScreen}
-        />
-        <BottomTab.Screen
-          name={screens.UserSearchList}
-          component={UserSearchListScreen}
-        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -49,9 +45,36 @@ export default function Navigation() {
 const BottomTab = createBottomTabNavigator();
 function BottomTabNavigator() {
   return (
-    <BottomTab.Navigator initialRouteName={screens.UserList}>
-      <BottomTab.Screen name={screens.UserList} component={UserListScreen} />
-      <BottomTab.Screen name={screens.ChatRoom} component={ChatRoomScreen} />
+    <BottomTab.Navigator
+      screenOptions={{tabBarActiveTintColor: '#002C5F'}}
+      initialRouteName={'SwipableScreen'}>
+      <BottomTab.Screen
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="caret-forward-outline" size={size} color={color} />
+          ),
+        }}
+        name={'SwipableScreen'}
+        component={SwipableScreen}
+      />
+      <BottomTab.Screen
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="caret-down-outline" size={size} color={color} />
+          ),
+        }}
+        name={'DropdownScreen'}
+        component={DropdownScreen}
+      />
+      <BottomTab.Screen
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon name="caret-up-outline" size={size} color={color} />
+          ),
+        }}
+        name={'BottomSheeScreen'}
+        component={BottomSheetScreen}
+      />
     </BottomTab.Navigator>
   );
 }
