@@ -1,4 +1,4 @@
-import {View, Pressable, Text} from 'react-native';
+import {View, Pressable, Text, Dimensions} from 'react-native';
 import React, {useLayoutEffect, useState} from 'react';
 import {FlatList} from 'react-native-gesture-handler';
 import UserComponent from '../Components/UserComponent';
@@ -19,10 +19,19 @@ export default function DropdownScreen() {
     {id: '2', category: 'Engineer'},
     {id: '3', category: 'Manager'},
     {id: '4', category: 'Designer'},
+    // {id: '5', category: 'All'},
+    // {id: '6', category: 'Engineer'},
+    // {id: '7', category: 'Manager'},
+    // {id: '8', category: 'Designer'},
+    // {id: '9', category: 'All'},
+    // {id: '10', category: 'Engineer'},
+    // {id: '11', category: 'Manager'},
+    // {id: '12', category: 'Designer'},
   ];
   const [height, setHeight] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState('Categories');
   const [loadingVisible, setLoadingVisible] = useState(false);
+  const windowHeight = Dimensions.get('window').height;
 
   const changeCategory = item => {
     setLoadingVisible(true);
@@ -51,7 +60,7 @@ export default function DropdownScreen() {
       {/* <Spinner visible={loadingVisible} textStyle={{color: Colors.white}} /> */}
       <Pressable
         onPress={() => {
-          setHeight(height == 0 ? 300 : 0);
+          setHeight(height == 0 ? windowHeight : 0);
         }}
         style={styles.categoryButton}>
         <View style={styles.categoryContainer}>
@@ -70,28 +79,31 @@ export default function DropdownScreen() {
             position={item.role}></UserComponent>
         )}
       />
-      <FlatList
+      <View
         style={{
           width: '100%',
           marginTop: 60,
           position: 'absolute',
           elevation: height,
           zIndex: height,
-          padding: 5,
           height: height,
-        }}
-        data={categories}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <Pressable
-            onPress={() => {
-              changeCategory(item);
-            }}
-            style={styles.dropdownComponent}>
-            <Text style={styles.categoryText}>{item.category}</Text>
-          </Pressable>
-        )}
-      />
+          backgroundColor: 'rgba(0,0,0,0.5)',
+        }}>
+        <FlatList
+          contentContainerStyle={{paddingBottom: 100}}
+          data={categories}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <Pressable
+              onPress={() => {
+                changeCategory(item);
+              }}
+              style={styles.dropdownComponent}>
+              <Text style={styles.categoryText}>{item.category}</Text>
+            </Pressable>
+          )}
+        />
+      </View>
     </View>
   );
 }

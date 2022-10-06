@@ -38,6 +38,6 @@ export const styles = StyleSheet.create({
         shadowColor: 'black',
         shadowOffset: { width: 1, height: 1 },
         shadowOpacity: 1,
-        elevation: 20,
+        elevation: 100,
     }
 });

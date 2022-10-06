@@ -25,6 +25,7 @@ export default function BottomSheeScreen() {
   const [selectedCategory, setSelectedCategory] = useState('Categories');
   const [loadingVisible, setLoadingVisible] = useState(false);
   const windowHeight = Dimensions.get('window').height;
+  const [filterIconOpacity, setFilterIconOpacity] = useState(1);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -46,6 +47,7 @@ export default function BottomSheeScreen() {
       }
       setSelectedCategory(item.category);
       setHeight(0);
+      setFilterIconOpacity(1);
     }, 100);
   };
 
@@ -101,8 +103,9 @@ export default function BottomSheeScreen() {
           <FlatList
             style={{
               width: '100%',
-              alignSelf: 'center',
+              flexDirection: 'column',
               height: '100%',
+              marginTop: 220,
             }}
             data={categories}
             contentContainerStyle={{paddingBottom: 150}}
@@ -127,6 +130,7 @@ export default function BottomSheeScreen() {
           <Pressable
             onPress={() => {
               setHeight(windowHeight);
+              setFilterIconOpacity(0);
             }}
             style={{
               backgroundColor: 'orange',
@@ -137,6 +141,7 @@ export default function BottomSheeScreen() {
               shadowOffset: {width: 1, height: 1},
               shadowOpacity: 1,
               shadowRadius: 1,
+              opacity: filterIconOpacity,
             }}>
             <Icon
               name="funnel-outline"

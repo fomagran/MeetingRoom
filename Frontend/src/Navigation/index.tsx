@@ -28,7 +28,7 @@ const Stack = createNativeStackNavigator();
 export default function Navigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={'DropdownScreen'}>
+      <Stack.Navigator initialRouteName={'BottomSheeScreen'}>
         <Stack.Screen name={'DropdownScreen'} component={DropdownScreen} />
         <Stack.Screen name={'BottomSheeScreen'} component={BottomSheeScreen} />
         <Stack.Screen name={screens.Login} component={LoginScreen} />
