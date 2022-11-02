@@ -2,7 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {Platform} from 'react-native'
+import {Platform} from 'react-native';
 
 import LoginScreen from '../Screens/LoginScreen';
 import ChatScreen from '../Screens/ChatScreen';

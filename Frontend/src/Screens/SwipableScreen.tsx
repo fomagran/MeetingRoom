@@ -3,17 +3,16 @@ import React, {useLayoutEffect, useState} from 'react';
 import {FlatList} from 'react-native-gesture-handler';
 import UserComponent from '../Components/UserComponent';
 import {MOCK_USER_DATA} from '../Constants';
-import Colors from '../Styles/Common/Colors';
-import {styles} from '../Styles/Screen/DropdownStyles';
 import Icon from 'react-native-vector-icons/Ionicons';
-Icon.loadFont()
-import Spinner from 'react-native-loading-spinner-overlay';
+Icon.loadFont();
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../Navigation';
+import {SearchBar} from 'react-native-elements';
 
 export default function SwipableScreen() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+  const allData = MOCK_USER_DATA;
   const [filteredData, setFilteredData] = useState(MOCK_USER_DATA);
   const categories = [
     {id: '1', category: 'All'},
@@ -29,10 +28,13 @@ export default function SwipableScreen() {
     // {id: '11', category: 'Manager'},
     // {id: '12', category: 'Designer'},
   ];
-  const [height, setHeight] = useState(0);
+
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [loadingVisible, setLoadingVisible] = useState(false);
-  const windowHeight = Dimensions.get('window').height;
+
+  const [searchText, setSearchText] = useState<string>('');
+  const [searchData, setSearchData] = useState<any>({});
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
   const changeCategory = item => {
     setLoadingVisible(true);
@@ -46,7 +48,6 @@ export default function SwipableScreen() {
         );
       }
       setSelectedCategory(item.category);
-      setHeight(0);
     }, 0);
   };
 
@@ -55,6 +56,33 @@ export default function SwipableScreen() {
       headerShown: false,
     });
   }, [navigation]);
+
+  const onSearchSubmit = (text: string) => {
+    setIsSearching(true);
+    const splitTexts = text.split(' ');
+    let newSearchData: any[] = [];
+    let textData: any[] = [];
+    let splitData: any[] = [];
+
+    for (let i = 0; i < allData.length; i++) {
+      const current = allData[i].introduce.toUpperCase();
+      if (current.indexOf(text.toUpperCase()) !== -1) {
+        textData.push(allData[i]);
+      } else {
+        for (let j = 0; j < splitTexts.length; j++) {
+          if (current.indexOf(splitTexts[j].toUpperCase()) !== -1) {
+            splitData.push(allData[i]);
+          }
+        }
+      }
+    }
+
+    newSearchData.push(...textData);
+    newSearchData.push(...splitData);
+    setSearchData(newSearchData);
+
+    console.log(newSearchData);
+  };
 
   return (
     <View>
@@ -70,17 +98,20 @@ export default function SwipableScreen() {
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <Pressable
-              style={{alignItems: 'center', justifyContent: 'center',paddingHorizontal: 15,
-              paddingVertical: 10,
-              backgroundColor:
-                item.category === selectedCategory ? '#002C5F' : 'gray',
-              borderRadius: 15,
-              marginVertical: 30,
-            marginHorizontal:10,}}
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingHorizontal: 15,
+                paddingVertical: 10,
+                backgroundColor:
+                  item.category === selectedCategory ? '#002C5F' : 'gray',
+                borderRadius: 15,
+                marginVertical: 30,
+                marginHorizontal: 10,
+              }}
               onPress={() => changeCategory(item)}>
               <Text
                 style={{
-
                   textAlign: 'center',
                   fontSize: 14,
                   fontWeight: 'bold',
@@ -97,15 +128,28 @@ export default function SwipableScreen() {
           style={{width: '10%', fontSize: 35, alignSelf: 'center'}}
         />
       </View>
+      <SearchBar
+        containerStyle={{
+          backgroundColor: 'transparent',
+        }}
+        platform={'ios'}
+        onChangeText={(text: string) => setSearchText(text)}
+        value={searchText}
+        onSubmitEditing={({nativeEvent}) => onSearchSubmit(nativeEvent.text)}
+        onCancel={() => {
+          setIsSearching(false);
+          setSearchText('');
+        }}></SearchBar>
       <FlatList
         contentContainerStyle={{paddingBottom: 100}}
-        data={filteredData}
+        data={isSearching ? searchData : filteredData}
         keyExtractor={item => item.name}
         renderItem={({item}) => (
           <UserComponent
             name={item.name}
             imageURI={item.profileImage}
-            position={item.role}></UserComponent>
+            position={item.role}
+            introduce={item.introduce}></UserComponent>
         )}
       />
     </View>
