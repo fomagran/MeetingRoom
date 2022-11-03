@@ -1,12 +1,14 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {styles} from '../Styles/Component/UserStyles';
+import HighlightText from '@sanar/react-native-highlight-text';
 
 interface UserComponentParams {
   name: string;
   imageURI: string;
   position: string;
   introduce: string;
+  searchTexts: string[];
 }
 
 export default function UserComponent({
@@ -14,34 +16,8 @@ export default function UserComponent({
   imageURI,
   position,
   introduce,
+  searchTexts,
 }: UserComponentParams) {
-  const Highlighted = ({text = '', highlight = ''}) => {
-    if (!highlight.trim()) {
-      return <Text>{text}</Text>;
-    }
-    const regex = new RegExp(escapeRegex(highlight));
-    const parts = text.split(regex);
-    return (
-      <Text>
-        {parts
-          .filter(part => part)
-          .map((part, i) =>
-            regex.test(part) ? (
-              <Text style={{backgroundColor: '#fcf8e3'}} key={i}>
-                {part}
-              </Text>
-            ) : (
-              <Text key={i}>{part}</Text>
-            ),
-          )}
-      </Text>
-    );
-  };
-
-  function escapeRegex(string) {
-    return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-  }
-
   return (
     <View style={styles.card}>
       <View style={styles.horizontalView}>
@@ -54,7 +30,12 @@ export default function UserComponent({
         <View>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.nameDetail}>{position}</Text>
-          <Highlighted text={introduce} highlight={'Lorem'} />
+          <HighlightText
+            style={styles.introduce}
+            highlightStyle={{backgroundColor: 'yellow'}}
+            searchWords={searchTexts}
+            textToHighlight={introduce}
+          />
         </View>
       </View>
     </View>

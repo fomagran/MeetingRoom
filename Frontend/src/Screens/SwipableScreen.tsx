@@ -33,6 +33,7 @@ export default function SwipableScreen() {
   const [loadingVisible, setLoadingVisible] = useState(false);
 
   const [searchText, setSearchText] = useState<string>('');
+  const [searchSplitTexts, setSearchSplitTexts] = useState<string[]>([]);
   const [searchData, setSearchData] = useState<any>({});
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
@@ -80,8 +81,7 @@ export default function SwipableScreen() {
     newSearchData.push(...textData);
     newSearchData.push(...splitData);
     setSearchData(newSearchData);
-
-    console.log(newSearchData);
+    setSearchSplitTexts(splitTexts);
   };
 
   return (
@@ -139,9 +139,10 @@ export default function SwipableScreen() {
         onCancel={() => {
           setIsSearching(false);
           setSearchText('');
+          setSearchSplitTexts([]);
         }}></SearchBar>
       <FlatList
-        contentContainerStyle={{paddingBottom: 100}}
+        contentContainerStyle={{paddingBottom: 200}}
         data={isSearching ? searchData : filteredData}
         keyExtractor={item => item.name}
         renderItem={({item}) => (
@@ -149,7 +150,8 @@ export default function SwipableScreen() {
             name={item.name}
             imageURI={item.profileImage}
             position={item.role}
-            introduce={item.introduce}></UserComponent>
+            introduce={item.introduce}
+            searchTexts={searchSplitTexts}></UserComponent>
         )}
       />
     </View>
