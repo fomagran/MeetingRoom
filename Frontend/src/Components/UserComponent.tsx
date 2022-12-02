@@ -33,7 +33,7 @@ export default function UserComponent({
           <HighlightText
             style={styles.introduce}
             highlightStyle={{backgroundColor: 'yellow'}}
-            searchWords={searchTexts}
+            searchWords={[searchTexts]}
             textToHighlight={introduce}
           />
         </View>
